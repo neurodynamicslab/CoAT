@@ -2131,11 +2131,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     public void calculateVectorFldProperties(JVectorSpace VecFld, Roi sampledGrpRoi, boolean isDivergence,String pathName,String suffix) {
         
-        int polyXOrder = this.x_polyOrderJCmbBx.getSelectedIndex()+1;//5;
-        int polyYOrder = this.x_polyOrderJCmbBx.getSelectedIndex()+1;
-        String fldrName = pathName + File.separator;
         
-        System.out.printf("Polynomial Order in (x,y) format:(%d,%d)",polyXOrder,polyYOrder);
+        jVectorFieldCalculator calculator = new jVectorFieldCalculator();
+        calculator.setPolyX(x_polyOrderJCmbBx.getSelectedIndex());
+        calculator.setPolyY(y_polyOrderJCmbBx.getSelectedIndex());
+        calculator.setPathName(pathName);
+        calculator.setFileSeparator(File.separator);
+//        int polyXOrder = this.x_polyOrderJCmbBx.getSelectedIndex()+1;//5;
+//        int polyYOrder = this.y_polyOrderJCmbBx.getSelectedIndex()+1;
+//        String fldrName = pathName + File.separator;
+        
+//        System.out.printf("Polynomial Order in (x,y) format:(%d,%d)",polyXOrder,polyYOrder);
        
         fit.setPreScale(this.reSzImgjChkBx.isSelected());
         fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
@@ -2145,101 +2151,106 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         fit.setUseSelection(this.useSeljChBx.isSelected());
+        calculator.setFit(fit);
         
-        ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder,VecFld,sampledGrpRoi);
-        int count  = 0;
-        for(ImagePlus imp : vecSurface){
-            FileSaver fs  = new FileSaver(imp);
-            fs.saveAsTiff(pathName +"Ave_VectorSurface"+"Comp_#"+count++);
-        }
-
-    ImageStack diffVel =  new ImageStack(VecFld.getxRes(),VecFld.getyRes(),2);
+        
+//        ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder,VecFld,sampledGrpRoi);
+//        int count  = 0;
+//        for(ImagePlus imp : vecSurface){
+//            FileSaver fs  = new FileSaver(imp);
+//            fs.saveAsTiff(pathName +"Ave_VectorSurface"+"Comp_#"+count++);
+//        }
+//
+//    ImageStack diffVel =  new ImageStack(VecFld.getxRes(),VecFld.getyRes(),2);
     
   /**
    * Check for the sampledGrpRoi when auto determine OC is not checked. 
    * This throws a null pointer when it is not checked as there is no sampledGrpRoi in that case.
    */  
-   int x = 0 ,y = 0;
-   if(sampledGrpRoi != null){
-    x = sampledGrpRoi.getBounds().x;
-    y = sampledGrpRoi.getBounds().y;
-   }
-    FloatProcessor vecxS, vecyS;
-    vecxS = new FloatProcessor(VecFld.getxRes(),VecFld.getyRes());
-    vecyS = new FloatProcessor(VecFld.getxRes(),VecFld.getyRes());
+//   int x = 0 ,y = 0;
+   if(sampledGrpRoi != null)
+       calculator.setSampledGrpRoi(sampledGrpRoi);
+//    x = sampledGrpRoi.getBounds().x;
+//    y = sampledGrpRoi.getBounds().y;
    
-    vecSurface[0].setRoi(sampledGrpRoi);
-    vecSurface[1].setRoi(sampledGrpRoi);
-    
-    vecxS.insert(this.getDifferentials(vecSurface[0].crop(), false).getProcessor(),x,y);
-    vecyS.insert(this.getDifferentials(vecSurface[1].crop(), true).getProcessor(),x,y);
-    
+//    FloatProcessor vecxS, vecyS;
+//    vecxS = new FloatProcessor(VecFld.getxRes(),VecFld.getyRes());
+//    vecyS = new FloatProcessor(VecFld.getxRes(),VecFld.getyRes());
+//   
+//    vecSurface[0].setRoi(sampledGrpRoi);
+//    vecSurface[1].setRoi(sampledGrpRoi);
+//    
+//    vecxS.insert(this.getDifferentials(vecSurface[0].crop(), false).getProcessor(),x,y);
+//    vecyS.insert(this.getDifferentials(vecSurface[1].crop(), true).getProcessor(),x,y);
+//    
+//
+//    diffVel.setProcessor(vecxS, 1);
+//    diffVel.setProcessor(vecyS, 2);
+//    
+//    ImagePlus Projections = new ImagePlus();
+//    Projections.setStack(diffVel);
+//    ZProjector projector = new ZProjector();
+//    projector.setMethod(ZProjector.SUM_METHOD);
+//    projector.setImage(Projections);
+//    projector.doProjection();
+//    ImagePlus velProjections = projector.getProjection();
 
-    diffVel.setProcessor(vecxS, 1);
-    diffVel.setProcessor(vecyS, 2);
-    
-    ImagePlus Projections = new ImagePlus();
-    Projections.setStack(diffVel);
-    ZProjector projector = new ZProjector();
-    projector.setMethod(ZProjector.SUM_METHOD);
-    projector.setImage(Projections);
-    projector.doProjection();
-    ImagePlus velProjections = projector.getProjection();
-
-   
-    var img = new ImagePlus("VelCon");
-    img.setStack(diffVel);
-    var fs = new FileSaver(img);
-    fs.saveAsTiff(fldrName+suffix+"Divergence_diffVel");
-    var velProj = new FileSaver(velProjections);
-    velProj.saveAsTiff(fldrName+suffix+"Convergence_vel");
-    
-  //  fit.setPreScale(false);
-  //  fit.setGaussFilt(false);
-    ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi);
-    fs = new FileSaver(finalVelImg);
-    fs.saveAsTiff(fldrName+suffix+"forPres");
-    
-    float LThld, HThld;
-    if(this.genConvJChkBx.isSelected()){
-        LThld = Float.NEGATIVE_INFINITY;
-        HThld = 0;
-        ImageProcessor ConvIP = finalVelImg.getProcessor().duplicate();
-        
-        ConvIP.setThreshold(LThld, HThld);
-        var mask = ConvIP.createMask();
-        mask.add(-254);
-        
-        FloatBlitter fb = new FloatBlitter((FloatProcessor)ConvIP);
-        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-        ConvIP.multiply(-1);
-        
-        var Img  = new ImagePlus("Conv");
-        Img.setProcessor(ConvIP);
-        fs = new FileSaver(Img);
-        fs.saveAsTiff(fldrName+suffix+"ConvPres");
-        
-    }
-    if(this.genDivjChkBx.isSelected()){
-        LThld = 0;
-        HThld = Float.POSITIVE_INFINITY;
-        ImageProcessor DivIP = finalVelImg.getProcessor().duplicate();
-        
-        DivIP.setThreshold(LThld, HThld);
-        var mask = DivIP.createMask();
-        mask.add(-254);
-
-        FloatBlitter fb = new FloatBlitter((FloatProcessor)DivIP);
-        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-        
-        var Img  = new ImagePlus("Div");
-        Img.setProcessor(DivIP);
-        fs = new FileSaver(Img);
-        fs.saveAsTiff(fldrName+suffix+"DivPres");
-      
-    }
+//   
+//    var img = new ImagePlus("VelCon");
+//    img.setStack(diffVel);
+//    var fs = new FileSaver(img);
+//    fs.saveAsTiff(fldrName+suffix+"Divergence_diffVel");
+//    var velProj = new FileSaver(velProjections);
+//    velProj.saveAsTiff(fldrName+suffix+"Convergence_vel");
+//    
+//  //  fit.setPreScale(false);
+//  //  fit.setGaussFilt(false);
+//    ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi);
+//    fs = new FileSaver(finalVelImg);
+//    fs.saveAsTiff(fldrName+suffix+"forPres");
+     calculator.setGenConv(this.genConvJChkBx.isSelected());
+     calculator.setGenDiv(this.genConvJChkBx.isSelected());
+//    float LThld, HThld;
+//    if(this.genConvJChkBx.isSelected()){
+//        LThld = Float.NEGATIVE_INFINITY;
+//        HThld = 0;
+//        ImageProcessor ConvIP = finalVelImg.getProcessor().duplicate();
+//        
+//        ConvIP.setThreshold(LThld, HThld);
+//        var mask = ConvIP.createMask();
+//        mask.add(-254);
+//        
+//        FloatBlitter fb = new FloatBlitter((FloatProcessor)ConvIP);
+//        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
+//        ConvIP.multiply(-1);
+//        
+//        var Img  = new ImagePlus("Conv");
+//        Img.setProcessor(ConvIP);
+//        fs = new FileSaver(Img);
+//        fs.saveAsTiff(fldrName+suffix+"ConvPres");
+//        
+//    }
+//    if(this.genDivjChkBx.isSelected()){
+//        LThld = 0;
+//        HThld = Float.POSITIVE_INFINITY;
+//        ImageProcessor DivIP = finalVelImg.getProcessor().duplicate();
+//        
+//        DivIP.setThreshold(LThld, HThld);
+//        var mask = DivIP.createMask();
+//        mask.add(-254);
+//
+//        FloatBlitter fb = new FloatBlitter((FloatProcessor)DivIP);
+//        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
+//        
+//        var Img  = new ImagePlus("Div");
+//        Img.setProcessor(DivIP);
+//        fs = new FileSaver(Img);
+//        fs.saveAsTiff(fldrName+suffix+"DivPres");
+//     
+//    }
+    calculator.run();
  }
-
+/** starting from here..**/
     private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledGrpRoi) {
 
             converImg.setRoi(sampledGrpRoi);
@@ -2338,6 +2349,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             differentials.setProcessor(Diff.DifferentialX(imp.getProcessor()));
         return differentials;
     }
+    
+    /**...till here could be commented out**/
     private ij.gui.Roi getSampledROI(int thershold, JHeatMapArray aveResMap) {
         ij.gui.Roi roi ;
         FloatProcessor ip;
