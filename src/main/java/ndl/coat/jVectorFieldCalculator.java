@@ -316,50 +316,52 @@ public class jVectorFieldCalculator implements Runnable{
     
   //  fit.setPreScale(false);
   //  fit.setGaussFilt(false);
-    ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), getSampledGrpRoi());
-    fs = new FileSaver(finalVelImg);
-    fs.saveAsTiff(getFldrName()+getSuffix()+"forPres");
-    
-    float LThld, HThld;
-    if(this.isGenConv()){
-        LThld = Float.NEGATIVE_INFINITY;
-        HThld = 0;
-        ImageProcessor ConvIP = finalVelImg.getProcessor().duplicate();
-        
-        ConvIP.setThreshold(LThld, HThld);
-        var mask = ConvIP.createMask();
-        mask.add(-254);
-        
-        FloatBlitter fb = new FloatBlitter((FloatProcessor)ConvIP);
-        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-        ConvIP.multiply(-1);
-        
-        var Img  = new ImagePlus("Conv");
-        Img.setProcessor(ConvIP);
-        fs = new FileSaver(Img);
-        fs.saveAsTiff(getFldrName()+getSuffix()+"ConvPres");
-        
-    }
-    if(this.isGenDiv()){
-        LThld = 0;
-        HThld = Float.POSITIVE_INFINITY;
-        ImageProcessor DivIP = finalVelImg.getProcessor().duplicate();
-        
-        DivIP.setThreshold(LThld, HThld);
-        var mask = DivIP.createMask();
-        mask.add(-254);
+    if(isGenConv() || isGenDiv()){
+            ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), getSampledGrpRoi());
+            fs = new FileSaver(finalVelImg);
+            fs.saveAsTiff(getFldrName()+getSuffix()+"forPres");
 
-        FloatBlitter fb = new FloatBlitter((FloatProcessor)DivIP);
-        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-        
-        var Img  = new ImagePlus("Div");
-        Img.setProcessor(DivIP);
-        fs = new FileSaver(Img);
-        fs.saveAsTiff(getFldrName()+getSuffix()+"DivPres");
-      
+            float LThld, HThld;
+            if(this.isGenConv()){
+                LThld = Float.NEGATIVE_INFINITY;
+                HThld = 0;
+                ImageProcessor ConvIP = finalVelImg.getProcessor().duplicate();
+
+                ConvIP.setThreshold(LThld, HThld);
+                var mask = ConvIP.createMask();
+                mask.add(-254);
+
+                FloatBlitter fb = new FloatBlitter((FloatProcessor)ConvIP);
+                fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
+                ConvIP.multiply(-1);
+
+                var Img  = new ImagePlus("Conv");
+                Img.setProcessor(ConvIP);
+                fs = new FileSaver(Img);
+                fs.saveAsTiff(getFldrName()+getSuffix()+"ConvPres");
+
+            }
+            if(this.isGenDiv()){
+                LThld = 0;
+                HThld = Float.POSITIVE_INFINITY;
+                ImageProcessor DivIP = finalVelImg.getProcessor().duplicate();
+
+                DivIP.setThreshold(LThld, HThld);
+                var mask = DivIP.createMask();
+                mask.add(-254);
+
+                FloatBlitter fb = new FloatBlitter((FloatProcessor)DivIP);
+                fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
+
+                var Img  = new ImagePlus("Div");
+                Img.setProcessor(DivIP);
+                fs = new FileSaver(Img);
+                fs.saveAsTiff(getFldrName()+getSuffix()+"DivPres");
+
+            }
+      }
     }
-    }
-     private ImagePlus[] getSurfaces(int polyX, int polyY, JVectorSpace space, Roi sel){
+    private ImagePlus[] getSurfaces(int polyX, int polyY, JVectorSpace space, Roi sel){
         int nCmp = space.getnComp();
         ImagePlus[] surfaces = new ImagePlus[nCmp];
         JVectorCmpImg images = new JVectorCmpImg(space);

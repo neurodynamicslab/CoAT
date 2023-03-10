@@ -5,6 +5,8 @@
  */
 package ndl.coat;
 
+import ij.process.FloatStatistics;
+import ij.process.ImageStatistics;
 import java.io.File;
 import java.util.ArrayList;
 import ndl.ndllib.*;
@@ -569,5 +571,32 @@ public class DataManager extends Object{
     public void setUseRelativeVelocity(boolean useRelativeVelocity) {
         this.useRelativeVelocity = useRelativeVelocity;
     }
-    
+    private JVector findOC(DataManager currManager, int xRes, int yRes) {
+        int xOC;
+        int yOC;
+        //this.generateResidenceMap(currManager);
+        //timeTrace = currManager.getTimeData();
+        currManager.computeAve(3, null,false);        //Just compute the residence map
+        var heatMap = currManager.getAveResMap();
+        heatMap.convertTimeSeriestoArray(xRes, yRes);
+        JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);
+        heatMapImg.addScalar(heatMap);
+        var AveHMap_imp = heatMapImg.getImages()[0];
+        //AveHMap_imp.show();
+        var ip = AveHMap_imp.getProcessor().duplicate();
+        double sigma = (xRes > yRes) ? yRes/40 : xRes/40 ;
+        ip.blurGaussian(sigma);
+        ip.setAutoThreshold("MaxEntropy dark");
+//        ip.createMask();
+        var lThld = ip.getMinThreshold();
+        var hThld = ip.getMaxThreshold();
+        System.out.println("The thlds are " + lThld + "," + hThld);
+        var stat = new FloatStatistics(ip,ImageStatistics.CENTER_OF_MASS+ImageStatistics.LIMIT,null);
+        
+        xOC = (int) stat.xCenterOfMass;
+        yOC = (int) stat.yCenterOfMass;
+        //this.ocXjFtTxt2.setText(""+xOC);
+        //this.ocYjFtTxt3.setText(""+yOC);
+        return new JVector(xOC,yOC);
+    }
   }

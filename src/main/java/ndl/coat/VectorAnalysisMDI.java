@@ -2129,12 +2129,22 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
 
+    /***
+     * Call this function to calculate the vector field properties of an Vector space. Typically this in turn instantiates a 
+     * jVectorFieldCalulator Object to calculate these in a separate thread. 
+     * @param VecFld  The vector space for which we need to calculate the properties
+     * @param sampledGrpRoi The roi representing the sampled sub space 
+     * @param isDivergence  set this to true for calculating divergence surface (addition to convergence)
+     * @param pathName  pathname to store the resulting files
+     * @param suffix    suffix that will be added to the result file. Typically this will be mapped to data file name prefix/suffix. 
+     */
     public void calculateVectorFldProperties(JVectorSpace VecFld, Roi sampledGrpRoi, boolean isDivergence,String pathName,String suffix) {
         
         
         jVectorFieldCalculator calculator = new jVectorFieldCalculator();
         calculator.setPolyX(x_polyOrderJCmbBx.getSelectedIndex());
         calculator.setPolyY(y_polyOrderJCmbBx.getSelectedIndex());
+        calculator.setSuffix(suffix);
         calculator.setPathName(pathName);
         calculator.setFileSeparator(File.separator);
 //        int polyXOrder = this.x_polyOrderJCmbBx.getSelectedIndex()+1;//5;
@@ -2250,7 +2260,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //    }
     calculator.run();
  }
-/** starting from here..**/
+/** starting from here..**
     private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledGrpRoi) {
 
             converImg.setRoi(sampledGrpRoi);
@@ -2350,7 +2360,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         return differentials;
     }
     
-    /**...till here could be commented out**/
+    **...till here could be commented out**/
     private ij.gui.Roi getSampledROI(int thershold, JHeatMapArray aveResMap) {
         ij.gui.Roi roi ;
         FloatProcessor ip;
