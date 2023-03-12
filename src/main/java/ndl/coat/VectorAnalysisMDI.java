@@ -1917,7 +1917,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
     //Prepare the exp tree display
     
-        DefaultMutableTreeNode trialNode,grpNode,ExpNode;
+        DefaultMutableTreeNode trialNode,grpNode;
         trialRoot = new DefaultMutableTreeNode("Experiment");
         
         treeModel = (DefaultTreeModel) expDgnTree.getModel();
@@ -1999,7 +1999,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
       
         
-//Calculation of velocity and accelaration for individual files begins        
+//Calculation of velocity and accelaration begins        
         DataManager currManager;
         
         
@@ -2041,8 +2041,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         // Having read all the data files estimate the occupancy center. Also allow the user to enter. 
 
-                OC = (this.CheckBoxBoolean.isSelected()) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
-                
+               // OC = (this.CheckBoxBoolean.isSelected()) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
+                OC = (this.CheckBoxBoolean.isSelected()) ? currManager.findOC( xRes, yRes) : new JVector(xOC,yOC);
         //Generate the velocity and accelaration fields
 
                 vFields = currManager.getVelocityField();
@@ -2050,7 +2050,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 
                 int dataCount = 0;
                 //JVectorSpace vSpace;
-                for(JVectorSpace vSpace : vFields){                     //This is eseentially looping through each data file
+                for(JVectorSpace vSpace : vFields){                     //This is essentially looping through each data file
                     vSpace.setUseTan2(this.useTan2jChkBx.isSelected());
                     aFields[dataCount].setUseTan2(this.useTan2jChkBx.isSelected());
                     
@@ -2142,6 +2142,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         
         jVectorFieldCalculator calculator = new jVectorFieldCalculator();
+        calculator.setVecFld(VecFld);
         calculator.setPolyX(x_polyOrderJCmbBx.getSelectedIndex());
         calculator.setPolyY(y_polyOrderJCmbBx.getSelectedIndex());
         calculator.setSuffix(suffix);

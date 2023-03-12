@@ -571,9 +571,21 @@ public class DataManager extends Object{
     public void setUseRelativeVelocity(boolean useRelativeVelocity) {
         this.useRelativeVelocity = useRelativeVelocity;
     }
-    private JVector findOC(DataManager currManager, int xRes, int yRes) {
+    
+    /**
+     * Estimates the occupancy center of the residence map ()and returns a position vector to OC 
+     * as JVector. The method used is described in Hippo ref. briefly: i) Apply Gaussian Filter of 
+     * a preset radius (usually this should be in pixels corresponding to size of mice/animal). This 
+     * is followed by MEM thresholding and then estimating the center of mass. 
+     * 
+     * @param xRes  x axis resolution
+     * @param yRes  y axis resolution
+     * @return JVector representing the position vector to the occupancy center defined as above.
+     */
+    public JVector findOC(int xRes, int yRes) {
         int xOC;
         int yOC;
+        DataManager currManager = this;
         //this.generateResidenceMap(currManager);
         //timeTrace = currManager.getTimeData();
         currManager.computeAve(3, null,false);        //Just compute the residence map
@@ -599,4 +611,7 @@ public class DataManager extends Object{
         //this.ocYjFtTxt3.setText(""+yOC);
         return new JVector(xOC,yOC);
     }
+    
+    
+    
   }
