@@ -41,6 +41,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableCellRenderer;
 import ndl.ndllib.SurfaceFit;
 /**
@@ -222,6 +223,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ImageDisplay_Panel = new javax.swing.JPanel();
         jProgressBarDataAssignment = new javax.swing.JProgressBar();
         jLabel23 = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel25 = new javax.swing.JLabel();
+        jProgressBar2 = new javax.swing.JProgressBar();
+        jLabel26 = new javax.swing.JLabel();
+        jProgressBar3 = new javax.swing.JProgressBar();
+        jLabel27 = new javax.swing.JLabel();
         MessageBox_Panel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -1293,20 +1300,42 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ImageDisplay_Panel.setName("ImageDisplay Panel"); // NOI18N
 
         jProgressBarDataAssignment.setToolTipText("Indicates the progress of data assignment");
+        jProgressBarDataAssignment.setStringPainted(true);
 
         jLabel23.setText("Data Assignment Status:");
+
+        jLabel25.setText("Trials Processed");
+
+        jLabel26.setText("Grps Processed");
+
+        jLabel27.setText("Grps Processed");
 
         javax.swing.GroupLayout ImageDisplay_PanelLayout = new javax.swing.GroupLayout(ImageDisplay_Panel);
         ImageDisplay_Panel.setLayout(ImageDisplay_PanelLayout);
         ImageDisplay_PanelLayout.setHorizontalGroup(
             ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ImageDisplay_PanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                    .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23)
+                            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
+                                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel25))
+                                .addGap(18, 18, 18)
+                                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel26))
+                                .addGap(18, 18, 18)
+                                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel27)
+                                    .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         ImageDisplay_PanelLayout.setVerticalGroup(
@@ -1316,6 +1345,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1927,8 +1966,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         nTrial = trialNames.size();
         nGrps = grpNames.size();
         
-        var trialProg =  this.jProgressBarDataAssignment.getModel();
-        trialProg.setMaximum(nTrial);
+//        var trialProg =  this.jProgressBarDataAssignment.getModel();
+//        trialProg.setMaximum(nTrial);
+       
         
         for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
             
@@ -1942,10 +1982,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 treeModel.insertNodeInto(grpNode, trialNode,grpCount);
             }
             TrialData.add(trialCount, trialData);
-            trialProg.setValue(trialCount);
-           // this.jProgressBarDataAssignment.setValue(trialCount);
-           this.jProgressBarDataAssignment.getModel().setValue(trialCount);
-           
+            
         }
         
         treeModel.reload();
@@ -1963,8 +2000,25 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         nFileAssigned = new int[trialNames.size()][grpNames.size()];
         DefaultMutableTreeNode fileLeaf,trNode;
+        
+        jProgressBarDataAssignment.setMinimum(0);
+        jProgressBarDataAssignment.setMaximum(nFiles);
+        jProgressBarDataAssignment.setValue(0);
+        jProgressBarDataAssignment.setEnabled(true);
 
         for(int Count = 0 ; Count < nFiles ; Count++){
+            
+            int currVal = Count;
+            SwingWorker up2 = new SwingWorker(){
+                @Override
+                protected Object doInBackground() throws Exception {
+                    jProgressBarDataAssignment.setValue(currVal);
+                    System.out.print("Current File # \n"+currVal);
+                    return 0;
+                }  
+            };
+            up2.execute();
+            
             fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
             fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
             if(fName == null){
@@ -2038,8 +2092,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
                 currManager.setOutPath(outPath);
                 currManager.readData();
+                DataManager[] temp = new DataManager[1];
+                temp[0] = currManager;
+                Runnable newThread = () -> {
+                    jVecFieldImgGenerator(temp[0], xRes, yRes, xOC, yOC);
+                };
                 
-                jVecFieldImgGenerator(currManager, xRes, yRes, xOC, yOC); 
                 OC = currManager.findOC(xRes, yRes);
                 
                 currManager.computeAve(0, OC,true);
@@ -2085,8 +2143,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 } catch (IOException ex) {
                     Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                 }
+               int currentVal = tCount;
                
             }
+        
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
 
     private JVector jVecFieldImgGenerator(DataManager currManager, int xRes, int yRes, int xOC, int yOC) {
@@ -2266,7 +2326,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        fs.saveAsTiff(fldrName+suffix+"DivPres");
 //     
 //    }
-    calculator.run();
+    //calculator.run();
+    Thread thread = new Thread(calculator);
+    thread.start();
  }
 /** starting from here..**
     private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledGrpRoi) {
@@ -2906,6 +2968,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2927,6 +2992,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JProgressBar jProgressBar2;
+    private javax.swing.JProgressBar jProgressBar3;
     private javax.swing.JProgressBar jProgressBarDataAssignment;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
