@@ -1863,7 +1863,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //        iii) divergence maps -
         //expData = new ArrayList<ArrayList>();
         
-       
+       //Reading parameters and populate design tree
         
         int xRes = Integer.parseInt(this.xResTxtField.getText());
         int yRes = Integer.parseInt(this.yResTxtField.getText());
@@ -2038,49 +2038,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
                 currManager.setOutPath(outPath);
                 currManager.readData();
-
-        // Having read all the data files estimate the occupancy center. Also allow the user to enter. 
-
-               // OC = (this.CheckBoxBoolean.isSelected()) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
-                OC = (this.CheckBoxBoolean.isSelected()) ? currManager.findOC( xRes, yRes) : new JVector(xOC,yOC);
-        //Generate the velocity and accelaration fields
-
-                vFields = currManager.getVelocityField();
-                aFields = currManager.getAccelarationField();
                 
-                int dataCount = 0;
-                //JVectorSpace vSpace;
-                for(JVectorSpace vSpace : vFields){                     //This is essentially looping through each data file
-                    vSpace.setUseTan2(this.useTan2jChkBx.isSelected());
-                    aFields[dataCount].setUseTan2(this.useTan2jChkBx.isSelected());
-                    
-                    var tmpName = (currManager.getDataFileNames()[dataCount]);
-                    var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
-                    var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
-                    
-                    if(this.saveVelocityjchkBx.isSelected()){
-                        var vImgs = new JVectorCmpImg(vSpace);
-                        var aImgs = new JVectorCmpImg(aFields[dataCount]);
-                        vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity as Cmps",label);
-                        aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration as Cmps",label_acc);
-                    }
-                    if(this.CompforVectorFldjChkBx2.isSelected()){
-                        if(this.AlongJRadBtn.isSelected()){
-                            var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, true)); 
-                            var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,true));
-                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along","Cmp_"+label);
-                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along","Cmp_"+label_acc);
-                        }else{
-                            var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, false)); 
-                            var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,false));
-                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Ortho","Cmp_"+label);
-                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Ortho","Cmp_"+label_acc);
-                        }
-                    }
-                    
-                    dataCount++;
-                }
- //Compute the averages first for original vectors, then for vectors along platform, along OC. 
+                jVecFieldImgGenerator(currManager, xRes, yRes, xOC, yOC); 
+                OC = currManager.findOC(xRes, yRes);
                 
                 currManager.computeAve(0, OC,true);
                 currManager.saveAverage("grp#_"+gCount+"_",true);
@@ -2128,6 +2088,53 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                
             }
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
+
+    private JVector jVecFieldImgGenerator(DataManager currManager, int xRes, int yRes, int xOC, int yOC) {
+        JVector OC;
+        JVectorSpace[] vFields;
+        JVectorSpace[] aFields;
+        // Having read all the data files estimate the occupancy center. Also allow the user to enter.
+        
+        // OC = (this.CheckBoxBoolean.isSelected()) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
+        OC = (this.CheckBoxBoolean.isSelected()) ? currManager.findOC( xRes, yRes) : new JVector(xOC,yOC);
+        //Generate the velocity and accelaration fields
+        vFields = currManager.getVelocityField();
+        aFields = currManager.getAccelarationField();
+        int dataCount = 0;
+        //JVectorSpace vSpace;
+        for(JVectorSpace vSpace : vFields){                     //This is essentially looping through each data file
+            vSpace.setUseTan2(this.useTan2jChkBx.isSelected());
+            aFields[dataCount].setUseTan2(this.useTan2jChkBx.isSelected());
+            
+            var tmpName = (currManager.getDataFileNames()[dataCount]);
+            var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
+            var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
+            
+            if(this.saveVelocityjchkBx.isSelected()){
+                var vImgs = new JVectorCmpImg(vSpace);
+                var aImgs = new JVectorCmpImg(aFields[dataCount]);
+                vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity as Cmps",label);
+                aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration as Cmps",label_acc);
+            }
+            if(this.CompforVectorFldjChkBx2.isSelected()){
+                if(this.AlongJRadBtn.isSelected()){
+                    var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, true));
+                    var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,true));
+                    vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along","Cmp_"+label);
+                    aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along","Cmp_"+label_acc);
+                }else{
+                    var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, false));
+                    var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,false));
+                    vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Ortho","Cmp_"+label);
+                    aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Ortho","Cmp_"+label_acc);
+                }
+            }
+            
+            dataCount++;
+        }
+        //Compute the averages first for original vectors, then for vectors along platform, along OC. 
+        return OC;
+    }
 
     /***
      * Call this function to calculate the vector field properties of an Vector space. Typically this in turn instantiates a 
