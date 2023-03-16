@@ -1983,7 +1983,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        trialProg.setMaximum(nTrial);
        
                 this.jProgressBarTP.setMinimum(0);
-                this.jProgressBarTP.setMaximum(nTrial);
+                this.jProgressBarTP.setMaximum(nTrial-1);
                 this.jProgressBarTP.setValue(0);
         //jProgressBarDataAssignment.setEnabled(true);
         
@@ -2101,12 +2101,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         JVector  OC ;
         
                 jProgressBarTP.setMaximum(0);
-                jProgressBarTP.setMaximum(nTrial);
+                jProgressBarTP.setMaximum(nTrial-1);
                 jProgressBarTP.setValue(0);
                 
                 
                 jProgressBarGP.setMinimum(0);
-                jProgressBarGP.setMaximum(nGrps);
+                jProgressBarGP.setMaximum(nGrps-1);
                 jProgressBarGP.setValue(0);
                 
 //                jProgressBarDP.setMaximum(0);
