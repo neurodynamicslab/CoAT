@@ -2002,7 +2002,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         DefaultMutableTreeNode fileLeaf,trNode;
         
         jProgressBarDataAssignment.setMinimum(0);
-        jProgressBarDataAssignment.setMaximum(nFiles);
+        jProgressBarDataAssignment.setMaximum(nFiles-1);
         jProgressBarDataAssignment.setValue(0);
         jProgressBarDataAssignment.setEnabled(true);
 
