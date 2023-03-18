@@ -1307,7 +1307,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jLabel23.setText("Data Assignment Status:");
 
+        jProgressBarTP.setStringPainted(true);
+
         jLabel25.setText("Trials Processed");
+
+        jProgressBarGP.setStringPainted(true);
 
         jLabel26.setText("Grps Processed");
 
@@ -1982,24 +1986,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        var trialProg =  this.jProgressBarDataAssignment.getModel();
 //        trialProg.setMaximum(nTrial);
        
-                this.jProgressBarTP.setMinimum(0);
-                this.jProgressBarTP.setMaximum(nTrial-1);
+                this.jProgressBarDataAssignment.setMinimum(0);
+                this.jProgressBarDataAssignment.setMaximum((nTrial)*(nGrps));
                 this.jProgressBarTP.setValue(0);
+                this.jProgressBarDataAssignment.setValue(0);
         //jProgressBarDataAssignment.setEnabled(true);
         
         for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
-            
-            int currVal = trialCount;
-            SwingWorker upTP = new SwingWorker(){
-                @Override
-                protected Object doInBackground() throws Exception {
-                    jProgressBarTP.setValue(currVal);
-                    //System.out.print("Current File # \n"+currVal);
-                    return 0;
-                }  
-            };
-            upTP.execute();
-            
+                       
             trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
             treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
             ArrayList <DataManager> trialData = new ArrayList<>();
@@ -2008,6 +2002,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 trialData.add(grpCount,grpData);
                 grpNode = new DefaultMutableTreeNode(grpNames.get(grpCount));
                 treeModel.insertNodeInto(grpNode, trialNode,grpCount);
+                jProgressBarDataAssignment.setValue((grpCount+1)*(trialCount+1));
             }
             TrialData.add(trialCount, trialData);
             
@@ -2029,23 +2024,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         nFileAssigned = new int[trialNames.size()][grpNames.size()];
         DefaultMutableTreeNode fileLeaf,trNode;
         
-        jProgressBarDataAssignment.setMinimum(0);
-        jProgressBarDataAssignment.setMaximum(nFiles-1);
-        jProgressBarDataAssignment.setValue(0);
-        jProgressBarDataAssignment.setEnabled(true);
+        
+        //jProgressBarDataAssignment.setEnabled(true);
+        
+        jProgressBarFR.setMinimum(0);
+        jProgressBarFR.setMaximum(nFiles-1);
+        jProgressBarFR.setValue(0);
 
         for(int Count = 0 ; Count < nFiles ; Count++){
-            
-            int currVal = Count;
-            SwingWorker upFR = new SwingWorker(){
-                @Override
-                protected Object doInBackground() throws Exception {
-                    jProgressBarFR.setValue(currVal);
-                    //System.out.print("Current File # \n"+currVal);
-                    return 0;
-                }  
-            };
-            upFR.execute();
             
             fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
             fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
@@ -2060,20 +2046,25 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             tUID = trialNames.indexOf(trialName);
             //aName =  Need to set the animal ID here
             
-//   /*Redundant now*/
-//           
-//            if (gUID == -1)
-//                grpNames.add(grpName);
-//            
-//            if(tUID == -1)
-//                trialNames.add(fName);
-            //nFileAsigntoGrp[gUID]++;
             nFileAssigned[tUID][gUID]++;
             TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName
             fileLeaf = new DefaultMutableTreeNode(fName);
             trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
             grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
             treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
+            
+            int currVal = Count;
+            SwingWorker upFR = new SwingWorker(){
+                @Override
+                protected Object doInBackground() throws Exception {
+                    jProgressBarFR.setValue(currVal);
+                    //jProgressBarDataAssignment.setValue(currVal);
+                    //System.out.print("Current File # \n"+currVal);
+                    return 0;
+                }  
+            };
+            //new Thread(upFR).start();
+            upFR.execute();
         }
         
         //Use the errorlist to show the list of files that could not be read.
@@ -2082,7 +2073,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
       
         
 //Calculation of velocity and accelaration begins        
-        DataManager currManager;
+        //DataManager currManager;
         
         
         fit.setPreScale(this.reSzImgjChkBx.isSelected());
@@ -2094,119 +2085,143 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fit.setUseSelection(this.useSeljChBx.isSelected());
         fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         
-        JVectorSpace [] vFields, aFields;
-        //JVectorCmpImg vImgs,  aImgs;
-                                                            //Add code here to let the user choose on screen
-        JVector Plt = new JVector(xPlt, yPlt);
-        JVector  OC ;
         
-                jProgressBarTP.setMaximum(0);
-                jProgressBarTP.setMaximum(nTrial-1);
-                jProgressBarTP.setValue(0);
-                
-                
-                jProgressBarGP.setMinimum(0);
-                jProgressBarGP.setMaximum(nGrps-1);
-                jProgressBarGP.setValue(0);
-                
+        jProgressBarTP.setMinimum(0);
+        jProgressBarTP.setMaximum(nTrial);
+        jProgressBarTP.setValue(0);
+        jProgressBarTP.setStringPainted(true);
+
+        jProgressBarGP.setMinimum(0);
+        jProgressBarGP.setMaximum(nGrps);
+        jProgressBarGP.setValue(0);
+        jProgressBarGP.setStringPainted(true);
 //                jProgressBarDP.setMaximum(0);
 //                jProgressBarDP.setMaximum(0);
 //                jProgressBarDP.setValue(0);
         
         OccCtrs = new JVector[nTrial][nGrps];
-        for(int tCount = 0 ; tCount < nTrial ; tCount++)
-            for(int gCount = 0 ; gCount < nGrps ; gCount++){
+        ArrayList<ArrayList<DataManager>>[] tempData;
+        tempData = new ArrayList[1];
+        tempData[0] = TrialData;
+        String[] fnames = new String[1];
+        fnames[0] = fName;
+        SwingWorker worker = new SwingWorker(){ 
+            @Override
+            protected Object doInBackground() throws Exception{
+            for(int tCount = 0 ; tCount < nTrial ; tCount++){
+                int tc = tCount+1;
+                SwingWorker upTP = new SwingWorker(){
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        jProgressBarTP.setValue(tc);  
+                        jProgressBarTP.setString("Trial #"+(tc)+" of "+nTrial);
+                        return null;
+                    }
                 
-            int currtVal = tCount,currgVal = gCount;
-            SwingWorker upTGP = new SwingWorker(){
-                @Override
-                protected Object doInBackground() throws Exception {
-                    jProgressBarTP.setValue(currtVal);
-                    jProgressBarGP.setValue(currgVal);
-                    //System.out.print("Current File # \n"+currVal);
-                    return 0;
-                }  
-            };
-            upTGP.execute();
-
-                if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
-                    continue;
-        
-           /*  Prepare the datamanager to organise the data. Data Manger instance stores the data for the group. */
-
-                currManager = TrialData.get(tCount).get(gCount);
-                currManager.setXRes(xRes);
-                currManager.setYRes(yRes);
-                currManager.setScaleforAspectRatio(this.ScaleY_JChkBx.isSelected());
-                currManager.setPixelAspectRatio(Double.parseDouble(this.aspectRatiojFmtFld.getText()));
-                currManager.setDataSep(dataSeparator);
-                currManager.setLineSep('\n');   /* Modify this if the data is not line by line for e.g. separated by : */
-                currManager.setUseRelativeVelocity(this.useRelVelJChkBx.isSelected());
-                File tmpFile = new File(fName);
-                String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
-                /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
-                currManager.setOutPath(outPath);
-                currManager.readData();
-              
-                DataManager[] temp = new DataManager[1];
-                temp[0] = currManager;
-                Runnable newThread = () -> {
-                    jVecFieldImgGenerator(temp[0], xRes, yRes, xOC, yOC);
                 };
-                
-                OC = currManager.findOC(xRes, yRes);
+                upTP.execute();
+                for(int gCount = 0 ; gCount < nGrps ; gCount++){
+                 
+                    int g = gCount+1, t = tCount+1;
+                    SwingWorker upGP = new SwingWorker(){
+                        @Override
+                        protected Object doInBackground() throws Exception {
+                            jProgressBarGP.setValue(g);
+                            jProgressBarGP.setString("Grp #"+g+" of "+nGrps);
+                            return 0;
+                        }
+
+                    };
+                    upGP.execute();
+                    
+                    if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
+                        continue;
+                    DataManager currManager;
+            /*  Prepare the datamanager to organise the data. Data Manger instance stores the data for the group. */
+                 //var temp = tempData[0].get(tCount);
+                    currManager = tempData[0].get(tCount).get(gCount);
+                    currManager.setXRes(xRes);
+                    currManager.setYRes(yRes);
+                    currManager.setScaleforAspectRatio(ScaleY_JChkBx.isSelected());
+                    currManager.setPixelAspectRatio(Double.parseDouble(aspectRatiojFmtFld.getText()));
+                    currManager.setDataSep(dataSeparator);
+                    currManager.setLineSep('\n');   /* Modify this if the data is not line by line for e.g. separated by : */
+                    currManager.setUseRelativeVelocity(useRelVelJChkBx.isSelected());
+                    File tmpFile = new File(fnames[0]);
+                    String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
+                    /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
+                    currManager.setOutPath(outPath);
+                    currManager.readData();
+
+                    DataManager[] tempMan = new DataManager[1];
+                    tempMan[0] = currManager;
+                    jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);              
+                    calAveFlds(currManager,gCount,tCount,xRes,yRes); 
+
+                 
+                }
+             
+         }
+         return null;
+        }
+
+       };
+
+       worker.execute();
+       //new Thread(worker).start();
+    }//GEN-LAST:event_RunGrp_ButtonActionPerformed
+
+    private void calAveFlds(DataManager currManager, int gCount, int tCount,int xRes, int yRes) {
+        
+                JVector OC = currManager.findOC(xRes, yRes);
                 OccCtrs[tCount][gCount] = OC;
                 this.ocXjFtTxt2.setText(""+OC.getComponent(0));
                 this.ocYjFtTxt3.setText(""+OC.getComponent(1));
                 
                 currManager.computeAve(0, OC,true);
                 currManager.saveAverage("grp#_"+gCount+"_",true);
-                //currManager.computeAve(1, Plt,true);
-               // currManager.saveAverage("grp#_comp_Plt"+gCount+"_",false);
-                //currManager.computeAve(3,null,true);
-                currManager.computeAve(1, OC,true);
-                currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
-               
-                //Retrive the average and run through for the covnergence divergence estimates.
-                //selectout Reg
-                //compute surface
-                //compute divergence
-                //selctout reg
-                //Id peaks
-                //measure center,width and intensity
-                //compute accuracy, undertainity and intensity (rel and abs).
-    /*** Surface fit on average*/
-                           //read this numbers through gui
-               //var temp  =  currManager.getAveResMap();
-               //Roi sampledGrpRoi = getSampledROI( 1,currManager);
-               currManager.computeAve(3, null,false);
-               Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
-               
-               String velFldrName = currManager.getOutPath()+File.separator+"Ave Velocity";
-               File velFolder =  new File(velFldrName);
-               if(!velFolder.exists())
-                    velFolder.mkdir();
-               
-                calculateVectorFldProperties(currManager.getAveVelFld(), sampledGrpRoi,true,velFolder.getAbsolutePath(),"VelCmpAlgAve_"+"T_#"+tCount+"G_#"+gCount);
-                
-                String newFolder = currManager.getOutPath()+File.separator+"Ave Accelaration";
-                File accFolder =  new File(newFolder);
-                if(!accFolder.exists())
-                    accFolder.mkdir();
-                
-                calculateVectorFldProperties(currManager.getAveAccFld(), sampledGrpRoi,true,accFolder.getAbsolutePath(),"AccCmpAlgAve_"+"T_#"+tCount+"G_#"+gCount);
-               /**/
-                RoiEncoder encoder = new RoiEncoder(currManager.getOutPath()+File.separator+"Select.roi");
-                try {
-                    encoder.write(sampledGrpRoi);
-                } catch (IOException ex) {
-                    Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-               
-            }
+        //currManager.computeAve(1, Plt,true);
+        // currManager.saveAverage("grp#_comp_Plt"+gCount+"_",false);
+        //currManager.computeAve(3,null,true);
+        currManager.computeAve(1, OC,true);
+        currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
         
-    }//GEN-LAST:event_RunGrp_ButtonActionPerformed
+        //Retrive the average and run through for the covnergence divergence estimates.
+        //selectout Reg
+        //compute surface
+        //compute divergence
+        //selctout reg
+        //Id peaks
+        //measure center,width and intensity
+        //compute accuracy, undertainity and intensity (rel and abs).
+        /*** Surface fit on average*/
+        //read this numbers through gui
+        //var temp  =  currManager.getAveResMap();
+        //Roi sampledGrpRoi = getSampledROI( 1,currManager);
+        currManager.computeAve(3, null,false);
+        Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
+        
+        String velFldrName = currManager.getOutPath()+File.separator+"Ave Velocity";
+        File velFolder =  new File(velFldrName);
+        if(!velFolder.exists())
+            velFolder.mkdir();
+        
+        calculateVectorFldProperties(currManager.getAveVelFld(), sampledGrpRoi,true,velFolder.getAbsolutePath(),"VelCmpAlgAve_"+"T_#"+tCount+"G_#"+gCount);
+        
+        String newFolder = currManager.getOutPath()+File.separator+"Ave Accelaration";
+        File accFolder =  new File(newFolder);
+        if(!accFolder.exists())
+            accFolder.mkdir();
+        
+        calculateVectorFldProperties(currManager.getAveAccFld(), sampledGrpRoi,true,accFolder.getAbsolutePath(),"AccCmpAlgAve_"+"T_#"+tCount+"G_#"+gCount);
+        /**/
+        RoiEncoder encoder = new RoiEncoder(currManager.getOutPath()+File.separator+"Select.roi");
+        try {
+            encoder.write(sampledGrpRoi);
+        } catch (IOException ex) {
+            Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private JVector jVecFieldImgGenerator(DataManager currManager, int xRes, int yRes, int xOC, int yOC) {
         JVector OC;
@@ -2219,38 +2234,50 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //Generate the velocity and accelaration fields
         vFields = currManager.getVelocityField();
         aFields = currManager.getAccelarationField();
-        int dataCount = 0;
+        
         //JVectorSpace vSpace;
-        for(JVectorSpace vSpace : vFields){                     //This is essentially looping through each data file
-            vSpace.setUseTan2(this.useTan2jChkBx.isSelected());
-            aFields[dataCount].setUseTan2(this.useTan2jChkBx.isSelected());
-            
-            var tmpName = (currManager.getDataFileNames()[dataCount]);
-            var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
-            var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
-            
-            if(this.saveVelocityjchkBx.isSelected()){
-                var vImgs = new JVectorCmpImg(vSpace);
-                var aImgs = new JVectorCmpImg(aFields[dataCount]);
-                vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity as Cmps",label);
-                aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration as Cmps",label_acc);
-            }
-            if(this.CompforVectorFldjChkBx2.isSelected()){
-                if(this.AlongJRadBtn.isSelected()){
-                    var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, true));
-                    var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,true));
-                    vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along","Cmp_"+label);
-                    aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along","Cmp_"+label_acc);
-                }else{
-                    var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, false));
-                    var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,false));
-                    vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Ortho","Cmp_"+label);
-                    aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Ortho","Cmp_"+label_acc);
+        
+        SwingWorker worker = new SwingWorker(){
+            int dataCount = 0;
+            int totSize = vFields.length;
+            @Override
+            protected Object doInBackground() throws Exception {
+                
+                for(JVectorSpace vSpace : vFields){                     //This is essentially looping through each data file
+                    vSpace.setUseTan2(useTan2jChkBx.isSelected());
+                    aFields[dataCount].setUseTan2(useTan2jChkBx.isSelected());
+
+                    var tmpName = (currManager.getDataFileNames()[dataCount]);
+                    var label  = "Vel of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
+                    var label_acc = "Acc of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));
+
+                    if(saveVelocityjchkBx.isSelected()){
+                        var vImgs = new JVectorCmpImg(vSpace);
+                        var aImgs = new JVectorCmpImg(aFields[dataCount]);
+                        vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity as Cmps",label);
+                        aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration as Cmps",label_acc);
+                    }
+                    if(CompforVectorFldjChkBx2.isSelected()){
+                        if(AlongJRadBtn.isSelected()){
+                            var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, true));
+                            var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,true));
+                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along","Cmp_"+label);
+                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along","Cmp_"+label_acc);
+                        }else{
+                            var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, false));
+                            var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,false));
+                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Ortho","Cmp_"+label);
+                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Ortho","Cmp_"+label_acc);
+                        }
+                    }
+
+                    dataCount++;
+                    setProgress(dataCount/totSize);
                 }
+                return null;
             }
             
-            dataCount++;
-        }
+        };
         //Compute the averages first for original vectors, then for vectors along platform, along OC. 
         return OC;
     }
