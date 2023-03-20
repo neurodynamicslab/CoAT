@@ -31,12 +31,15 @@ import ij.process.FloatStatistics;
 import ij.process.ImageProcessor;
 import ij.process.ImageStatistics;
 import java.awt.Rectangle;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -48,7 +51,7 @@ import ndl.ndllib.SurfaceFit;
  *
  * @author balam
  */
-public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListener{
+public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListener, PropertyChangeListener{
 
     /**
      * Creates new form VectorAnalysisMDI
@@ -1315,6 +1318,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jLabel26.setText("Grps Processed");
 
+        jProgressBarDP.setStringPainted(true);
+
         jLabel27.setText("Data processed");
 
         jProgressBarFR.setToolTipText("Indicates the progress of data assignment");
@@ -2095,6 +2100,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jProgressBarGP.setMaximum(nGrps);
         jProgressBarGP.setValue(0);
         jProgressBarGP.setStringPainted(true);
+        
+        jProgressBarDP.setMinimum(0);
+        jProgressBarDP.setMaximum(100);
 //                jProgressBarDP.setMaximum(0);
 //                jProgressBarDP.setMaximum(0);
 //                jProgressBarDP.setValue(0);
@@ -2108,65 +2116,62 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         SwingWorker worker = new SwingWorker(){ 
             @Override
             protected Object doInBackground() throws Exception{
-            for(int tCount = 0 ; tCount < nTrial ; tCount++){
-                int tc = tCount+1;
-                SwingWorker upTP = new SwingWorker(){
-                    @Override
-                    protected Object doInBackground() throws Exception {
-                        jProgressBarTP.setValue(tc);  
-                        jProgressBarTP.setString("Trial #"+(tc)+" of "+nTrial);
-                        return null;
-                    }
-                
-                };
-                upTP.execute();
-                for(int gCount = 0 ; gCount < nGrps ; gCount++){
-                 
-                    int g = gCount+1, t = tCount+1;
-                    SwingWorker upGP = new SwingWorker(){
+                for(int tCount = 0 ; tCount < nTrial ; tCount++){
+                    int tc = tCount+1;
+                    SwingWorker upTP = new SwingWorker(){
                         @Override
                         protected Object doInBackground() throws Exception {
-                            jProgressBarGP.setValue(g);
-                            jProgressBarGP.setString("Grp #"+g+" of "+nGrps);
-                            return 0;
+                            jProgressBarTP.setValue(tc);  
+                            jProgressBarTP.setString("Trial #"+(tc)+" of "+nTrial);
+                            return null;
                         }
 
                     };
-                    upGP.execute();
-                    
-                    if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
-                        continue;
-                    DataManager currManager;
-            /*  Prepare the datamanager to organise the data. Data Manger instance stores the data for the group. */
-                 //var temp = tempData[0].get(tCount);
-                    currManager = tempData[0].get(tCount).get(gCount);
-                    currManager.setXRes(xRes);
-                    currManager.setYRes(yRes);
-                    currManager.setScaleforAspectRatio(ScaleY_JChkBx.isSelected());
-                    currManager.setPixelAspectRatio(Double.parseDouble(aspectRatiojFmtFld.getText()));
-                    currManager.setDataSep(dataSeparator);
-                    currManager.setLineSep('\n');   /* Modify this if the data is not line by line for e.g. separated by : */
-                    currManager.setUseRelativeVelocity(useRelVelJChkBx.isSelected());
-                    File tmpFile = new File(fnames[0]);
-                    String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
-                    /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
-                    currManager.setOutPath(outPath);
-                    currManager.readData();
+                    upTP.execute();
+                    for(int gCount = 0 ; gCount < nGrps ; gCount++){
 
-                    DataManager[] tempMan = new DataManager[1];
-                    tempMan[0] = currManager;
-                    jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);              
-                    calAveFlds(currManager,gCount,tCount,xRes,yRes); 
+                        int g = gCount+1, t = tCount+1;
+                        SwingWorker upGP = new SwingWorker(){
+                            @Override
+                            protected Object doInBackground() throws Exception {
+                                jProgressBarGP.setValue(g);
+                                jProgressBarGP.setString("Grp #"+g+" of "+nGrps);
+                                return 0;
+                            }
 
-                 
+                        };
+                        upGP.execute();
+
+                        if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
+                            continue;
+                        DataManager currManager;
+                /*  Prepare the datamanager to organise the data. Data Manger instance stores the data for the group. */
+                     //var temp = tempData[0].get(tCount);
+                        currManager = tempData[0].get(tCount).get(gCount);
+                        currManager.setXRes(xRes);
+                        currManager.setYRes(yRes);
+                        currManager.setScaleforAspectRatio(ScaleY_JChkBx.isSelected());
+                        currManager.setPixelAspectRatio(Double.parseDouble(aspectRatiojFmtFld.getText()));
+                        currManager.setDataSep(dataSeparator);
+                        currManager.setLineSep('\n');   /* Modify this if the data is not line by line for e.g. separated by : */
+                        currManager.setUseRelativeVelocity(useRelVelJChkBx.isSelected());
+                        File tmpFile = new File(fnames[0]);
+                        String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
+                        /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
+                        currManager.setOutPath(outPath);
+                        Thread dataProcessingThd = new Thread(currManager); 
+                        dataProcessingThd.start();
+                        
+                        
+                        DataManager[] tempMan = new DataManager[1];
+                        tempMan[0] = currManager;
+                        jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);              
+                        calAveFlds(currManager,gCount,tCount,xRes,yRes); 
+                   }
                 }
-             
-         }
-         return null;
-        }
-
+                return null;
+            }
        };
-
        worker.execute();
        //new Thread(worker).start();
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
@@ -2270,14 +2275,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Ortho","Cmp_"+label_acc);
                         }
                     }
-
                     dataCount++;
-                    setProgress(dataCount/totSize);
+                    setProgress(100*(dataCount/totSize));
                 }
                 return null;
             }
             
         };
+       worker.addPropertyChangeListener(this);
+       worker.execute();
         //Compute the averages first for original vectors, then for vectors along platform, along OC. 
         return OC;
     }
@@ -3122,7 +3128,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if("progress" == evt.getPropertyName()){
+            int nVal = (Integer)evt.getNewValue();
+            jProgressBarDP.setValue(nVal);
+            jProgressBarDP.setString("Data Tracker");
+            
+        }
+        
     }
 
   

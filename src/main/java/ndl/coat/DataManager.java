@@ -21,17 +21,34 @@ import ndl.ndllib.*;
  * 
  * @author balam
  */
-public class DataManager extends Object{
+public class DataManager extends Object implements Runnable {
+
+    /**
+     * @return the timeData
+     */
+    public synchronized DataTrace_ver_3[] getTimeData() {
+        return timeData;
+    }
+
+    /**
+     * @param timeData the timeData to set
+     */
+    private void setTimeData(DataTrace_ver_3[] timeData) {
+        this.timeData = timeData;
+    }
 
     private boolean newData;
     private boolean useTan2Prj;
     private boolean useRelativeVelocity;
     private boolean rescaleIndividual;
+    
+    public int status;
+    private boolean AveReady;
 
     /**
      * @return the lineSep
      */
-    public char getLineSep() {
+    private char getLineSep() {
         return lineSep;
     }
 
@@ -45,7 +62,7 @@ public class DataManager extends Object{
     /**
      * @return the dataSep
      */
-    public String getDataSep() {
+    private String getDataSep() {
         return dataSep;
     }
 
@@ -59,7 +76,7 @@ public class DataManager extends Object{
     /**
      * @return the aveVelFld
      */
-    public JVectorSpace getAveVelFld() {
+    public synchronized JVectorSpace getAveVelFld() {
         return aveVelFld;
     }
 
@@ -80,72 +97,45 @@ public class DataManager extends Object{
     /**
      * @param accelaration the accelaration to set
      */
-    public void setAccelaration(DataTrace_ver_3[] accelaration) {
+    private void setAccelaration(DataTrace_ver_3[] accelaration) {
         this.accelaration = accelaration;
     }
 
     /**
      * @return the DataFileNames
      */
-    public String[] getDataFileNames() {
+    public synchronized String[] getDataFileNames() {
         String [] fileNames = new String[DataFileNames.size()];
         int Count = 0;
         for(String name : DataFileNames)
             fileNames[Count++]=name;
         return fileNames;
     }
-
     /**
      * @param FileNames the DataFileNames to set. 
      * Expect the full path name as given by File().getAbsolutePath()
      */
-    public void setDataFileNames(String[] FileNames) {
-       // DataFiles = new ArrayList();
-       
-        if(FileNames.length < 1)
-            return;
-        for(String fname : FileNames){
-            this.DataFileNames.add(fname);
-            this.DataFiles.add(new File(fname));
-        }
-    }
 
     /**
      * @return the velocityField
      */
-    public JVectorSpace[] getVelocityField() {
+    public synchronized JVectorSpace[] getVelocityField() {
         return velocityField;
     }
 
     /**
      * @return the accelarationField
      */
-    public JVectorSpace[] getAccelarationField() {
+    public synchronized JVectorSpace[] getAccelarationField() {
         return accelarationField;
     }
-
+   
     
 
-    /**
-     * @return the timeData
-     */
-    public DataTrace_ver_3[] getTimeData() {
-        return timeData;
-    }
 
-    /**
-     * @param timeData the timeData to set
-     */
-    public void setTimeData(DataTrace_ver_3[] timeData) {
-        this.timeData = timeData;
-    }
+  
 
-    /**
-     * @return the velocity
-     */
-    public DataTrace_ver_3[] getVelocity() {
-        return velocity;
-    }
+    
     public DataTrace_ver_3[] getAccelaration(){
         return accelaration;
     }
@@ -159,28 +149,28 @@ public class DataManager extends Object{
     /**
      * @return the XRes: the resolution in 'x' dimension (width) of the image
      */
-    public int getXRes() {
+    public synchronized int getXRes() {
         return XRes;
     }
 
     /**
      * @param XRes  Use this to set the resolution in 'x' dimension (width) of the image
      */
-    public void setXRes(int XRes) {
+    public synchronized void setXRes(int XRes) {
         this.XRes = XRes;
     }
 
     /**
      * @return the YRes: the resolution in 'y' dimension (height) of the image
      */
-    public int getYRes() {
+    public synchronized int getYRes() {
         return YRes;
     }
 
     /**
      * @param YRes Use this to set the resolution in 'x' dimension (width) of the image
      */
-    public void setYRes(int YRes) {
+    public synchronized void setYRes(int YRes) {
         this.YRes = YRes;
     }
     
@@ -221,7 +211,7 @@ public class DataManager extends Object{
      * tn+1 is the time sample immediately after tn of an uniformly sampled data. Once read these data are stored in 
      * the internal data structure DataTrace.
      */
-    public void readData(){
+    public synchronized void readData(){
         DataTrace_ver_3[] currData;
         currData = new DataTrace_ver_3[getDataFileNames().length];
         int count = 0;
@@ -252,7 +242,7 @@ public class DataManager extends Object{
         int fileCounter = 0 ;
         int Idx;
         
-            for(DataTrace_ver_3 tseries : timeData){
+            for(DataTrace_ver_3 tseries : getTimeData()){
                
                
                residenceMaps[fileCounter] = new JHeatMapArray(getXRes(), getYRes());
@@ -308,7 +298,7 @@ public class DataManager extends Object{
      * @param resiNorm  True if the vector field needs to normalized for the number of samples. 
      *                  Usually it is true as otherwise they will represent incorrect magnitude.
      */
-    public void computeAve(int choice, JVector Vector, boolean resiNorm){
+    public synchronized void computeAve(int choice, JVector Vector, boolean resiNorm){
         
        if( aveResMap == null) aveResMap =  new JHeatMapArray(XRes,YRes);
        if( aveVelFld == null) aveVelFld = new JVectorSpace(XRes,YRes);
@@ -415,6 +405,7 @@ public class DataManager extends Object{
                     getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
                 break;
         }       
+        setAveReady(true);
     }
 
     private Double[][] covertScaletoNorm(double [][] norm) {
@@ -434,6 +425,9 @@ public class DataManager extends Object{
     }
     public void saveAverage(String prefix, boolean saveResi){
         
+        if(!isAveReady())
+                return;
+        
         var aveVel = new  JVectorCmpImg(getAveVelFld());
         var aveAcc = new  JVectorCmpImg(getAveAccFld());
         
@@ -450,7 +444,7 @@ public class DataManager extends Object{
     /**
      * @return the inPath
      */
-    public String getInPath() {
+    public synchronized String getInPath() {
         return inPath;
     }
 
@@ -464,7 +458,7 @@ public class DataManager extends Object{
     /**
      * @return the outPath
      */
-    public String getOutPath() {
+    public synchronized String getOutPath() {
         return outPath;
     }
 
@@ -503,37 +497,31 @@ public class DataManager extends Object{
         }
        
     }
-    public boolean isDataReadComplete(){
+    public synchronized boolean isDataReadComplete(){
         return ! this.newData;
     }
-    public int getfileNo(String fName){
-        return DataFileNames.indexOf(fName);
-    }
-    public int getFileCount(){
+    
+    public synchronized int getFileCount(){
         return this.DataFileNames.size();
     }
 
     /**
      * @return the residenceMaps
      */
-    public JHeatMapArray[] getResidenceMap() {
+    private JHeatMapArray[] getResidenceMap() {
         if(!newData)
             readData();                                             //Not an efficient way to calculate everything for all
                                                                     //even for a change of single file
         return residenceMaps;
     }
-
     /**
      * @return the residenceField
      */
-    public JVectorSpace[] getResidenceField() {
-        return residenceField;
-    }
 
     /**
      * @return the pixelAspectRatio
      */
-    public double getPixelAspectRatio() {
+    private double getPixelAspectRatio() {
         return pixelAspectRatio;
     }
 
@@ -547,28 +535,28 @@ public class DataManager extends Object{
     /**
      * @return the scaleforAspectRatio
      */
-    public boolean isScaleforAspectRatio() {
+    public synchronized boolean isScaleforAspectRatio() {
         return scaleforAspectRatio;
     }
 
     /**
      * @param scaleforAspectRatio the scaleforAspectRatio to set
      */
-    public void setScaleforAspectRatio(boolean scaleforAspectRatio) {
+    public synchronized void setScaleforAspectRatio(boolean scaleforAspectRatio) {
         this.scaleforAspectRatio = scaleforAspectRatio;
     }
 
     /**
      * @return the useRelativeVelocity
      */
-    public boolean isUseRelativeVelocity() {
+    public synchronized boolean isUseRelativeVelocity() {
         return useRelativeVelocity;
     }
 
     /**
      * @param useRelativeVelocity the useRelativeVelocity to set
      */
-    public void setUseRelativeVelocity(boolean useRelativeVelocity) {
+    public synchronized void setUseRelativeVelocity(boolean useRelativeVelocity) {
         this.useRelativeVelocity = useRelativeVelocity;
     }
     
@@ -611,6 +599,22 @@ public class DataManager extends Object{
         //this.ocYjFtTxt3.setText(""+yOC);
         return new JVector(xOC,yOC);
     }
+
+    @Override
+    public void run() {
+            this.readData();
+            
+    }
+
+    private void setAveReady(boolean b) {
+        AveReady = b;
+        
+    }
+
+    private boolean isAveReady() {
+       return AveReady;
+    }
+    
     
     
     
