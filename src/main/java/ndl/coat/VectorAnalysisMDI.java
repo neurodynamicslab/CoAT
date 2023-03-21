@@ -2125,7 +2125,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             jProgressBarTP.setString("Trial #"+(tc)+" of "+nTrial);
                             return null;
                         }
-
                     };
                     upTP.execute();
                     for(int gCount = 0 ; gCount < nGrps ; gCount++){
