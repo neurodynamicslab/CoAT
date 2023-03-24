@@ -24,6 +24,22 @@ import ndl.ndllib.*;
 public class DataManager extends Object implements Runnable {
 
     /**
+     * @return the VectorFldsReady
+     */
+    public synchronized boolean isVectorFldsReady() {
+        return VectorFldsReady;
+    }
+
+    /**
+     * @param VectorFldsReady the VectorFldsReady to set
+     */
+    public synchronized void setVectorFldsReady(boolean VectorFldsReady) {
+        this.VectorFldsReady = VectorFldsReady;
+    }
+
+    private boolean VectorFldsReady;
+
+    /**
      * @return the timeData
      */
     public synchronized DataTrace_ver_3[] getTimeData() {
@@ -42,7 +58,7 @@ public class DataManager extends Object implements Runnable {
     private boolean useRelativeVelocity;
     private boolean rescaleIndividual;
     
-    public int status;
+    private int status;
     private boolean AveReady;
 
     /**
@@ -222,6 +238,7 @@ public class DataManager extends Object implements Runnable {
         }
         setTimeData(currData);
         computeAllFields();
+        this.setVectorFldsReady(true);
     }
     private void computeAllFields(){
         //int dataCounter = 0;
@@ -241,52 +258,53 @@ public class DataManager extends Object implements Runnable {
         DataTrace_ver_3 velo, acc;
         int fileCounter = 0 ;
         int Idx;
-        
-            for(DataTrace_ver_3 tseries : getTimeData()){
-               
-               
-               residenceMaps[fileCounter] = new JHeatMapArray(getXRes(), getYRes());
-               getResidenceMap()[fileCounter].setTimeSeries(tseries);
-               getResidenceMap()[fileCounter].convertTimeSeriestoArray();
-               //var hmapArray = residenceMaps[fileCounter].getPixelArray();
-               
-               velocity[fileCounter] = tseries.differentiate(false);
-               if(this.isScaleforAspectRatio())
-                   velocity[fileCounter].scaleYaxis(this.getPixelAspectRatio());
-               
-               accelaration[fileCounter] = velocity[fileCounter].differentiate(false); //once scaled for pixel ratio accelaration doesn't 
-                                                                                       //need to be scaled       
-               
-               ArrayList<JVector> accVectors = new ArrayList<>();
-               ArrayList<JVector> velVectors = new ArrayList<>();
-               ArrayList<OrdXYData> posiVects = new ArrayList<>();
-               //ArrayList<JVector> resiScalars = new ArrayList<>();
-               
-               velo = velocity[fileCounter];
-               acc = accelaration[fileCounter];
-               Idx = 0;
-               
-               for(OrdXYErrData accVect : acc){
-                   accVectors.add(new JVector(accVect.getXY()));
-                   velVectors.add(new JVector(velo.get(Idx).getXY()));
-                   //resiScalars.add(new JVector(hmapArray[][]));
-                   posiVects.add(tseries.get(Idx));
-                   Idx++;
-               }
-               
-               accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),false,posiVects,accVectors);
-               
+        if(this.getTimeData() == null)
+          return;
+        for(DataTrace_ver_3 tseries : getTimeData()){
+
+
+           residenceMaps[fileCounter] = new JHeatMapArray(getXRes(), getYRes());
+           getResidenceMap()[fileCounter].setTimeSeries(tseries);
+           getResidenceMap()[fileCounter].convertTimeSeriestoArray();
+           //var hmapArray = residenceMaps[fileCounter].getPixelArray();
+
+           velocity[fileCounter] = tseries.differentiate(false);
+           if(this.isScaleforAspectRatio())
+               velocity[fileCounter].scaleYaxis(this.getPixelAspectRatio());
+
+           accelaration[fileCounter] = velocity[fileCounter].differentiate(false); //once scaled for pixel ratio accelaration doesn't 
+                                                                                   //need to be scaled       
+
+           ArrayList<JVector> accVectors = new ArrayList<>();
+           ArrayList<JVector> velVectors = new ArrayList<>();
+           ArrayList<OrdXYData> posiVects = new ArrayList<>();
+           //ArrayList<JVector> resiScalars = new ArrayList<>();
+
+           velo = velocity[fileCounter];
+           acc = accelaration[fileCounter];
+           Idx = 0;
+
+           for(OrdXYErrData accVect : acc){
+               accVectors.add(new JVector(accVect.getXY()));
                velVectors.add(new JVector(velo.get(Idx).getXY()));
+               //resiScalars.add(new JVector(hmapArray[][]));
                posiVects.add(tseries.get(Idx));
-               
-               velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),false,posiVects,velVectors);
-               
                Idx++;
-               posiVects.add(tseries.get(Idx));
+           }
+
+           accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),false,posiVects,accVectors);
+
+           velVectors.add(new JVector(velo.get(Idx).getXY()));
+           posiVects.add(tseries.get(Idx));
+
+           velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),false,posiVects,velVectors);
+
+           Idx++;
+           posiVects.add(tseries.get(Idx));
 //             System.out.println("The datalength is :"+Idx+","+posiVects.size()
 //                                +","+velocityField[fileCounter].getSpace().size()+","+velocityField[fileCounter].getVectors().size());
-               fileCounter++;
-            }
+           fileCounter++;
+        }
     }
     /***
      * 
@@ -299,7 +317,16 @@ public class DataManager extends Object implements Runnable {
      *                  Usually it is true as otherwise they will represent incorrect magnitude.
      */
     public synchronized void computeAve(int choice, JVector Vector, boolean resiNorm){
-        
+        boolean timeOut = false;
+        long timetowait = 1000; //in milliseconds
+        long starttime = System.currentTimeMillis();
+                
+        while(!this.isVectorFldsReady()&& !timeOut){
+             var elapsedTime = System.currentTimeMillis() - starttime;
+             timeOut = elapsedTime >= timetowait;
+        }
+        if(timeOut && !this.isVectorFldsReady()) 
+            return;
        if( aveResMap == null) aveResMap =  new JHeatMapArray(XRes,YRes);
        if( aveVelFld == null) aveVelFld = new JVectorSpace(XRes,YRes);
        if( aveAccFld == null) aveAccFld = new JVectorSpace(XRes,YRes);

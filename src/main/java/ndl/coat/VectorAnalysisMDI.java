@@ -2157,10 +2157,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         File tmpFile = new File(fnames[0]);
                         String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
                         /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
+//                        currManager.setOutPath(outPath);
+//                        Thread dataProcessingThd = new Thread(currManager); 
+//                        dataProcessingThd.start();
                         currManager.setOutPath(outPath);
-                        Thread dataProcessingThd = new Thread(currManager); 
-                        dataProcessingThd.start();
-                        
+                        currManager.readData();
                         
                         DataManager[] tempMan = new DataManager[1];
                         tempMan[0] = currManager;
@@ -2227,7 +2228,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         }
     }
 
-    private JVector jVecFieldImgGenerator(DataManager currManager, int xRes, int yRes, int xOC, int yOC) {
+    private JVector jVecFieldImgGenerator(DataManager currManager, int xRes, int yRes, int xOC, int yOC) throws InterruptedException{
         JVector OC;
         JVectorSpace[] vFields;
         JVectorSpace[] aFields;
@@ -2236,6 +2237,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         // OC = (this.CheckBoxBoolean.isSelected()) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
         OC = (this.CheckBoxBoolean.isSelected()) ? currManager.findOC( xRes, yRes) : new JVector(xOC,yOC);
         //Generate the velocity and accelaration fields
+        
+        if (!currManager.isVectorFldsReady()){
+          wait(1000);
+          if(!currManager.isVectorFldsReady())
+              return null;
+        }
         vFields = currManager.getVelocityField();
         aFields = currManager.getAccelarationField();
         
