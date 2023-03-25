@@ -110,11 +110,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         compJRadGrp = new javax.swing.ButtonGroup();
         vectJChkBx = new javax.swing.ButtonGroup();
-        desktopPane = new javax.swing.JDesktopPane();
         DeskTopPanel = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
         InfoTab = new javax.swing.JTabbedPane();
         ExpDef_jPanel = new javax.swing.JPanel();
         jLabel_Number_of_GrpTxt = new javax.swing.JLabel();
@@ -126,7 +127,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jScrollPane1 = new javax.swing.JScrollPane();
         Trial_No_Table = new javax.swing.JTable();
         upDateButton = new javax.swing.JButton();
-        surfaceFitButton = new javax.swing.JButton();
         nAnimals_Text = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         jFormattedText_nTrials = new javax.swing.JFormattedTextField();
@@ -224,9 +224,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         CompforVectorFldjChkBx2 = new javax.swing.JCheckBox();
         AlongJRadBtn = new javax.swing.JRadioButton();
         OrtoJRadBtn = new javax.swing.JRadioButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
         ImageDisplay_Panel = new javax.swing.JPanel();
+        ProgIndPanel = new javax.swing.JPanel();
         jProgressBarDataAssignment = new javax.swing.JProgressBar();
-        jLabel23 = new javax.swing.JLabel();
         jProgressBarTP = new javax.swing.JProgressBar();
         jLabel25 = new javax.swing.JLabel();
         jProgressBarGP = new javax.swing.JProgressBar();
@@ -234,6 +235,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jProgressBarDP = new javax.swing.JProgressBar();
         jLabel27 = new javax.swing.JLabel();
         jProgressBarFR = new javax.swing.JProgressBar();
+        jLabel29 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         MessageBox_Panel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
@@ -265,14 +267,26 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CoAT");
+        setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(600, 500));
+        setName("Frame"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1100, 800));
 
-        desktopPane.setAutoscrolls(true);
+        DeskTopPanel.setMinimumSize(new java.awt.Dimension(600, 670));
+        DeskTopPanel.setPreferredSize(new java.awt.Dimension(1000, 600));
+        DeskTopPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        DeskTopPanel.setLayout(new java.awt.GridLayout());
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane4.setViewportBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 0), 1, true));
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(400, 500));
 
         InfoTab.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        InfoTab.setPreferredSize(new java.awt.Dimension(740, 500));
 
         ExpDef_jPanel.setAutoscrolls(true);
+        ExpDef_jPanel.setPreferredSize(new java.awt.Dimension(733, 500));
 
         jLabel_Number_of_GrpTxt.setText("Number of Groups");
 
@@ -337,9 +351,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
 
-        surfaceFitButton.setText("Settings for Surface Fit");
-        surfaceFitButton.setEnabled(false);
-
         nAnimals_Text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         nAnimals_Text.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         nAnimals_Text.setText("5");
@@ -375,91 +386,89 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ExpDef_jPanelLayout.setHorizontalGroup(
             ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                                .addComponent(upDateButton)
-                                .addGap(28, 28, 28)
-                                .addComponent(reset_AnGrTr_Button))
-                            .addComponent(surfaceFitButton))
-                        .addContainerGap(352, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel_Number_of_GrpTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel_Number_of_GrpTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(32, 32, 32))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
-                                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(SampleSizeSel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel_NoOfAnimals, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedText_nTrials)
-                            .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE))
-                        .addGap(37, 37, 37))
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(518, 518, 518)
+                        .addComponent(jFormattedText_nTrials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGap(6, 6, 6)
+                        .addComponent(SampleSizeSel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel_NoOfAnimals, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(AllGrpsinAllTrialCheckBox))
-                            .addComponent(jLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel3))
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(AllGrpsinAllTrialCheckBox)
+                .addGap(18, 18, 18)
+                .addComponent(upDateButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(reset_AnGrTr_Button)
+                .addGap(138, 138, 138))
         );
-
-        ExpDef_jPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField_NoOfGrps, jFormattedText_nTrials, nAnimals_Text});
-
         ExpDef_jPanelLayout.setVerticalGroup(
             ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Number_of_GrpTxt))
+                .addGap(6, 6, 6)
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel_Number_of_GrpTxt))
+                    .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedText_nTrials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(SampleSizeSel)
-                    .addComponent(jLabel1)
-                    .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jFormattedText_nTrials, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
+                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(SampleSizeSel))
+                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel1))
+                    .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addComponent(jLabel_NoOfAnimals)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                .addGap(13, 13, 13)
-                .addComponent(AllGrpsinAllTrialCheckBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(upDateButton)
-                    .addComponent(reset_AnGrTr_Button))
-                .addGap(18, 18, 18)
-                .addComponent(surfaceFitButton)
-                .addGap(329, 329, 329))
+                    .addComponent(AllGrpsinAllTrialCheckBox)
+                    .addComponent(reset_AnGrTr_Button)
+                    .addComponent(upDateButton))
+                .addGap(5, 5, 5)
+                .addComponent(jLabel3)
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
         );
 
-        ExpDef_jPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField_NoOfGrps, jFormattedText_nTrials, nAnimals_Text});
-
         InfoTab.addTab("Experiment Definition", ExpDef_jPanel);
+
+        DataFiles_jPanel.setPreferredSize(new java.awt.Dimension(740, 650));
 
         AddFiles_Button.setText(" Add Files");
         AddFiles_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -707,7 +716,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(9, Short.MAX_VALUE))))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -809,6 +818,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         DataFiles_jPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {assignFileJTxt, expFileNoJText, jLabel6, jLabel7, jLabel8, remainingDatafilesJText});
 
         InfoTab.addTab("Data Files", DataFiles_jPanel);
+
+        AnalysisDesign_jPanel.setPreferredSize(new java.awt.Dimension(740, 900));
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Experiment");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Probe Trial 1");
@@ -955,10 +966,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addComponent(GenConMaps_Button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(GenCurlMaps_Button)))
-                .addContainerGap(517, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         InfoTab.addTab("Design Tree", AnalysisDesign_jPanel);
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(732, 900));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pre Processing", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -1286,33 +1299,43 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(609, 609, 609))
+                .addGap(0, 199, Short.MAX_VALUE))
         );
 
         InfoTab.addTab("Analysis Setting", jPanel1);
 
-        DeskTopPanel.add(InfoTab);
+        jScrollPane4.setViewportView(InfoTab);
+
+        DeskTopPanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 700));
+
+        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane5.setAutoscrolls(true);
+        jScrollPane5.setPreferredSize(new java.awt.Dimension(600, 700));
 
         ImageDisplay_Panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ImageDisplay_Panel.setMaximumSize(new java.awt.Dimension(650000, 6500000));
+        ImageDisplay_Panel.setMinimumSize(new java.awt.Dimension(0, 0));
         ImageDisplay_Panel.setName("ImageDisplay Panel"); // NOI18N
+        ImageDisplay_Panel.setPreferredSize(new java.awt.Dimension(700, 800));
+
+        ProgIndPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Progress Indicator", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        ProgIndPanel.setPreferredSize(new java.awt.Dimension(500, 100));
 
         jProgressBarDataAssignment.setToolTipText("Indicates the progress of data assignment");
         jProgressBarDataAssignment.setStringPainted(true);
-
-        jLabel23.setText("Data Assignment Status:");
 
         jProgressBarTP.setStringPainted(true);
 
@@ -1329,63 +1352,62 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jProgressBarFR.setToolTipText("Indicates the progress of data assignment");
         jProgressBarFR.setStringPainted(true);
 
+        jLabel29.setText("Data Assignment Status");
+
         jLabel28.setText("Files Read");
 
-        javax.swing.GroupLayout ImageDisplay_PanelLayout = new javax.swing.GroupLayout(ImageDisplay_Panel);
-        ImageDisplay_Panel.setLayout(ImageDisplay_PanelLayout);
-        ImageDisplay_PanelLayout.setHorizontalGroup(
-            ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
-                    .addComponent(jProgressBarFR, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
-                    .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
-                        .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23)
-                            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
-                                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel25))
-                                .addGap(18, 18, 18)
-                                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jProgressBarGP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel26))
-                                .addGap(18, 18, 18)
-                                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel27)
-                                    .addComponent(jProgressBarDP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel28))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+        javax.swing.GroupLayout ProgIndPanelLayout = new javax.swing.GroupLayout(ProgIndPanel);
+        ProgIndPanel.setLayout(ProgIndPanelLayout);
+        ProgIndPanelLayout.setHorizontalGroup(
+            ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ProgIndPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel28)
+                    .addGroup(ProgIndPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel26)
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel27))
+                    .addGroup(ProgIndPanelLayout.createSequentialGroup()
+                        .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jProgressBarGP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jProgressBarDP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jProgressBarFR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 109, Short.MAX_VALUE))
         );
-        ImageDisplay_PanelLayout.setVerticalGroup(
-            ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        ProgIndPanelLayout.setVerticalGroup(
+            ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ProgIndPanelLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel29)
+                .addGap(12, 12, 12)
                 .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(jLabel28)
                 .addGap(5, 5, 5)
                 .addComponent(jProgressBarFR, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(12, 12, 12)
+                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
                     .addComponent(jLabel26)
                     .addComponent(jLabel27))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(6, 6, 6)
+                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jProgressBarGP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jProgressBarDP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        DeskTopPanel.add(ImageDisplay_Panel);
-
-        MessageBox_Panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        MessageBox_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Video/Image/Graph Display", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        MessageBox_Panel.setAutoscrolls(true);
+        MessageBox_Panel.setPreferredSize(new java.awt.Dimension(500, 500));
 
         javax.swing.GroupLayout MessageBox_PanelLayout = new javax.swing.GroupLayout(MessageBox_Panel);
         MessageBox_Panel.setLayout(MessageBox_PanelLayout);
@@ -1395,23 +1417,33 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         );
         MessageBox_PanelLayout.setVerticalGroup(
             MessageBox_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1117, Short.MAX_VALUE)
+            .addGap(0, 390, Short.MAX_VALUE)
         );
 
-        DeskTopPanel.add(MessageBox_Panel);
-
-        desktopPane.setLayer(DeskTopPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
-        desktopPane.setLayout(desktopPaneLayout);
-        desktopPaneLayout.setHorizontalGroup(
-            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(DeskTopPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout ImageDisplay_PanelLayout = new javax.swing.GroupLayout(ImageDisplay_Panel);
+        ImageDisplay_Panel.setLayout(ImageDisplay_PanelLayout);
+        ImageDisplay_PanelLayout.setHorizontalGroup(
+            ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
+                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(MessageBox_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(ProgIndPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                .addGap(0, 206, Short.MAX_VALUE))
         );
-        desktopPaneLayout.setVerticalGroup(
-            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(DeskTopPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        ImageDisplay_PanelLayout.setVerticalGroup(
+            ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
+                .addComponent(ProgIndPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MessageBox_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(165, Short.MAX_VALUE))
         );
+
+        jScrollPane5.setViewportView(ImageDisplay_Panel);
+
+        menuBar.setAutoscrolls(true);
+        menuBar.setMinimumSize(new java.awt.Dimension(300, 23));
+        menuBar.setPreferredSize(new java.awt.Dimension(400, 23));
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -1545,14 +1577,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
-                .addComponent(desktopPane)
-                .addContainerGap())
+                .addComponent(DeskTopPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(197, 197, 197))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane)
+            .addComponent(DeskTopPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        DeskTopPanel.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1748,11 +1784,642 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
     }//GEN-LAST:event_jMenuItemComputeActionPerformed
 
-    private void jFormattedTextField_NoOfGrpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_NoOfGrpsActionPerformed
-        
+    private void res2SeljChkBxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_res2SeljChkBxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_res2SeljChkBxActionPerformed
+
+    private void x_polyOrderJCmbBxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_x_polyOrderJCmbBxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_x_polyOrderJCmbBxActionPerformed
+
+    private void aspectRatiojFmtFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aspectRatiojFmtFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aspectRatiojFmtFldActionPerformed
+
+    private void reSzImgjChkBxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_reSzImgjChkBxItemStateChanged
+
+        this.scalingfactorJFormFld.setEnabled(reSzImgjChkBx.isSelected());
+    }//GEN-LAST:event_reSzImgjChkBxItemStateChanged
+
+    private void scalingfactorJFormFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scalingfactorJFormFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_scalingfactorJFormFldActionPerformed
+
+    private void gaussjChkBxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_gaussjChkBxItemStateChanged
+
+        this.gauRadjFormFld.setEnabled(gaussjChkBx.isSelected());
+    }//GEN-LAST:event_gaussjChkBxItemStateChanged
+
+    private void CheckBoxBooleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxBooleanActionPerformed
+
+        estimateOC = ( CheckBoxBoolean.isSelected());
+
+    }//GEN-LAST:event_CheckBoxBooleanActionPerformed
+
+    private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
+        // TODO add your handling code here:
+
+        //Form grp relevant data managers
+        //Get average images
+        //Process both individual as well as grp through
+        // steps of i) interpolation - surface fit , bilinear and gaussian blur
+        //         ii) differentiation -
+        //        iii) divergence maps -
+        //expData = new ArrayList<ArrayList>();
+
+        //Reading parameters and populate design tree
+
+        int xRes = Integer.parseInt(this.xResTxtField.getText());
+        int yRes = Integer.parseInt(this.yResTxtField.getText());
+        int xPlt = Integer.parseInt(this.PlatXjFtTxt.getText());
+        int yPlt = Integer.parseInt(this.PlatYjFtTxt1.getText());
+        int  xOC = Integer.parseInt(this.ocXjFtTxt2.getText());
+        int  yOC = Integer.parseInt(this.ocYjFtTxt3.getText());
+
+        String dataSeparator;// ((String)this.jCombo_dataSeparator.getSelectedItem());
+        var selIdx = this.jCombo_dataSeparator.getSelectedIndex();
+
+        switch(selIdx){
+            case 0:     //Tab
+            dataSeparator = "\t";
+            break;
+            case 1: //Space
+            dataSeparator = " ";
+            break;
+            case 2: //Comma
+            dataSeparator = ",";
+            break;
+            case 3: //semicolon
+            dataSeparator = ";";
+            break;
+            default:
+            dataSeparator = (String)jCombo_dataSeparator.getSelectedItem();
+        }
+        //Distribute the files to trials and groups
+        //ensures clearing of unassigned trials and grps.
+        grpNames.clear();
+        trialNames.clear();
+
+        String g,t;
+        var  tModel = FileAssignmentTable.getModel();
+        for(int Count  = FileAssignmentTable.getModel().getRowCount()-1 ; Count >= 0 ; Count --){
+
+            g = (String)tModel.getValueAt(Count, 2);            //grp name
+            t = (String)tModel.getValueAt(Count, 3);            //trial name
+
+            if (!grpNames.contains(g))                          //Check if these names are there already if not add them
+            grpNames.add(g);
+            if(!trialNames.contains(t))
+            trialNames.add(t);
+
+        }
+
+        //Prepare the Data structures to take in the data set
+        //Trials data is an arraylist of grps. Grps are of the type DataManager.
+        TrialData = new ArrayList<>();
+        DataManager grpData;
+
+        //Prepare the exp tree display
+
+        DefaultMutableTreeNode trialNode,grpNode;
+        trialRoot = new DefaultMutableTreeNode("Experiment");
+
+        treeModel = (DefaultTreeModel) expDgnTree.getModel();
+        treeModel.setRoot(trialRoot);
+
+        nTrial = trialNames.size();
+        nGrps = grpNames.size();
+
+        //        var trialProg =  this.jProgressBarDataAssignment.getModel();
+        //        trialProg.setMaximum(nTrial);
+
+        this.jProgressBarDataAssignment.setMinimum(0);
+        this.jProgressBarDataAssignment.setMaximum((nTrial)*(nGrps));
+        this.jProgressBarTP.setValue(0);
+        this.jProgressBarDataAssignment.setValue(0);
+        //jProgressBarDataAssignment.setEnabled(true);
+
+        for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
+
+            trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
+            treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
+            ArrayList <DataManager> trialData = new ArrayList<>();
+            for(int grpCount = 0 ; grpCount < nGrps ; grpCount++){
+                grpData = new DataManager();
+                trialData.add(grpCount,grpData);
+                grpNode = new DefaultMutableTreeNode(grpNames.get(grpCount));
+                treeModel.insertNodeInto(grpNode, trialNode,grpCount);
+                jProgressBarDataAssignment.setValue((grpCount+1)*(trialCount+1));
+            }
+            TrialData.add(trialCount, trialData);
+
+        }
+
+        treeModel.reload();
+
+        int nFiles = FileAssignmentTable.getRowCount();
+        if(nFiles <= 0 )
+        return;
+        String fName = "", grpName, trialName, fnameKey;
+        //        int aUID;
+        int gUID;
+        int tUID;
+        int [][] nFileAssigned;
+        String [] errorlist = new String[nFiles];
+        int unassigned = 0;
+
+        nFileAssigned = new int[trialNames.size()][grpNames.size()];
+        DefaultMutableTreeNode fileLeaf,trNode;
+
+        //jProgressBarDataAssignment.setEnabled(true);
+
+        jProgressBarFR.setMinimum(0);
+        jProgressBarFR.setMaximum(nFiles-1);
+        jProgressBarFR.setValue(0);
+
+        for(int Count = 0 ; Count < nFiles ; Count++){
+
+            fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
+            fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
+            if(fName == null){
+                //javax.swing.JOptionPane.showMessageDialog(this, "fileName is null the key "+fnameKey+" did not fetch a file");
+                errorlist[unassigned++] = fnameKey;
+                return;
+            }
+            grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
+            trialName = (String)FileAssignmentTable.getValueAt(Count,3);
+            gUID = grpNames.indexOf(grpName);
+            tUID = trialNames.indexOf(trialName);
+            //aName =  Need to set the animal ID here
+
+            nFileAssigned[tUID][gUID]++;
+            TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName
+            fileLeaf = new DefaultMutableTreeNode(fName);
+            trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
+            grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
+            treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
+
+            int currVal = Count;
+            SwingWorker upFR = new SwingWorker(){
+                @Override
+                protected Object doInBackground() throws Exception {
+                    jProgressBarFR.setValue(currVal);
+                    //jProgressBarDataAssignment.setValue(currVal);
+                    //System.out.print("Current File # \n"+currVal);
+                    return 0;
+                }
+            };
+            //new Thread(upFR).start();
+            upFR.execute();
+        }
+
+        //Use the errorlist to show the list of files that could not be read.
+        //Data Assignment complete
+
+        //Calculation of velocity and accelaration begins
+        //DataManager currManager;
+
+        fit.setPreScale(this.reSzImgjChkBx.isSelected());
+        fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
+
+        fit.setGaussFilt(this.gaussjChkBx.isSelected());
+        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
+
+        fit.setUseSelection(this.useSeljChBx.isSelected());
+        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
+
+        jProgressBarTP.setMinimum(0);
+        jProgressBarTP.setMaximum(nTrial);
+        jProgressBarTP.setValue(0);
+        jProgressBarTP.setStringPainted(true);
+
+        jProgressBarGP.setMinimum(0);
+        jProgressBarGP.setMaximum(nGrps);
+        jProgressBarGP.setValue(0);
+        jProgressBarGP.setStringPainted(true);
+
+        jProgressBarDP.setMinimum(0);
+        jProgressBarDP.setMaximum(100);
+        //                jProgressBarDP.setMaximum(0);
+        //                jProgressBarDP.setMaximum(0);
+        //                jProgressBarDP.setValue(0);
+
+        OccCtrs = new JVector[nTrial][nGrps];
+        ArrayList<ArrayList<DataManager>>[] tempData;
+        tempData = new ArrayList[1];
+        tempData[0] = TrialData;
+        String[] fnames = new String[1];
+        fnames[0] = fName;
+        SwingWorker worker = new SwingWorker(){
+            @Override
+            protected Object doInBackground() throws Exception{
+                for(int tCount = 0 ; tCount < nTrial ; tCount++){
+                    int tc = tCount+1;
+                    SwingWorker upTP = new SwingWorker(){
+                        @Override
+                        protected Object doInBackground() throws Exception {
+                            jProgressBarTP.setValue(tc);
+                            jProgressBarTP.setString("Trial #"+(tc)+" of "+nTrial);
+                            return null;
+                        }
+                    };
+                    upTP.execute();
+                    for(int gCount = 0 ; gCount < nGrps ; gCount++){
+
+                        int g = gCount+1, t = tCount+1;
+                        SwingWorker upGP = new SwingWorker(){
+                            @Override
+                            protected Object doInBackground() throws Exception {
+                                jProgressBarGP.setValue(g);
+                                jProgressBarGP.setString("Grp #"+g+" of "+nGrps);
+                                return 0;
+                            }
+
+                        };
+                        upGP.execute();
+
+                        if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
+                        continue;
+                        DataManager currManager;
+                        /*  Prepare the datamanager to organise the data. Data Manger instance stores the data for the group. */
+                        //var temp = tempData[0].get(tCount);
+                        currManager = tempData[0].get(tCount).get(gCount);
+                        currManager.setXRes(xRes);
+                        currManager.setYRes(yRes);
+                        currManager.setScaleforAspectRatio(ScaleY_JChkBx.isSelected());
+                        currManager.setPixelAspectRatio(Double.parseDouble(aspectRatiojFmtFld.getText()));
+                        currManager.setDataSep(dataSeparator);
+                        currManager.setLineSep('\n');   /* Modify this if the data is not line by line for e.g. separated by : */
+                        currManager.setUseRelativeVelocity(useRelVelJChkBx.isSelected());
+                        File tmpFile = new File(fnames[0]);
+                        String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
+                        /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
+                        //                        currManager.setOutPath(outPath);
+                        //                        Thread dataProcessingThd = new Thread(currManager);
+                        //                        dataProcessingThd.start();
+                        currManager.setOutPath(outPath);
+                        currManager.readData();
+
+                        DataManager[] tempMan = new DataManager[1];
+                        tempMan[0] = currManager;
+                        jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);
+                        calAveFlds(currManager,gCount,tCount,xRes,yRes);
+                    }
+                }
+                return null;
+            }
+        };
+        worker.execute();
+        //new Thread(worker).start();
+    }//GEN-LAST:event_RunGrp_ButtonActionPerformed
+
+    private void expDgnTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expDgnTreeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expDgnTreeMouseClicked
+
+    private void TestBtn_jBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TestBtn_jBtnActionPerformed
+        // TODO add your handling code here:
+        File f;
+        JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(this);
+        f  = fc.getSelectedFile();
+        ImagePlus imp = new ImagePlus(f.getPath());
+        ImageProcessor testIP = imp.getProcessor();
+        //OvalRoi roi = new OvalRoi(10,10,50,50);
+        //Roi roi = new Roi(0,0,testIP.getWidth(),testIP.getHeight());
+
+        //imp.setRoi(roi);
+
+        SurfaceFit fit = new SurfaceFit();
+        fit.setPreScale(this.reSzImgjChkBx.isSelected());
+        fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
+        fit.setUseSelection(this.useSeljChBx.isSelected());
+        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
+        fit.setGaussFilt(this.gaussjChkBx.isSelected());
+        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
+
+        ImageProcessor ip = fit.FitSurface(testIP,null);
+
+        ImagePlus result = new ImagePlus();
+        result.setProcessor(ip);
+        FileSaver fs =new FileSaver(result);
+
+        fs.saveAsTiff(f.getParent()+File.separator+"Fit");
+    }//GEN-LAST:event_TestBtn_jBtnActionPerformed
+
+    private void jButtonRemoveAssignmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveAssignmentsActionPerformed
+        // TODO add your handling code here:
+        int[] selIdx = this.FileAssignmentTable.getSelectedRows();
+        int nSelected = selIdx.length;
+        if(nSelected > 0)
+        for(int count = nSelected -1 ; count >= 0 ; count --)
+        this.FileAssignmentModel.removeRow(selIdx[count]);
+        else
+        javax.swing.JOptionPane.showMessageDialog(this, "No file assignments are selected to remove: "+nSelected);
+    }//GEN-LAST:event_jButtonRemoveAssignmentsActionPerformed
+
+    private void jButtonBrowseRootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBrowseRootActionPerformed
+
+        JFileChooser fc =  new JFileChooser();
+
+        int status = fc.showOpenDialog(this);
+
+        if(status == JFileChooser.APPROVE_OPTION){
+            this.jFormatTxt_rootFolder.setText(fc.getSelectedFile().getName());
+
+        }
+
+    }//GEN-LAST:event_jButtonBrowseRootActionPerformed
+
+    private void jButtonFileAssignRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAssignRestActionPerformed
+        // TODO add your handling code here:
+        this.FileAssignmentModel.setRowCount(0);
+    }//GEN-LAST:event_jButtonFileAssignRestActionPerformed
+
+    private void yResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yResTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_yResTxtFieldActionPerformed
+
+    private void xResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xResTxtFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_xResTxtFieldActionPerformed
+
+    private void SaveFileAssignmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveFileAssignmentsButtonActionPerformed
+        // TODO add your handling code here:
+        //Add code to read the table
+        //Prompt for file name
+        //write to the file
+        JFileChooser fc = new JFileChooser();
+        fc.showSaveDialog(this);
+        FileWriter file2Write;
+        var saveFile = fc.getSelectedFile();
+        if(saveFile == null)
+        return;
+        else
+        try {
+            file2Write = new FileWriter(saveFile);
+        } catch (IOException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Error opeing or creating "+saveFile.getAbsolutePath()+" file for saving");
+            return;
+        }
+
+        int nEntries = FileAssignmentTable.getModel().getRowCount();
+        for(int Count  = 0 ; Count < nEntries ; Count++){
+            var fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
+            var fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
+            if(fName == null){
+                //javax.swing.JOptionPane.showMessageDialog(this, "fileName is null the key "+fnameKey+" did not fetch a file");
+                //errorlist[unassigned++] = fnameKey;
+                //return;
+            }else{
+                String string2write = fName + ',' + (String)FileAssignmentTable.getValueAt(Count,1)
+                + ',' + (String)FileAssignmentTable.getValueAt(Count,2)
+                + ',' + (String)FileAssignmentTable.getValueAt(Count,3)+'\n';
+                try {
+                    file2Write.write(string2write);
+                } catch (IOException ex) {
+                    //Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+                    javax.swing.JOptionPane.showMessageDialog(this,"Error writing " + string2write +" to "+saveFile.getAbsolutePath());
+
+                }
+            }
+        }
+
+    }//GEN-LAST:event_SaveFileAssignmentsButtonActionPerformed
+
+    private void OpenFileAssignmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFileAssignmentsButtonActionPerformed
+
+        JFileChooser Fc = new JFileChooser();
+        Fc.setMultiSelectionEnabled(false);         //list all the sssignments in one input file
+
+        int status = Fc.showOpenDialog(this);
+
+        if(status != JFileChooser.APPROVE_OPTION)
+        return;
+
+        this.jButtonRemoveAssignmentsActionPerformed(evt);
+        if(rel2absPathMaps == null)
+        this.rel2absPathMaps = new ConcurrentHashMap();
+
+        File asFile = Fc.getSelectedFile();
+        FileReader reader;
+        String Line = "", segs [] ,fName, GrpId, TrailId, startFrame, endFrame;
+        int c;
+        int recordLength = 4;           //length of each line describing the data in the information file
+        if(asFile.exists()){
+
+            try {
+                reader = new FileReader(asFile);
+                while(  (c = reader.read()) != -1){
+                    if(c == '\n' ){
+                        segs = Line.split(""+",");
+                        DefaultTableModel TB = (DefaultTableModel) FileAssignmentTable.getModel();
+
+                        if(segs.length < recordLength){
+                            javax.swing.JOptionPane.showMessageDialog(this,
+                                "Format mismatch for importing file assignments: read ("+segs.length+") expected ("+recordLength+")"
+                                +'\n'+ Line);
+                            return;
+
+                        }
+                        TB.addRow(segs);
+                        //                        var pathString = segs[0];
+                        //                        Path path = new File(pathString).toPath();
+                        //                        path.getParent().toString();
+                        var fileName = segs[0].trim();
+                        var aName = segs[1].trim();
+                        var gName = segs[2].trim();
+                        var tName = segs[3].trim();
+                        String prev = rel2absPathMaps.put(fileName,fileName);
+                        if(prev != null)
+                        javax.swing.JOptionPane.showMessageDialog(null, "Found previous entry for file: removed and updated");
+                        if(grpNames.indexOf(gName)== -1)
+                        grpNames.add(gName);
+                        if(trialNames.indexOf(tName)== -1)
+                        trialNames.add(tName);
+                        Line = "";
+                    }else{
+                        if(c > 31) Line += (char)c;
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                //Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.print("Unreadable file exception during reading the file :\n" + asFile+'\n');
+
+            } catch (IOException ex) {
+                Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_OpenFileAssignmentsButtonActionPerformed
+
+    private void TrialSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrialSelComboBoxActionPerformed
+        // TODO add your handling code here:
+        //String Trialname = (String) TrialSelComboBox.getSelectedItem();
+        this.GrpSelComboBox.removeAllItems();
+        int selIdx = TrialSelComboBox.getSelectedIndex();
+        boolean isPresent = false;
+        extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
+        Object test;
+        if(selIdx >= 0){
+            for(int Count = 1 ; Count <= nGrps ; Count ++){
+                test = tmodel.getValueAt(selIdx, Count);
+                if(test != null)
+                isPresent = (Boolean)test;
+                else{
+                    javax.swing.JOptionPane.showMessageDialog(this,"the pointer in null");
+                }
+
+                //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
+                if (isPresent)
+                this.GrpSelComboBox.addItem((String)this.Trial_No_Table.getColumnName(Count) );
+            }
+        }
+    }//GEN-LAST:event_TrialSelComboBoxActionPerformed
+
+    private void GrpSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrpSelComboBoxActionPerformed
+        // TODO add your handling code here:
+        this.AnimalSelComboBox.removeAllItems();
+        int trialSelIdx = TrialSelComboBox.getSelectedIndex();
+        int grpSelIdx = GrpSelComboBox.getSelectedIndex();
+        ArrayList selList = new ArrayList();
+        //boolean isPresent = false;
+        extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
+        Object test;
+        if(trialSelIdx >= 0){
+            for(int Count = 1 ; Count <= nGrps ; Count ++){
+                test = tmodel.getValueAt(trialSelIdx, Count);
+                if(test != null){
+                    if((Boolean)test)
+                    selList.add(Count);
+                }
+                else{
+                    javax.swing.JOptionPane.showMessageDialog(this,"the pointer is null");
+                }
+            }
+        }
+        //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
+        if(grpSelIdx >= 0){
+            var grpID = (Integer)selList.get(grpSelIdx);
+            this.AnimalSelComboBox.removeAllItems();
+            int nAni;
+            nAni = (Integer)this.AnimalGrpSummaryTable.getValueAt(grpID-1, 2);
+            for(int animalCount = 1 ; animalCount <= nAni ; animalCount++)
+            this.AnimalSelComboBox.addItem(""+animalCount );
+        }
+    }//GEN-LAST:event_GrpSelComboBoxActionPerformed
+
+    private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
+
+        int [] selectedFiles = this.FileDetail_Table.getSelectedRows();
+        int grpSelIdx =  GrpSelComboBox.getSelectedIndex();
+        int trialSelIdx =  TrialSelComboBox.getSelectedIndex();
+        int aniSelIdx =    AnimalSelComboBox.getSelectedIndex();                //TO DO UID field  for datamanager ??
+
+        String asnString[] = new String[4];
+        Path parent, root,dataFile;
+        root = new File(this.jFormatTxt_rootFolder.getText()).toPath();
+
+        for( int Idx : selectedFiles){
+
+            //            parent = root.resolve((String) FileDetail_Table.getValueAt(Idx, 0));
+            //            dataFile = parent.resolve((String)FileDetail_Table.getValueAt(Idx, 1));
+
+            asnString[0] =  /*dataFile.toString();*/(String) FileDetail_Table.getValueAt(Idx, 0) +File.separator+ (String)FileDetail_Table.getValueAt(Idx, 1);
+            asnString[1] = (String) AnimalSelComboBox.getSelectedItem();
+            asnString[2] = (String) GrpSelComboBox.getSelectedItem();
+            asnString[3] = (String) TrialSelComboBox.getSelectedItem();
+            FileAssignmentModel.addRow(asnString);
+            //At this point there is no cross checking if the file is assigned multiple times.
+            //Also there is no simple way to assign the animal #
+        }
+        FileAssignmentTable.setModel(FileAssignmentModel);
+
+        //Create data organisation and mapping in Data manager.
+        // Animal UID maps to file. One animal ID might map to more than one data file (resolve it using
+            //reverse map constructed from file name to trialID.
+            //Also create a data file info class that stores the start frame, end frame resolution, pool roi, quadrant roi, platform roi and
+            //
+            //group UID maps to animal
+            //Trials maps to groups
+            //Make grps
+            //assign files
+            //update table
+    }//GEN-LAST:event_Assign_ButtonActionPerformed
+
+    private void RemoveFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveFile_ButtonActionPerformed
+        // TODO add your handling code here:
+        int[] nSel = this.FileDetail_Table.getSelectedRows();
+        int nFiles2Del = nSel.length;
+        if(nFiles2Del == 0 ){
+            int choice =
+            javax.swing.JOptionPane.showConfirmDialog(this,
+                "No file is selected. Do you want to delete all ?","Confim",JOptionPane.YES_NO_CANCEL_OPTION);
+            if (choice == JOptionPane.YES_OPTION){
+                this.FileDetailModel.setRowCount(0);
+                this.rel2absPathMaps.clear();
+            }
+        }else{
+            for(int count = nFiles2Del-1 ; count >= 0 ; count--){     //remove from bottom of the list so that the order
+                var key2Remove = (String)FileDetailModel.getValueAt(nSel[count],1);
+                this.rel2absPathMaps.remove(key2Remove);
+                this.FileDetailModel.removeRow(nSel[count]);        //and hence the serial number will not change.
+
+            }
+        }
+
+    }//GEN-LAST:event_RemoveFile_ButtonActionPerformed
+
+    private void AddFiles_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFiles_ButtonActionPerformed
+
+        this.ImportMenuItemActionPerformed(evt);
+    }//GEN-LAST:event_AddFiles_ButtonActionPerformed
+
+    private void AllGrpsinAllTrialCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
+        // TODO add your handling code here:
+        if(AllGrpsinAllTrialCheckBox.isSelected()){
+
+            this.Trial_No_Table.removeAll();
+            this.updateGrpTrialSelTable();
+            Trial_No_Table.setEnabled(false);
+        }else{
+            Trial_No_Table.setEnabled(true);
+        }
+    }//GEN-LAST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
+
+    private void reset_AnGrTr_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_AnGrTr_ButtonActionPerformed
+        // TODO add your handling code here:
+        this.ulockExpDefInputUI();
+    }//GEN-LAST:event_reset_AnGrTr_ButtonActionPerformed
+
+    private void upDateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upDateButtonActionPerformed
+        if(this.AnimalGrpSummaryTable.getRowCount() == 0)
+        this.updateAnimalGrpSummaryTable();
+        if(this.Trial_No_Table.getRowCount() == 0)
+        this.updateGrpTrialSelTable();
+        lockExpDefInputUI();
+
+        TrialSelComboBox.removeAllItems();
+        //GrpSelComboBox.removeAllItems();
+        //AnimalSelComboBox.removeAllItems();
+        if(Trial_No_Table.getRowCount() != nTrial){
+            javax.swing.JOptionPane.showMessageDialog(this, "The no of trials "+Trial_No_Table.getRowCount()+"  and grp name entry does not match "+ nTrial);
+            return;
+        }
+        for(int Count  = 0 ; Count < nTrial ; Count++)
+        TrialSelComboBox.addItem((String)this.Trial_No_Table.getValueAt(Count,0));
+    }//GEN-LAST:event_upDateButtonActionPerformed
+
+    private void SampleSizeSelItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SampleSizeSelItemStateChanged
+        // TODO add your handling code here:
         if(updateAnimalGrpSummaryTable())return;
         //this.updateGrpTrialSelTable();
-        
+    }//GEN-LAST:event_SampleSizeSelItemStateChanged
+
+    private void jFormattedTextField_NoOfGrpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField_NoOfGrpsActionPerformed
+
+        if(updateAnimalGrpSummaryTable())return;
+        //this.updateGrpTrialSelTable();
     }//GEN-LAST:event_jFormattedTextField_NoOfGrpsActionPerformed
 
     private boolean updateAnimalGrpSummaryTable() throws NumberFormatException, HeadlessException {
@@ -1829,25 +2496,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.Trial_No_Table.setModel(TrialNoModel);
     }
 
-    private void upDateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upDateButtonActionPerformed
-        if(this.AnimalGrpSummaryTable.getRowCount() == 0)
-            this.updateAnimalGrpSummaryTable();
-        if(this.Trial_No_Table.getRowCount() == 0)
-            this.updateGrpTrialSelTable();
-        lockExpDefInputUI();
-        
-        TrialSelComboBox.removeAllItems();
-        //GrpSelComboBox.removeAllItems();
-        //AnimalSelComboBox.removeAllItems();
-        if(Trial_No_Table.getRowCount() != nTrial){
-            javax.swing.JOptionPane.showMessageDialog(this, "The no of trials "+Trial_No_Table.getRowCount()+"  and grp name entry does not match "+ nTrial);
-            return;
-        }
-        for(int Count  = 0 ; Count < nTrial ; Count++)
-            TrialSelComboBox.addItem((String)this.Trial_No_Table.getValueAt(Count,0));
-                
-    }//GEN-LAST:event_upDateButtonActionPerformed
-
     private void lockExpDefInputUI() {
         // TODO add your handling code here:
         //Lock the UI diable all the input columns and make the tables uneditable
@@ -1869,294 +2517,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.AnimalGrpSummaryTable.setEnabled(true);
        // this.Trial_No_Table.setEnabled(true);
     }
-
-    private void reset_AnGrTr_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_AnGrTr_ButtonActionPerformed
-        // TODO add your handling code here:
-        this.ulockExpDefInputUI();
-    }//GEN-LAST:event_reset_AnGrTr_ButtonActionPerformed
-
-    private void SampleSizeSelItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SampleSizeSelItemStateChanged
-        // TODO add your handling code here:
-         if(updateAnimalGrpSummaryTable())return;
-            //this.updateGrpTrialSelTable();
-    }//GEN-LAST:event_SampleSizeSelItemStateChanged
-
-    private void AllGrpsinAllTrialCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
-        // TODO add your handling code here:
-        if(AllGrpsinAllTrialCheckBox.isSelected()){
-            
-            this.Trial_No_Table.removeAll();
-            this.updateGrpTrialSelTable();
-            Trial_No_Table.setEnabled(false);
-        }else{
-            Trial_No_Table.setEnabled(true);
-        }
-        
-    }//GEN-LAST:event_AllGrpsinAllTrialCheckBoxItemStateChanged
-
-    private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
-        // TODO add your handling code here:
-
-        //Form grp relevant data managers
-        //Get average images
-        //Process both individual as well as grp through
-        // steps of i) interpolation - surface fit , bilinear and gaussian blur
-        //         ii) differentiation -
-        //        iii) divergence maps -
-        //expData = new ArrayList<ArrayList>();
-        
-       //Reading parameters and populate design tree
-        
-        int xRes = Integer.parseInt(this.xResTxtField.getText());
-        int yRes = Integer.parseInt(this.yResTxtField.getText());
-        int xPlt = Integer.parseInt(this.PlatXjFtTxt.getText());
-        int yPlt = Integer.parseInt(this.PlatYjFtTxt1.getText());
-        int  xOC = Integer.parseInt(this.ocXjFtTxt2.getText());
-        int  yOC = Integer.parseInt(this.ocYjFtTxt3.getText());
-        
-        
-        String dataSeparator;// ((String)this.jCombo_dataSeparator.getSelectedItem());    
-        var selIdx = this.jCombo_dataSeparator.getSelectedIndex();
-        
-        switch(selIdx){
-            case 0:     //Tab
-                dataSeparator = "\t";
-                break;
-            case 1: //Space
-                dataSeparator = " ";
-                break;
-            case 2: //Comma
-                dataSeparator = ",";
-                break;
-            case 3: //semicolon
-                dataSeparator = ";";
-                break;
-            default:
-                dataSeparator = (String)jCombo_dataSeparator.getSelectedItem();
-        }
-        //Distribute the files to trials and groups
-        //ensures clearing of unassigned trials and grps.
-        grpNames.clear();
-        trialNames.clear();
-        
-        String g,t;
-        var  tModel = FileAssignmentTable.getModel();
-        for(int Count  = FileAssignmentTable.getModel().getRowCount()-1 ; Count >= 0 ; Count --){
-            
-            g = (String)tModel.getValueAt(Count, 2);            //grp name
-            t = (String)tModel.getValueAt(Count, 3);            //trial name
-            
-            if (!grpNames.contains(g))                          //Check if these names are there already if not add them
-                    grpNames.add(g);        
-            if(!trialNames.contains(t))
-                    trialNames.add(t);
-            
-        }
-                
-    //Prepare the Data structures to take in the data set
-    //Trials data is an arraylist of grps. Grps are of the type DataManager.
-        TrialData = new ArrayList<>();
-        DataManager grpData;
-        
-    //Prepare the exp tree display
-    
-        DefaultMutableTreeNode trialNode,grpNode;
-        trialRoot = new DefaultMutableTreeNode("Experiment");
-        
-        treeModel = (DefaultTreeModel) expDgnTree.getModel();
-        treeModel.setRoot(trialRoot);
-        
-        
-        nTrial = trialNames.size();
-        nGrps = grpNames.size();
-        
-//        var trialProg =  this.jProgressBarDataAssignment.getModel();
-//        trialProg.setMaximum(nTrial);
-       
-                this.jProgressBarDataAssignment.setMinimum(0);
-                this.jProgressBarDataAssignment.setMaximum((nTrial)*(nGrps));
-                this.jProgressBarTP.setValue(0);
-                this.jProgressBarDataAssignment.setValue(0);
-        //jProgressBarDataAssignment.setEnabled(true);
-        
-        for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
-                       
-            trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
-            treeModel.insertNodeInto(trialNode,trialRoot, trialCount);
-            ArrayList <DataManager> trialData = new ArrayList<>();
-            for(int grpCount = 0 ; grpCount < nGrps ; grpCount++){
-                grpData = new DataManager();
-                trialData.add(grpCount,grpData);
-                grpNode = new DefaultMutableTreeNode(grpNames.get(grpCount));
-                treeModel.insertNodeInto(grpNode, trialNode,grpCount);
-                jProgressBarDataAssignment.setValue((grpCount+1)*(trialCount+1));
-            }
-            TrialData.add(trialCount, trialData);
-            
-        }
-        
-        treeModel.reload();
-        
-        int nFiles = FileAssignmentTable.getRowCount();
-        if(nFiles <= 0 )
-            return;
-        String fName = "", grpName, trialName, fnameKey;
-//        int aUID;
-        int gUID;
-        int tUID;
-        int [][] nFileAssigned;  
-        String [] errorlist = new String[nFiles];
-        int unassigned = 0;
-
-        nFileAssigned = new int[trialNames.size()][grpNames.size()];
-        DefaultMutableTreeNode fileLeaf,trNode;
-        
-        
-        //jProgressBarDataAssignment.setEnabled(true);
-        
-        jProgressBarFR.setMinimum(0);
-        jProgressBarFR.setMaximum(nFiles-1);
-        jProgressBarFR.setValue(0);
-
-        for(int Count = 0 ; Count < nFiles ; Count++){
-            
-            fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
-            fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
-            if(fName == null){
-                //javax.swing.JOptionPane.showMessageDialog(this, "fileName is null the key "+fnameKey+" did not fetch a file");
-                errorlist[unassigned++] = fnameKey; 
-                return;
-            }
-            grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
-            trialName = (String)FileAssignmentTable.getValueAt(Count,3);
-            gUID = grpNames.indexOf(grpName);
-            tUID = trialNames.indexOf(trialName);
-            //aName =  Need to set the animal ID here
-            
-            nFileAssigned[tUID][gUID]++;
-            TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName
-            fileLeaf = new DefaultMutableTreeNode(fName);
-            trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
-            grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
-            treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
-            
-            int currVal = Count;
-            SwingWorker upFR = new SwingWorker(){
-                @Override
-                protected Object doInBackground() throws Exception {
-                    jProgressBarFR.setValue(currVal);
-                    //jProgressBarDataAssignment.setValue(currVal);
-                    //System.out.print("Current File # \n"+currVal);
-                    return 0;
-                }  
-            };
-            //new Thread(upFR).start();
-            upFR.execute();
-        }
-        
-        //Use the errorlist to show the list of files that could not be read.
-//Data Assignment complete
-        
-      
-        
-//Calculation of velocity and accelaration begins        
-        //DataManager currManager;
-        
-        
-        fit.setPreScale(this.reSzImgjChkBx.isSelected());
-        fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
-        
-        fit.setGaussFilt(this.gaussjChkBx.isSelected());
-        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
-        
-        fit.setUseSelection(this.useSeljChBx.isSelected());
-        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
-        
-        
-        jProgressBarTP.setMinimum(0);
-        jProgressBarTP.setMaximum(nTrial);
-        jProgressBarTP.setValue(0);
-        jProgressBarTP.setStringPainted(true);
-
-        jProgressBarGP.setMinimum(0);
-        jProgressBarGP.setMaximum(nGrps);
-        jProgressBarGP.setValue(0);
-        jProgressBarGP.setStringPainted(true);
-        
-        jProgressBarDP.setMinimum(0);
-        jProgressBarDP.setMaximum(100);
-//                jProgressBarDP.setMaximum(0);
-//                jProgressBarDP.setMaximum(0);
-//                jProgressBarDP.setValue(0);
-        
-        OccCtrs = new JVector[nTrial][nGrps];
-        ArrayList<ArrayList<DataManager>>[] tempData;
-        tempData = new ArrayList[1];
-        tempData[0] = TrialData;
-        String[] fnames = new String[1];
-        fnames[0] = fName;
-        SwingWorker worker = new SwingWorker(){ 
-            @Override
-            protected Object doInBackground() throws Exception{
-                for(int tCount = 0 ; tCount < nTrial ; tCount++){
-                    int tc = tCount+1;
-                    SwingWorker upTP = new SwingWorker(){
-                        @Override
-                        protected Object doInBackground() throws Exception {
-                            jProgressBarTP.setValue(tc);  
-                            jProgressBarTP.setString("Trial #"+(tc)+" of "+nTrial);
-                            return null;
-                        }
-                    };
-                    upTP.execute();
-                    for(int gCount = 0 ; gCount < nGrps ; gCount++){
-
-                        int g = gCount+1, t = tCount+1;
-                        SwingWorker upGP = new SwingWorker(){
-                            @Override
-                            protected Object doInBackground() throws Exception {
-                                jProgressBarGP.setValue(g);
-                                jProgressBarGP.setString("Grp #"+g+" of "+nGrps);
-                                return 0;
-                            }
-
-                        };
-                        upGP.execute();
-
-                        if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
-                            continue;
-                        DataManager currManager;
-                /*  Prepare the datamanager to organise the data. Data Manger instance stores the data for the group. */
-                     //var temp = tempData[0].get(tCount);
-                        currManager = tempData[0].get(tCount).get(gCount);
-                        currManager.setXRes(xRes);
-                        currManager.setYRes(yRes);
-                        currManager.setScaleforAspectRatio(ScaleY_JChkBx.isSelected());
-                        currManager.setPixelAspectRatio(Double.parseDouble(aspectRatiojFmtFld.getText()));
-                        currManager.setDataSep(dataSeparator);
-                        currManager.setLineSep('\n');   /* Modify this if the data is not line by line for e.g. separated by : */
-                        currManager.setUseRelativeVelocity(useRelVelJChkBx.isSelected());
-                        File tmpFile = new File(fnames[0]);
-                        String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
-                        /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
-//                        currManager.setOutPath(outPath);
-//                        Thread dataProcessingThd = new Thread(currManager); 
-//                        dataProcessingThd.start();
-                        currManager.setOutPath(outPath);
-                        currManager.readData();
-                        
-                        DataManager[] tempMan = new DataManager[1];
-                        tempMan[0] = currManager;
-                        jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);              
-                        calAveFlds(currManager,gCount,tCount,xRes,yRes); 
-                   }
-                }
-                return null;
-            }
-       };
-       worker.execute();
-       //new Thread(worker).start();
-    }//GEN-LAST:event_RunGrp_ButtonActionPerformed
 
     private void calAveFlds(DataManager currManager, int gCount, int tCount,int xRes, int yRes) {
         
@@ -2550,347 +2910,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         return new JVector(xOC,yOC);
     }
 
-    private void expDgnTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expDgnTreeMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_expDgnTreeMouseClicked
-
-    private void CheckBoxBooleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxBooleanActionPerformed
-       
-     estimateOC = ( CheckBoxBoolean.isSelected());
-        
-    }//GEN-LAST:event_CheckBoxBooleanActionPerformed
-
-    private void yResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yResTxtFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_yResTxtFieldActionPerformed
-
-    private void xResTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xResTxtFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_xResTxtFieldActionPerformed
-
-    private void OpenFileAssignmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFileAssignmentsButtonActionPerformed
-
-        JFileChooser Fc = new JFileChooser();
-        Fc.setMultiSelectionEnabled(false);         //list all the sssignments in one input file
-
-        int status = Fc.showOpenDialog(this);
-
-        if(status != JFileChooser.APPROVE_OPTION)
-            return; 
-                    
-        this.jButtonRemoveAssignmentsActionPerformed(evt);
-        if(rel2absPathMaps == null)
-            this.rel2absPathMaps = new ConcurrentHashMap();
-        
-       
-        File asFile = Fc.getSelectedFile();
-        FileReader reader;
-        String Line = "", segs [] ,fName, GrpId, TrailId, startFrame, endFrame;
-        int c;
-        int recordLength = 4;           //length of each line describing the data in the information file
-        if(asFile.exists()){
-
-            try {
-                reader = new FileReader(asFile);
-                while(  (c = reader.read()) != -1){
-                    if(c == '\n' ){
-                        segs = Line.split(""+",");
-                        DefaultTableModel TB = (DefaultTableModel) FileAssignmentTable.getModel();
-                        
-                        if(segs.length < recordLength){
-                            javax.swing.JOptionPane.showMessageDialog(this, 
-                                    "Format mismatch for importing file assignments: read ("+segs.length+") expected ("+recordLength+")"
-                                            +'\n'+ Line);
-                            return;
-                            
-                        }
-                        TB.addRow(segs);
-//                        var pathString = segs[0];
-//                        Path path = new File(pathString).toPath();
-//                        path.getParent().toString();
-                        var fileName = segs[0].trim();
-                        var aName = segs[1].trim();
-                        var gName = segs[2].trim();
-                        var tName = segs[3].trim();
-                        String prev = rel2absPathMaps.put(fileName,fileName);
-                        if(prev != null)
-                                javax.swing.JOptionPane.showMessageDialog(null, "Found previous entry for file: removed and updated");
-                        if(grpNames.indexOf(gName)== -1)
-                                        grpNames.add(gName);
-                        if(trialNames.indexOf(tName)== -1)
-                                        trialNames.add(tName);                       
-                        Line = "";
-                    }else{
-                        if(c > 31) Line += (char)c;
-                    }
-                }
-            } catch (FileNotFoundException ex) {
-                //Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.print("Unreadable file exception during reading the file :\n" + asFile+'\n');
-                
-            } catch (IOException ex) {
-                Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-    }//GEN-LAST:event_OpenFileAssignmentsButtonActionPerformed
-
-    private void TrialSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrialSelComboBoxActionPerformed
-        // TODO add your handling code here:
-        //String Trialname = (String) TrialSelComboBox.getSelectedItem();
-        this.GrpSelComboBox.removeAllItems();
-        int selIdx = TrialSelComboBox.getSelectedIndex();
-        boolean isPresent = false;
-        extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
-        Object test;
-        if(selIdx >= 0){
-            for(int Count = 1 ; Count <= nGrps ; Count ++){
-                test = tmodel.getValueAt(selIdx, Count);
-                if(test != null)
-                isPresent = (Boolean)test;
-                else{
-                    javax.swing.JOptionPane.showMessageDialog(this,"the pointer in null");
-                }
-
-                //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
-                if (isPresent)
-                this.GrpSelComboBox.addItem((String)this.Trial_No_Table.getColumnName(Count) );
-            }
-        }
-
-    }//GEN-LAST:event_TrialSelComboBoxActionPerformed
-
-    private void GrpSelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrpSelComboBoxActionPerformed
-        // TODO add your handling code here:
-        this.AnimalSelComboBox.removeAllItems();
-        int trialSelIdx = TrialSelComboBox.getSelectedIndex();
-        int grpSelIdx = GrpSelComboBox.getSelectedIndex();
-        ArrayList selList = new ArrayList();
-        //boolean isPresent = false;
-        extTableModel tmodel = (extTableModel)Trial_No_Table.getModel();
-        Object test;
-        if(trialSelIdx >= 0){
-            for(int Count = 1 ; Count <= nGrps ; Count ++){
-                test = tmodel.getValueAt(trialSelIdx, Count);
-                if(test != null){
-                    if((Boolean)test)
-                    selList.add(Count);
-                }
-                else{
-                    javax.swing.JOptionPane.showMessageDialog(this,"the pointer is null");
-                }
-            }
-        }
-        //isPresent = (Boolean) this.Trial_No_Table.getValueAt(selIdx, Count);
-        if(grpSelIdx >= 0){
-            var grpID = (Integer)selList.get(grpSelIdx);
-            this.AnimalSelComboBox.removeAllItems();
-            int nAni;
-            nAni = (Integer)this.AnimalGrpSummaryTable.getValueAt(grpID-1, 2);
-            for(int animalCount = 1 ; animalCount <= nAni ; animalCount++)
-            this.AnimalSelComboBox.addItem(""+animalCount );
-        }
-
-    }//GEN-LAST:event_GrpSelComboBoxActionPerformed
-
-    private void Assign_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Assign_ButtonActionPerformed
-
-        int [] selectedFiles = this.FileDetail_Table.getSelectedRows();
-        int grpSelIdx =  GrpSelComboBox.getSelectedIndex();
-        int trialSelIdx =  TrialSelComboBox.getSelectedIndex();
-        int aniSelIdx =    AnimalSelComboBox.getSelectedIndex();                //TO DO UID field  for datamanager ??
-
-        String asnString[] = new String[4];
-        Path parent, root,dataFile;
-        root = new File(this.jFormatTxt_rootFolder.getText()).toPath();
-
-        for( int Idx : selectedFiles){
-
-//            parent = root.resolve((String) FileDetail_Table.getValueAt(Idx, 0));
-//            dataFile = parent.resolve((String)FileDetail_Table.getValueAt(Idx, 1));
-           
-            asnString[0] =  /*dataFile.toString();*/(String) FileDetail_Table.getValueAt(Idx, 0) +File.separator+ (String)FileDetail_Table.getValueAt(Idx, 1);
-            asnString[1] = (String) AnimalSelComboBox.getSelectedItem();
-            asnString[2] = (String) GrpSelComboBox.getSelectedItem();
-            asnString[3] = (String) TrialSelComboBox.getSelectedItem();
-            FileAssignmentModel.addRow(asnString);
-            //At this point there is no cross checking if the file is assigned multiple times.
-            //Also there is no simple way to assign the animal #
-        }
-        FileAssignmentTable.setModel(FileAssignmentModel);
-
-        //Create data organisation and mapping in Data manager.
-        // Animal UID maps to file. One animal ID might map to more than one data file (resolve it using
-            //reverse map constructed from file name to trialID.
-            //Also create a data file info class that stores the start frame, end frame resolution, pool roi, quadrant roi, platform roi and
-            //
-            //group UID maps to animal
-            //Trials maps to groups
-            //Make grps
-            //assign files
-            //update table
-    }//GEN-LAST:event_Assign_ButtonActionPerformed
-
-    private void RemoveFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveFile_ButtonActionPerformed
-        // TODO add your handling code here:
-        int[] nSel = this.FileDetail_Table.getSelectedRows();
-        int nFiles2Del = nSel.length;
-        if(nFiles2Del == 0 ){
-            int choice =
-                javax.swing.JOptionPane.showConfirmDialog(this,
-                        "No file is selected. Do you want to delete all ?","Confim",JOptionPane.YES_NO_CANCEL_OPTION);
-            if (choice == JOptionPane.YES_OPTION){
-                this.FileDetailModel.setRowCount(0);   
-                this.rel2absPathMaps.clear();
-            } 
-        }else{
-            for(int count = nFiles2Del-1 ; count >= 0 ; count--){     //remove from bottom of the list so that the order 
-                var key2Remove = (String)FileDetailModel.getValueAt(nSel[count],1);
-                this.rel2absPathMaps.remove(key2Remove);
-                this.FileDetailModel.removeRow(nSel[count]);        //and hence the serial number will not change.  
-                
-            }
-        }
-        
-    }//GEN-LAST:event_RemoveFile_ButtonActionPerformed
-
-    private void AddFiles_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFiles_ButtonActionPerformed
-
-        this.ImportMenuItemActionPerformed(evt);
-
-    }//GEN-LAST:event_AddFiles_ButtonActionPerformed
-
-    private void jButtonBrowseRootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBrowseRootActionPerformed
-        
-        JFileChooser fc =  new JFileChooser();
-        
-        int status = fc.showOpenDialog(this);
-        
-        if(status == JFileChooser.APPROVE_OPTION){
-            this.jFormatTxt_rootFolder.setText(fc.getSelectedFile().getName());
-        
-        }
-        
-        
-    }//GEN-LAST:event_jButtonBrowseRootActionPerformed
-
-    private void jButtonFileAssignRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileAssignRestActionPerformed
-        // TODO add your handling code here:
-        this.FileAssignmentModel.setRowCount(0);
-    }//GEN-LAST:event_jButtonFileAssignRestActionPerformed
-
-    private void jButtonRemoveAssignmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveAssignmentsActionPerformed
-        // TODO add your handling code here:
-        int[] selIdx = this.FileAssignmentTable.getSelectedRows();
-        int nSelected = selIdx.length;
-        if(nSelected > 0)
-            for(int count = nSelected -1 ; count >= 0 ; count --)
-                this.FileAssignmentModel.removeRow(selIdx[count]);
-        else
-            javax.swing.JOptionPane.showMessageDialog(this, "No file assignments are selected to remove: "+nSelected);
-    }//GEN-LAST:event_jButtonRemoveAssignmentsActionPerformed
-
-    private void TestBtn_jBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TestBtn_jBtnActionPerformed
-        // TODO add your handling code here:
-        File f;
-        JFileChooser fc = new JFileChooser();
-        fc.showOpenDialog(this);
-        f  = fc.getSelectedFile();
-        ImagePlus imp = new ImagePlus(f.getPath());
-        ImageProcessor testIP = imp.getProcessor();
-        //OvalRoi roi = new OvalRoi(10,10,50,50);
-        //Roi roi = new Roi(0,0,testIP.getWidth(),testIP.getHeight());
-        
-        //imp.setRoi(roi);
-        
-        SurfaceFit fit = new SurfaceFit();
-        fit.setPreScale(this.reSzImgjChkBx.isSelected());
-        fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
-        fit.setUseSelection(this.useSeljChBx.isSelected());
-        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
-        fit.setGaussFilt(this.gaussjChkBx.isSelected());
-        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
-                
-        ImageProcessor ip = fit.FitSurface(testIP,null);
-        
-        ImagePlus result = new ImagePlus();
-        result.setProcessor(ip);
-        FileSaver fs =new FileSaver(result);
-        
-        
-        fs.saveAsTiff(f.getParent()+File.separator+"Fit");
-    }//GEN-LAST:event_TestBtn_jBtnActionPerformed
-
-    private void res2SeljChkBxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_res2SeljChkBxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_res2SeljChkBxActionPerformed
-
-    private void x_polyOrderJCmbBxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_x_polyOrderJCmbBxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_x_polyOrderJCmbBxActionPerformed
-
-    private void aspectRatiojFmtFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aspectRatiojFmtFldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aspectRatiojFmtFldActionPerformed
-
-    private void reSzImgjChkBxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_reSzImgjChkBxItemStateChanged
-
-        this.scalingfactorJFormFld.setEnabled(reSzImgjChkBx.isSelected());
-    }//GEN-LAST:event_reSzImgjChkBxItemStateChanged
-
-    private void scalingfactorJFormFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scalingfactorJFormFldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_scalingfactorJFormFldActionPerformed
-
-    private void gaussjChkBxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_gaussjChkBxItemStateChanged
-
-        this.gauRadjFormFld.setEnabled(gaussjChkBx.isSelected());
-    }//GEN-LAST:event_gaussjChkBxItemStateChanged
-
-    private void SaveFileAssignmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveFileAssignmentsButtonActionPerformed
-        // TODO add your handling code here:
-        //Add code to read the table
-        //Prompt for file name
-        //write to the file
-        JFileChooser fc = new JFileChooser();
-        fc.showSaveDialog(this);
-        FileWriter file2Write;
-        var saveFile = fc.getSelectedFile();
-        if(saveFile == null)
-            return;
-        else
-            try {
-                file2Write = new FileWriter(saveFile);
-        } catch (IOException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this,"Error opeing or creating "+saveFile.getAbsolutePath()+" file for saving");
-            return;
-        }
-        
-        int nEntries = FileAssignmentTable.getModel().getRowCount();
-        for(int Count  = 0 ; Count < nEntries ; Count++){
-            var fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
-            var fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
-                if(fName == null){
-                    //javax.swing.JOptionPane.showMessageDialog(this, "fileName is null the key "+fnameKey+" did not fetch a file");
-                    //errorlist[unassigned++] = fnameKey; 
-                    //return;
-                }else{
-                    String string2write = fName + ',' + (String)FileAssignmentTable.getValueAt(Count,1)
-                            + ',' + (String)FileAssignmentTable.getValueAt(Count,2)
-                            + ',' + (String)FileAssignmentTable.getValueAt(Count,3)+'\n';
-                try {
-                    file2Write.write(string2write);
-                } catch (IOException ex) {
-                    //Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
-                      javax.swing.JOptionPane.showMessageDialog(this,"Error writing " + string2write +" to "+saveFile.getAbsolutePath());
-
-                }
-                }
-        }
-        
-    }//GEN-LAST:event_SaveFileAssignmentsButtonActionPerformed
-
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
             javax.swing.JOptionPane.showMessageDialog(null, "The number of grps entry is invalid");
@@ -2988,6 +3007,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JRadioButton OrtoJRadBtn;
     private javax.swing.JFormattedTextField PlatXjFtTxt;
     private javax.swing.JFormattedTextField PlatYjFtTxt1;
+    private javax.swing.JPanel ProgIndPanel;
     private javax.swing.JButton QuadAna_Button;
     private javax.swing.JButton RemoveFile_Button;
     private javax.swing.JButton RunGrp_Button;
@@ -3009,7 +3029,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
-    private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JTree expDgnTree;
@@ -3046,12 +3065,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -3081,6 +3100,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JMenu mapsMenu;
@@ -3100,7 +3121,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JCheckBox saveVelocityjchkBx;
     private javax.swing.JFormattedTextField scalingfactorJFormFld;
-    private javax.swing.JButton surfaceFitButton;
     private javax.swing.JButton upDateButton;
     private javax.swing.JCheckBox useRelVelJChkBx;
     private javax.swing.JCheckBox useSeljChBx;
