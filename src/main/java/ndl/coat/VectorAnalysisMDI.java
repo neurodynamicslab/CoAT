@@ -268,6 +268,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         desktopPane.setAutoscrolls(true);
 
+        DeskTopPanel.setLayout(new java.awt.GridLayout());
+
         InfoTab.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         ExpDef_jPanel.setAutoscrolls(true);
@@ -382,7 +384,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addGap(28, 28, 28)
                                 .addComponent(reset_AnGrTr_Button))
                             .addComponent(surfaceFitButton))
-                        .addContainerGap(353, Short.MAX_VALUE))
+                        .addContainerGap(352, Short.MAX_VALUE))
                     .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ExpDef_jPanelLayout.createSequentialGroup()
@@ -439,13 +441,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(6, 6, 6)
                 .addComponent(jLabel_NoOfAnimals)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addComponent(AllGrpsinAllTrialCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(upDateButton)
@@ -953,7 +955,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addComponent(GenConMaps_Button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(GenCurlMaps_Button)))
-                .addContainerGap(505, Short.MAX_VALUE))
+                .addContainerGap(517, Short.MAX_VALUE))
         );
 
         InfoTab.addTab("Design Tree", AnalysisDesign_jPanel);
@@ -1289,7 +1291,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1300,6 +1302,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         );
 
         InfoTab.addTab("Analysis Setting", jPanel1);
+
+        DeskTopPanel.add(InfoTab);
 
         ImageDisplay_Panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ImageDisplay_Panel.setMaximumSize(new java.awt.Dimension(650000, 6500000));
@@ -1334,8 +1338,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
-                    .addComponent(jProgressBarFR, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                    .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
+                    .addComponent(jProgressBarFR, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
                     .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
                         .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23)
@@ -1379,6 +1383,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        DeskTopPanel.add(ImageDisplay_Panel);
+
         MessageBox_Panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout MessageBox_PanelLayout = new javax.swing.GroupLayout(MessageBox_Panel);
@@ -1389,34 +1395,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         );
         MessageBox_PanelLayout.setVerticalGroup(
             MessageBox_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 1117, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout DeskTopPanelLayout = new javax.swing.GroupLayout(DeskTopPanel);
-        DeskTopPanel.setLayout(DeskTopPanelLayout);
-        DeskTopPanelLayout.setHorizontalGroup(
-            DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DeskTopPanelLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImageDisplay_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MessageBox_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(InfoTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        DeskTopPanelLayout.setVerticalGroup(
-            DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DeskTopPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(DeskTopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DeskTopPanelLayout.createSequentialGroup()
-                        .addComponent(ImageDisplay_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MessageBox_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(InfoTab))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        DeskTopPanel.add(MessageBox_Panel);
 
         desktopPane.setLayer(DeskTopPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 

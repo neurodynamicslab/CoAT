@@ -58,7 +58,6 @@ public class DataManager extends Object implements Runnable {
     private boolean useRelativeVelocity;
     private boolean rescaleIndividual;
     
-    private int status;
     private boolean AveReady;
 
     /**
@@ -144,24 +143,16 @@ public class DataManager extends Object implements Runnable {
      */
     public synchronized JVectorSpace[] getAccelarationField() {
         return accelarationField;
-    }
-   
-    
-
-
-  
-
-    
-    public DataTrace_ver_3[] getAccelaration(){
+    } 
+    public synchronized DataTrace_ver_3[] getAccelaration(){
         return accelaration;
     }
     /**
      * @param velocity the velocity[] to set
      */
-    public void setVelocity(DataTrace_ver_3[] velocity) {
+    public synchronized void setVelocity(DataTrace_ver_3[] velocity) {
         this.velocity = velocity;
     }
-
     /**
      * @return the XRes: the resolution in 'x' dimension (width) of the image
      */
@@ -195,9 +186,8 @@ public class DataManager extends Object implements Runnable {
         outPath = inPath = "";
 //        fileCount = 0;
         DataFileNames = new ArrayList<>();
-        DataFiles = new ArrayList<>();
+        //new ArrayList<>();
     }
-    private final ArrayList <File> DataFiles;
     private final ArrayList <String> DataFileNames;
     private String inPath = "";
     private String outPath = "";
@@ -206,7 +196,7 @@ public class DataManager extends Object implements Runnable {
     private DataTrace_ver_3[] velocity;
     private DataTrace_ver_3[] accelaration;
     
-    private JVectorSpace[] velocityField, accelarationField,residenceField;
+    private JVectorSpace[] velocityField, accelarationField;
     
     private JHeatMapArray[] residenceMaps;
     
@@ -249,20 +239,15 @@ public class DataManager extends Object implements Runnable {
         
         this.velocityField = new JVectorSpace[maxFileNo];
         this.accelarationField = new JVectorSpace[maxFileNo];
-        this.residenceField = new JVectorSpace[maxFileNo];
         
         this.residenceMaps = new JHeatMapArray[maxFileNo];
-                
-        
-        
+                       
         DataTrace_ver_3 velo, acc;
         int fileCounter = 0 ;
         int Idx;
         if(this.getTimeData() == null)
           return;
         for(DataTrace_ver_3 tseries : getTimeData()){
-
-
            residenceMaps[fileCounter] = new JHeatMapArray(getXRes(), getYRes());
            getResidenceMap()[fileCounter].setTimeSeries(tseries);
            getResidenceMap()[fileCounter].convertTimeSeriestoArray();
@@ -271,15 +256,12 @@ public class DataManager extends Object implements Runnable {
            velocity[fileCounter] = tseries.differentiate(false);
            if(this.isScaleforAspectRatio())
                velocity[fileCounter].scaleYaxis(this.getPixelAspectRatio());
-
            accelaration[fileCounter] = velocity[fileCounter].differentiate(false); //once scaled for pixel ratio accelaration doesn't 
                                                                                    //need to be scaled       
-
            ArrayList<JVector> accVectors = new ArrayList<>();
            ArrayList<JVector> velVectors = new ArrayList<>();
            ArrayList<OrdXYData> posiVects = new ArrayList<>();
            //ArrayList<JVector> resiScalars = new ArrayList<>();
-
            velo = velocity[fileCounter];
            acc = accelaration[fileCounter];
            Idx = 0;
@@ -293,10 +275,8 @@ public class DataManager extends Object implements Runnable {
            }
 
            accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),false,posiVects,accVectors);
-
            velVectors.add(new JVector(velo.get(Idx).getXY()));
            posiVects.add(tseries.get(Idx));
-
            velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),false,posiVects,velVectors);
 
            Idx++;
@@ -352,8 +332,7 @@ public class DataManager extends Object implements Runnable {
                 
             case 1:                     //Calculate projections along the direction of the position vector provided
                                         //normalise for the residence time or number of samples. 
-                                        
-                
+                                                       
                 getAveVelFld().getSpace().clear();
                 getAveVelFld().getVectors().clear();
                 getAveAccFld().getSpace().clear();
@@ -369,10 +348,8 @@ public class DataManager extends Object implements Runnable {
                     }else{
                         prjFld = velFld.getProjection();
                         accFldPrj = accelarationField[Idx].getProjection();
-                    }                    
-                    
-                   
-                    
+                    }                                      
+                                       
                     var resMap = this.residenceMaps[Idx++];
                     var norm = covertScaletoNorm(resMap.getPixelArray());
                     var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
