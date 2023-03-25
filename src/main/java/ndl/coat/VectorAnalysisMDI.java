@@ -224,6 +224,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         CompforVectorFldjChkBx2 = new javax.swing.JCheckBox();
         AlongJRadBtn = new javax.swing.JRadioButton();
         OrtoJRadBtn = new javax.swing.JRadioButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        StatusMessageBox = new javax.swing.JTextArea();
         jScrollPane5 = new javax.swing.JScrollPane();
         ImageDisplay_Panel = new javax.swing.JPanel();
         ProgIndPanel = new javax.swing.JPanel();
@@ -716,7 +718,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(9, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -736,7 +738,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonRemoveAssignments)
-                .addGap(92, 92, 92)
+                .addGap(612, 612, 612)
                 .addComponent(jButtonFileAssignRest)
                 .addGap(139, 139, 139))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
@@ -812,7 +814,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonFileAssignRest)
                     .addComponent(jButtonRemoveAssignments))
-                .addGap(16, 16, 16))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         DataFiles_jPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {assignFileJTxt, expFileNoJText, jLabel6, jLabel7, jLabel8, remainingDatafilesJText});
@@ -1311,14 +1313,27 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 199, Short.MAX_VALUE))
+                .addGap(0, 191, Short.MAX_VALUE))
         );
 
         InfoTab.addTab("Analysis Setting", jPanel1);
 
         jScrollPane4.setViewportView(InfoTab);
 
-        DeskTopPanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 700));
+        DeskTopPanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 690));
+
+        jScrollPane8.setViewportBorder(javax.swing.BorderFactory.createTitledBorder("Status Messages"));
+        jScrollPane8.setAutoscrolls(true);
+
+        StatusMessageBox.setColumns(20);
+        StatusMessageBox.setLineWrap(true);
+        StatusMessageBox.setRows(50);
+        StatusMessageBox.setWrapStyleWord(true);
+        StatusMessageBox.setBorder(null);
+        StatusMessageBox.setDragEnabled(true);
+        jScrollPane8.setViewportView(StatusMessageBox);
+
+        DeskTopPanel.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 690, 610, 70));
 
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -1584,7 +1599,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(DeskTopPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(DeskTopPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 5, Short.MAX_VALUE))
             .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -3015,6 +3032,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JButton SaveFileAssignmentsButton;
     private javax.swing.JCheckBox ScaleY_JChkBx;
     private javax.swing.JLabel SelDesLabel;
+    private javax.swing.JTextArea StatusMessageBox;
     private javax.swing.JButton TestBtn_jBtn;
     private javax.swing.JLabel TrialLabel;
     private javax.swing.JComboBox<String> TrialSelComboBox;
@@ -3104,6 +3122,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JMenu mapsMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JFormattedTextField nAnimals_Text;
