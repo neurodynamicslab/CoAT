@@ -279,7 +279,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 1650, 950));
         setMinimumSize(new java.awt.Dimension(600, 500));
         setName("Frame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1400, 875));
+        setPreferredSize(new java.awt.Dimension(1325, 750));
         setSize(new java.awt.Dimension(1400, 875));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
