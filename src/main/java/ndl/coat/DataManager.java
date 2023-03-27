@@ -609,7 +609,7 @@ public class DataManager extends Object implements Runnable {
 
     @Override
     public void run() {
-            this.readData();          
+            this.readData();     
     }
 
     private void setAveReady(boolean b) {
