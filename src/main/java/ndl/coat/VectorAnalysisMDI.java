@@ -1850,6 +1850,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
         // TODO add your handling code here:
+        
+        
+        //27th Mar: Would be nice to segregate the progress bar updating to separate function that 
+        //takes the progressbar and its value as argument and updates it in a separate thread rather than 
+        //creating a thread on the fly everytime. 
 
         //Form grp relevant data managers
         //Get average images
@@ -1900,9 +1905,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             t = (String)tModel.getValueAt(Count, 3);            //trial name
 
             if (!grpNames.contains(g))                          //Check if these names are there already if not add them
-            grpNames.add(g);
+                grpNames.add(g);
+            
             if(!trialNames.contains(t))
-            trialNames.add(t);
+                trialNames.add(t);
 
         }
 
@@ -1929,6 +1935,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.jProgressBarDataAssignment.setMaximum((nTrial)*(nGrps));
         this.jProgressBarTP.setValue(0);
         this.jProgressBarDataAssignment.setValue(0);
+        
         //jProgressBarDataAssignment.setEnabled(true);
 
         for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
@@ -1951,7 +1958,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         int nFiles = FileAssignmentTable.getRowCount();
         if(nFiles <= 0 )
-        return;
+            return;
         String fName = "", grpName, trialName, fnameKey;
         //        int aUID;
         int gUID;
@@ -2034,7 +2041,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jProgressBarDP.setMaximum(100);
         //                jProgressBarDP.setMaximum(0);
         //                jProgressBarDP.setMaximum(0);
-        //                jProgressBarDP.setValue(0);
+        jProgressBarDP.setValue(0);
+        jProgressBarDP.setStringPainted(true);
 
         OccCtrs = new JVector[nTrial][nGrps];
         ArrayList<ArrayList<DataManager>>[] tempData;
@@ -2071,7 +2079,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         upGP.execute();
 
                         if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
-                        continue;
+                            continue;
                         DataManager currManager;
                         /*  Prepare the datamanager to organise the data. Data Manger instance stores the data for the group. */
                         //var temp = tempData[0].get(tCount);
@@ -2083,6 +2091,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         currManager.setDataSep(dataSeparator);
                         currManager.setLineSep('\n');   /* Modify this if the data is not line by line for e.g. separated by : */
                         currManager.setUseRelativeVelocity(useRelVelJChkBx.isSelected());
+                        
                         File tmpFile = new File(fnames[0]);
                         String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
                         /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
@@ -2090,7 +2099,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         //                        Thread dataProcessingThd = new Thread(currManager);
                         //                        dataProcessingThd.start();
                         currManager.setOutPath(outPath);
-                        currManager.readData();
+                        
+                        currManager.run();
 
                         DataManager[] tempMan = new DataManager[1];
                         tempMan[0] = currManager;
@@ -2551,7 +2561,25 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }
 
     private void calAveFlds(DataManager currManager, int gCount, int tCount,int xRes, int yRes) {
-        
+                
+                var timeLapsed = false;
+                var startTime = System.currentTimeMillis();
+                while (!currManager.isVectorFldsReady() && !timeLapsed){
+                    timeLapsed = (System.currentTimeMillis() - startTime) > 1000;// timeOut in milliseconds
+                    try {                   
+                        this.wait(100);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    this.StatusMessageBox.append("Waiting for the data to be read before calculating averages..."+"/n");
+                }
+                
+                if(timeLapsed){
+                    this.StatusMessageBox.append("Timed Out waiting for calculating averages..."+"/n");
+                    return ;
+                }
+                
+                
                 JVector OC = currManager.findOC(xRes, yRes);
                 OccCtrs[tCount][gCount] = OC;
                 this.ocXjFtTxt2.setText(""+OC.getComponent(0));
@@ -2606,17 +2634,31 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         JVector OC;
         JVectorSpace[] vFields;
         JVectorSpace[] aFields;
+        boolean timeLapsed = false;
+        
+        long startTime = System.currentTimeMillis();
+        while (!currManager.isVectorFldsReady() && !timeLapsed){
+            
+                    timeLapsed = (System.currentTimeMillis() - startTime) > 1000;// timeOut in milliseconds
+                    try {                   
+                        this.wait(100);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    this.StatusMessageBox.append("Waiting for the data to be read for generating images..."+"/n");
+       }
+        
+        if(timeLapsed){
+            this.StatusMessageBox.append("Timed Out waiting for generating images..."+"/n");
+            return null;
+        }
         // Having read all the data files estimate the occupancy center. Also allow the user to enter.
         
         // OC = (this.CheckBoxBoolean.isSelected()) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
         OC = (this.CheckBoxBoolean.isSelected()) ? currManager.findOC( xRes, yRes) : new JVector(xOC,yOC);
         //Generate the velocity and accelaration fields
         
-        if (!currManager.isVectorFldsReady()){
-          wait(1000);
-          if(!currManager.isVectorFldsReady())
-              return null;
-        }
+       
         vFields = currManager.getVelocityField();
         aFields = currManager.getAccelarationField();
         

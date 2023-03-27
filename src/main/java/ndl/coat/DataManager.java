@@ -218,6 +218,7 @@ public class DataManager extends Object implements Runnable {
      * the internal data structure DataTrace.
      */
     public synchronized void readData(){
+        this.setVectorFldsReady(false);
         DataTrace_ver_3[] currData;
         currData = new DataTrace_ver_3[getDataFileNames().length];
         int count = 0;
@@ -578,6 +579,8 @@ public class DataManager extends Object implements Runnable {
         int xOC;
         int yOC;
         DataManager currManager = this;
+        if(!this.isVectorFldsReady())
+            readData();
         //this.generateResidenceMap(currManager);
         //timeTrace = currManager.getTimeData();
         currManager.computeAve(3, null,false);        //Just compute the residence map
@@ -606,8 +609,7 @@ public class DataManager extends Object implements Runnable {
 
     @Override
     public void run() {
-            this.readData();
-            
+            this.readData();          
     }
 
     private void setAveReady(boolean b) {
