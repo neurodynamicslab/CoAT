@@ -45,6 +45,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import ndl.ndllib.SurfaceFit;
 /**
@@ -273,13 +274,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CoAT");
-        setBounds(new java.awt.Rectangle(0, 0, 1275, 875));
+        setBounds(new java.awt.Rectangle(0, 0, 1275, 775));
         setLocation(new java.awt.Point(0, 0));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 1275, 775));
         setMinimumSize(new java.awt.Dimension(600, 500));
         setName("Frame"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1275, 775));
-        setSize(new java.awt.Dimension(1325, 750));
+        setSize(new java.awt.Dimension(1275, 775));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -408,8 +409,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                                 .addComponent(SampleSizeSel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jFormattedText_nTrials, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -743,7 +743,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SelDesLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -775,22 +774,23 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                     .addComponent(OpenFileAssignmentsButton))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGap(0, 2, Short.MAX_VALUE)
+                        .addGap(0, 4, Short.MAX_VALUE)
                         .addComponent(jButtonBrowseRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
-                        .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)
+                        .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -807,7 +807,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addComponent(jLabel7)
                         .addGap(6, 6, 6)
                         .addComponent(jLabel8)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         DataFiles_jPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {assignFileJTxt, expFileNoJText, jLabel6, jLabel7, jLabel8, remainingDatafilesJText});
@@ -1622,7 +1622,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         setJMenuBar(menuBar);
 
-        pack();
+        setBounds(0, 0, 1276, 748);
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
@@ -2572,6 +2572,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     this.StatusMessageBox.append("Waiting for the data to be read before calculating averages..."+"/n");
+                    System.out.print("Waiting for the data to be read before calculating averages..."+"/n");
                 }
                 
                 if(timeLapsed){
@@ -3006,13 +3007,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         boolean found = false;
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                               
                 if ("System".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     found = true;
                     break;
                 }
             }
-            
+            if(!found)
+                javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());            
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(VectorAnalysisMDI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
