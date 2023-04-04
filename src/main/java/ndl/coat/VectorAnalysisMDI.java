@@ -64,7 +64,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private int nTrial;
     //private ComboBoxModel<String> TrialModel;
     private boolean estimateOC;
-    private SurfaceFit fit;
+    private final SurfaceFit fit;
     private JVector[][] OccCtrs;
     
     public VectorAnalysisMDI() {
@@ -273,13 +273,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CoAT");
-        setBounds(new java.awt.Rectangle(0, 0, 1275, 875));
+        setBounds(new java.awt.Rectangle(0, 0, 1275, 775));
         setLocation(new java.awt.Point(0, 0));
-        setMaximizedBounds(new java.awt.Rectangle(0, 0, 1275, 775));
+        setMaximizedBounds(new java.awt.Rectangle(0, 0, 1275, 800));
         setMinimumSize(new java.awt.Dimension(600, 500));
         setName("Frame"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1275, 775));
-        setSize(new java.awt.Dimension(1325, 750));
+        setSize(new java.awt.Dimension(1275, 775));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -1174,11 +1174,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         x_polyOrderJCmbBx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         x_polyOrderJCmbBx.setSelectedIndex(4);
         x_polyOrderJCmbBx.setToolTipText("Determines the degree of the polynomial to be used in surface fit generation. ");
-        x_polyOrderJCmbBx.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x_polyOrderJCmbBxActionPerformed(evt);
-            }
-        });
 
         jLabel17.setText("Order of fit for the y (vertical axis)");
 
@@ -1819,10 +1814,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         // TODO add your handling code here:
     }//GEN-LAST:event_res2SeljChkBxActionPerformed
 
-    private void x_polyOrderJCmbBxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_x_polyOrderJCmbBxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_x_polyOrderJCmbBxActionPerformed
-
     private void aspectRatiojFmtFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aspectRatiojFmtFldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_aspectRatiojFmtFldActionPerformed
@@ -1848,7 +1839,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }//GEN-LAST:event_CheckBoxBooleanActionPerformed
 
     private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
-        // TODO add your handling code here:
+        
+        ThreadGroup grp = new ThreadGroup("Analysis");
         
         
         //27th Mar: Would be nice to segregate the progress bar updating to separate function that 
@@ -2099,13 +2091,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         //                        dataProcessingThd.start();
                         currManager.setOutPath(outPath);
                         
-                        currManager.run();  //Incorrect invocation
+                        //currManager.run();  //Incorrect invocation
                         
-//                        Thread tempThread = new Thread(currManager);
-//                        tempThread.start();
-
                         DataManager[] tempMan = new DataManager[1];
                         tempMan[0] = currManager;
+                        
+                        Thread tempThread = new Thread(grp, currManager);
+                        tempThread.start();
+
+                        
                         jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);
                         calAveFlds(currManager,gCount,tCount,xRes,yRes);
                     }
@@ -2113,6 +2107,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 return null;
             }
         };
+       
         worker.execute();
         //new Thread(worker).start();
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
@@ -2648,10 +2643,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     this.StatusMessageBox.append("Waiting for the data to be read for generating images..."+"/n");
+                    System.out.print("Waiting for the data to be read for generating images..."+"/n");
        }
         
         if(timeLapsed){
             this.StatusMessageBox.append("Timed Out waiting for generating images..."+"/n");
+            System.out.print("Timed Out waiting for generating images..."+"/n");
             return null;
         }
         // Having read all the data files estimate the occupancy center. Also allow the user to enter.
@@ -2964,34 +2961,34 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         roi = new ThresholdToSelection().convert(ip);
         return roi;
     }
-    private JVector findOC(DataManager currManager, int xRes, int yRes) {
-        int xOC;
-        int yOC;
-        //this.generateResidenceMap(currManager);
-        //timeTrace = currManager.getTimeData();
-        currManager.computeAve(3, null,false);        //Just compute the residence map
-        var heatMap = currManager.getAveResMap();
-        heatMap.convertTimeSeriestoArray(xRes, yRes);
-        JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);
-        heatMapImg.addScalar(heatMap);
-        var AveHMap_imp = heatMapImg.getImages()[0];
-        //AveHMap_imp.show();
-        var ip = AveHMap_imp.getProcessor().duplicate();
-        double sigma = (xRes > yRes) ? yRes/40 : xRes/40 ;
-        ip.blurGaussian(sigma);
-        ip.setAutoThreshold("MaxEntropy dark");
-//        ip.createMask();
-        var lThld = ip.getMinThreshold();
-        var hThld = ip.getMaxThreshold();
-        System.out.println("The thlds are " + lThld + "," + hThld);
-        var stat = new FloatStatistics(ip,ImageStatistics.CENTER_OF_MASS+ImageStatistics.LIMIT,null);
-        
-        xOC = (int) stat.xCenterOfMass;
-        yOC = (int) stat.yCenterOfMass;
-        this.ocXjFtTxt2.setText(""+xOC);
-        this.ocYjFtTxt3.setText(""+yOC);
-        return new JVector(xOC,yOC);
-    }
+//    private JVector findOC(DataManager currManager, int xRes, int yRes) {
+//        int xOC;
+//        int yOC;
+//        //this.generateResidenceMap(currManager);
+//        //timeTrace = currManager.getTimeData();
+//        currManager.computeAve(3, null,false);        //Just compute the residence map
+//        var heatMap = currManager.getAveResMap();
+//        heatMap.convertTimeSeriestoArray(xRes, yRes);
+//        JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);
+//        heatMapImg.addScalar(heatMap);
+//        var AveHMap_imp = heatMapImg.getImages()[0];
+//        //AveHMap_imp.show();
+//        var ip = AveHMap_imp.getProcessor().duplicate();
+//        double sigma = (xRes > yRes) ? yRes/40 : xRes/40 ;
+//        ip.blurGaussian(sigma);
+//        ip.setAutoThreshold("MaxEntropy dark");
+////        ip.createMask();
+//        var lThld = ip.getMinThreshold();
+//        var hThld = ip.getMaxThreshold();
+//        System.out.println("The thlds are " + lThld + "," + hThld);
+//        var stat = new FloatStatistics(ip,ImageStatistics.CENTER_OF_MASS+ImageStatistics.LIMIT,null);
+//        
+//        xOC = (int) stat.xCenterOfMass;
+//        yOC = (int) stat.yCenterOfMass;
+//        this.ocXjFtTxt2.setText(""+xOC);
+//        this.ocYjFtTxt3.setText(""+yOC);
+//        return new JVector(xOC,yOC);
+//    }
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
