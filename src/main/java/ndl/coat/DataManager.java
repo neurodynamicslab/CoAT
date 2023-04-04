@@ -37,7 +37,7 @@ public class DataManager extends Object implements Runnable {
         this.VectorFldsReady = VectorFldsReady;
     }
 
-    private boolean VectorFldsReady;
+    private boolean VectorFldsReady = false;
 
     /**
      * @return the timeData

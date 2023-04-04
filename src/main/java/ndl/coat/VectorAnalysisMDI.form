@@ -203,7 +203,7 @@
       <Point value="[0, 0]"/>
     </Property>
     <Property name="maximizedBounds" type="java.awt.Rectangle" editor="org.netbeans.beaninfo.editors.RectangleEditor">
-      <Rectangle value="[0, 0, 1275, 775]"/>
+      <Rectangle value="[0, 0, 1275, 800]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[600, 500]"/>
@@ -1828,9 +1828,6 @@
                             <Property name="selectedIndex" type="int" value="4"/>
                             <Property name="toolTipText" type="java.lang.String" value="Determines the degree of the polynomial to be used in surface fit generation. "/>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="x_polyOrderJCmbBxActionPerformed"/>
-                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
