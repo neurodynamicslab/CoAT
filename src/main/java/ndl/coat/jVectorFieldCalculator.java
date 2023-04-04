@@ -245,8 +245,8 @@ public class jVectorFieldCalculator implements Runnable{
     private boolean autoGenPool;
     @Override
     public void run() {
-            int polyXOrder = getPolyX() +1;//5;
-            int polyYOrder = getPolyY() +1;
+            int polyXOrder = getPolyX();//5;
+            int polyYOrder = getPolyY();
             setFldrName(getPathName() + getFileSeparator());//File.separator;
         
         
@@ -388,6 +388,8 @@ public class jVectorFieldCalculator implements Runnable{
         //int selWidth, selHeight;
         //selection = (this.useSeljChBx.isSelected()) ? selection : null ;
         cmpIP.setRoi(selection);
+        getFit().setPolyOrderX(polyXOrder);
+        getFit().setPolyOrderY(polyYOrder);
         FloatProcessor selInFrame = getFit().FitSurface(cmpIP,selection); //null, false square/rectangle region of interest as such 
                                                                       // sel, false square/rectangle region of interest with 0 for pixels of unmasked
                                                                       //sel, true just the pixels that are selected by roi mask

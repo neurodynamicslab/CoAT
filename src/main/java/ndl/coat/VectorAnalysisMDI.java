@@ -408,8 +408,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
                                 .addComponent(SampleSizeSel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jFormattedText_nTrials, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -743,7 +742,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SelDesLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -775,22 +773,23 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                     .addComponent(OpenFileAssignmentsButton))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGap(0, 2, Short.MAX_VALUE)
+                        .addGap(0, 4, Short.MAX_VALUE)
                         .addComponent(jButtonBrowseRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
-                        .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)
+                        .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
                         .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -807,7 +806,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addComponent(jLabel7)
                         .addGap(6, 6, 6)
                         .addComponent(jLabel8)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         DataFiles_jPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {assignFileJTxt, expFileNoJText, jLabel6, jLabel7, jLabel8, remainingDatafilesJText});
@@ -2727,8 +2726,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         jVectorFieldCalculator calculator = new jVectorFieldCalculator();
         calculator.setVecFld(VecFld);
-        calculator.setPolyX(x_polyOrderJCmbBx.getSelectedIndex());
-        calculator.setPolyY(y_polyOrderJCmbBx.getSelectedIndex());
+        calculator.setPolyX(x_polyOrderJCmbBx.getSelectedIndex()+1);
+        calculator.setPolyY(y_polyOrderJCmbBx.getSelectedIndex()+1);
         calculator.setSuffix(suffix);
         calculator.setPathName(pathName);
         calculator.setFileSeparator(File.separator);
@@ -2746,6 +2745,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         fit.setUseSelection(this.useSeljChBx.isSelected());
+        
+//        fit.setPolyOrderX(x_polyOrderJCmbBx.getSelectedIndex()+1);
+//        fit.setPolyOrderX(y_polyOrderJCmbBx.getSelectedIndex()+1);
+        
         calculator.setFit(fit);
         
         
