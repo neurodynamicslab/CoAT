@@ -43,6 +43,7 @@ import java.util.concurrent.Executor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
@@ -2047,28 +2048,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             protected Object doInBackground() throws Exception{
                 for(int tCount = 0 ; tCount < nTrial ; tCount++){
                     int tc = tCount+1;
-                    SwingWorker upTP = new SwingWorker(){
-                        @Override
-                        protected Object doInBackground() throws Exception {
-                            jProgressBarTP.setValue(tc);
-                            jProgressBarTP.setString("Trial #"+(tc)+" of "+nTrial);
-                            return null;
-                        }
-                    };
-                    upTP.execute();
+                    UpdateProgress(tc,jProgressBarTP,"Trial #",nTrial+"");
                     for(int gCount = 0 ; gCount < nGrps ; gCount++){
 
                         int g = gCount+1, t = tCount+1;
-                        SwingWorker upGP = new SwingWorker(){
-                            @Override
-                            protected Object doInBackground() throws Exception {
-                                jProgressBarGP.setValue(g);
-                                jProgressBarGP.setString("Grp #"+g+" of "+nGrps);
-                                return 0;
-                            }
-
-                        };
-                        upGP.execute();
+                        UpdateProgress(g,jProgressBarGP,"Grp #",nGrps+"");
 
                         if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
                             continue;
@@ -2107,12 +2091,24 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 }
                 return null;
             }
+
+           
         };
        
         worker.execute();
         //new Thread(worker).start();
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
-
+ private void UpdateProgress(int tc, JProgressBar progressBar, String prefix,String suffix) {
+                SwingWorker upTP = new SwingWorker(){
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        progressBar.setValue(tc);
+                        progressBar.setString(prefix +(tc)+" of "+suffix);
+                        return null;
+                    }
+                };
+                upTP.execute();
+   }
     private void expDgnTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expDgnTreeMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_expDgnTreeMouseClicked
@@ -2565,7 +2561,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 while (!currManager.isVectorFldsReady() && !timeLapsed){
                     timeLapsed = (System.currentTimeMillis() - startTime) > 1000;// timeOut in milliseconds
                     try {                   
-                        this.wait(100);
+                            Thread.sleep(100);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -2634,13 +2630,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         JVectorSpace[] vFields;
         JVectorSpace[] aFields;
         boolean timeLapsed = false;
-        
+        System.out.print("I am inside the jVectField function \n");
         long startTime = System.currentTimeMillis();
         while (!currManager.isVectorFldsReady() && !timeLapsed){
-            
+                    System.out.print(timeLapsed+"\n");
                     timeLapsed = (System.currentTimeMillis() - startTime) > 1000;// timeOut in milliseconds
                     try {                   
-                        this.wait(100);
+                        Thread.sleep(100);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -2670,7 +2666,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             int totSize = vFields.length;
             @Override
             protected Object doInBackground() throws Exception {
-                
+                System.out.print("Starting the dataloop...\n");
                 for(JVectorSpace vSpace : vFields){                     //This is essentially looping through each data file
                     vSpace.setUseTan2(useTan2jChkBx.isSelected());
                     aFields[dataCount].setUseTan2(useTan2jChkBx.isSelected());
@@ -2699,13 +2695,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         }
                     }
                     dataCount++;
-                    setProgress(100*(dataCount/totSize));
+                    UpdateProgress(100*(dataCount/totSize),jProgressBarDP,"","");
                 }
                 return null;
             }
             
         };
-       worker.addPropertyChangeListener(this);
+       //worker.addPropertyChangeListener(this);
        worker.execute();
         //Compute the averages first for original vectors, then for vectors along platform, along OC. 
         return OC;
@@ -2722,7 +2718,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
      */
     public void calculateVectorFldProperties(JVectorSpace VecFld, Roi sampledGrpRoi, boolean isDivergence,String pathName,String suffix) {
         
-        
+        System.out.println("Entering field calc...");
         jVectorFieldCalculator calculator = new jVectorFieldCalculator();
         calculator.setVecFld(VecFld);
         calculator.setPolyX(x_polyOrderJCmbBx.getSelectedIndex()+1);
