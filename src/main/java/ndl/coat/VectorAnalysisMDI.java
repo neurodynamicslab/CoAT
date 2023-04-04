@@ -2100,7 +2100,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         //                        dataProcessingThd.start();
                         currManager.setOutPath(outPath);
                         
-                        currManager.run();
+                        currManager.run();  //Incorrect invocation
+                        
+//                        Thread tempThread = new Thread(currManager);
+//                        tempThread.start();
 
                         DataManager[] tempMan = new DataManager[1];
                         tempMan[0] = currManager;
@@ -2802,6 +2805,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //    fs.saveAsTiff(fldrName+suffix+"forPres");
      calculator.setGenConv(this.genConvJChkBx.isSelected());
      calculator.setGenDiv(this.genConvJChkBx.isSelected());
+     calculator.setAutoGenPool(this.autoPoolRoijChkBx.isSelected());
 //    float LThld, HThld;
 //    if(this.genConvJChkBx.isSelected()){
 //        LThld = Float.NEGATIVE_INFINITY;
@@ -2843,6 +2847,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     //calculator.run();
     Thread thread = new Thread(calculator);
     thread.start();
+    
+    
  }
 /** starting from here..**
     private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledGrpRoi) {
