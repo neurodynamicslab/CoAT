@@ -393,6 +393,7 @@ public class jVectorFieldCalculator implements Runnable{
         FloatProcessor selInFrame = getFit().FitSurface(cmpIP,selection); //null, false square/rectangle region of interest as such 
                                                                       // sel, false square/rectangle region of interest with 0 for pixels of unmasked
                                                                       //sel, true just the pixels that are selected by roi mask
+                                                                      
        System.out.println("The dimension after fitting is (X x Y) "+selInFrame.getWidth()+" x "+selInFrame.getHeight());
         if( selection != null  ){
             var selX =  selection.getBounds().x ;
@@ -423,8 +424,8 @@ public class jVectorFieldCalculator implements Runnable{
 //            int polyYOrder  = this.y_polyOrderJCmbBx.getSelectedIndex();
             
             
-            getFit().setPolyOrderX(getPolyX());
-            getFit().setPolyOrderY(getPolyY());
+//            getFit().setPolyOrderX(getPolyX()-1);
+//            getFit().setPolyOrderY(getPolyY()-1);
             getFit().setPreScale(false);
             getFit().setGaussFilt(false);
             if(sampledGrpRoi != null ){
@@ -433,7 +434,7 @@ public class jVectorFieldCalculator implements Runnable{
             }
             
             
-            ImagePlus surfaceOut = this.getSurface(getPolyX(), getPolyY(), converImg, sampledGrpRoi);
+            ImagePlus surfaceOut = this.getSurface(getPolyX()-1, getPolyY()-1, converImg, sampledGrpRoi);
            
             OvalRoi Pool;
 

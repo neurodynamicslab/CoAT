@@ -2095,8 +2095,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
            
         };
        
-        worker.execute();
-        //new Thread(worker).start();
+//        worker.execute();
+        new Thread(grp, worker).start();
+        SwingWorker monitor = new SwingWorker(){
+            @Override
+            protected Object doInBackground() throws Exception {
+                int activeThreads = grp.activeCount();
+                while(activeThreads != 0 ){
+                    Thread.sleep(100);
+                    StatusMessageBox.append("Waiting for "+activeThreads+"to end"+"\n");
+                }
+                return null;
+            }
+        };
+        monitor.execute();
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
  private void UpdateProgress(int tc, JProgressBar progressBar, String prefix,String suffix) {
                 SwingWorker upTP = new SwingWorker(){
@@ -2104,6 +2116,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     protected Object doInBackground() throws Exception {
                         progressBar.setValue(tc);
                         progressBar.setString(prefix +(tc)+" of "+suffix);
+                        return null;
+                    }
+                };
+                upTP.execute();
+   }
+ private void UpdateProgress(int tc, JProgressBar progressBar, String string) {
+                SwingWorker upTP = new SwingWorker(){
+                    @Override
+                    protected Object doInBackground() throws Exception {
+                        progressBar.setValue(tc);
+                        progressBar.setString(string);
                         return null;
                     }
                 };
@@ -2695,7 +2718,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         }
                     }
                     dataCount++;
-                    UpdateProgress(100*(dataCount/totSize),jProgressBarDP,"","");
+                    UpdateProgress(100*(dataCount/totSize),jProgressBarDP,"% complete");
                 }
                 return null;
             }
@@ -3229,12 +3252,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        if("progress" == evt.getPropertyName()){
-            int nVal = (Integer)evt.getNewValue();
-            jProgressBarDP.setValue(nVal);
-            jProgressBarDP.setString("Data Tracker");
-            
-        }
+//        if("progress" == evt.getPropertyName()){
+//            int nVal = (Integer)evt.getNewValue();
+//            jProgressBarDP.setValue(nVal);
+//            jProgressBarDP.setString("Data Tracker");
+//            
+//        }
         
     }
 
