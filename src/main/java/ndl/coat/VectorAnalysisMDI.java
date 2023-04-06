@@ -2096,7 +2096,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         };
        
 //        worker.execute();
-        new Thread(grp, worker).start();
+        new Thread(worker).start();
         SwingWorker monitor = new SwingWorker(){
             @Override
             protected Object doInBackground() throws Exception {
