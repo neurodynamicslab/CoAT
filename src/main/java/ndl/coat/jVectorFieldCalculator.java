@@ -107,7 +107,7 @@ public class jVectorFieldCalculator implements Runnable{
      * @param fit the fit to set
      */
     public void setFit(SurfaceFit fit) {
-        this.fit = fit;
+        this.fit = new SurfaceFit(fit);
     }
 
     /**
@@ -388,6 +388,7 @@ public class jVectorFieldCalculator implements Runnable{
         //int selWidth, selHeight;
         //selection = (this.useSeljChBx.isSelected()) ? selection : null ;
         cmpIP.setRoi(selection);
+        //SurfaceFit fit  = new SurfaceFit();
         getFit().setPolyOrderX(polyXOrder);
         getFit().setPolyOrderY(polyYOrder);
         FloatProcessor selInFrame = getFit().FitSurface(cmpIP,selection); //null, false square/rectangle region of interest as such 

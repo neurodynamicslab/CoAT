@@ -2048,12 +2048,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             protected Object doInBackground() throws Exception{
                 for(int tCount = 0 ; tCount < nTrial ; tCount++){
                     int tc = tCount+1;
-                    UpdateProgress(tc,jProgressBarTP,"Trial #",nTrial+"");
+//                    UpdateProgress(tc,jProgressBarTP,"Trial #",nTrial+"");
                     for(int gCount = 0 ; gCount < nGrps ; gCount++){
 
                         int g = gCount+1, t = tCount+1;
-                        UpdateProgress(g,jProgressBarGP,"Grp #",nGrps+"");
-
+//                        UpdateProgress(g,jProgressBarGP,"Grp #",nGrps+"");
+                        setStatusMessage("Currently Processing"+"Trial #"+t +"Grp #" + g + "\n");
                         if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
                             continue;
                         DataManager currManager;
@@ -2087,7 +2087,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         
                         jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);
                         calAveFlds(currManager,gCount,tCount,xRes,yRes);
+                        UpdateProgress(g,jProgressBarGP,"Grp #",nGrps+"complete");
                     }
+                    UpdateProgress(tc,jProgressBarTP,"Trial #",nTrial+"complete");
                 }
                 return null;
             }
@@ -2110,7 +2112,23 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         };
         monitor.execute();
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
- private void UpdateProgress(int tc, JProgressBar progressBar, String prefix,String suffix) {
+    private void setStatusMessage(String message, boolean toAppend){
+       SwingWorker messenger = new SwingWorker(){
+           @Override
+           protected Object doInBackground() throws Exception {
+               if(toAppend)
+                    StatusMessageBox.append(message);
+               else
+                    StatusMessageBox.setText(message);
+           return message;
+       }
+       };
+       messenger.execute();
+    }
+    private void setStatusMessage(String message){
+        setStatusMessage(message,true);
+    }
+    private void UpdateProgress(int tc, JProgressBar progressBar, String prefix,String suffix) {
                 SwingWorker upTP = new SwingWorker(){
                     @Override
                     protected Object doInBackground() throws Exception {
