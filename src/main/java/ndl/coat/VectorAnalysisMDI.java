@@ -471,7 +471,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
 
-        RemoveFile_Button.setText("Remove File");
+        RemoveFile_Button.setText("Remove Files");
         RemoveFile_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RemoveFile_ButtonActionPerformed(evt);
@@ -688,15 +688,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                     .addGap(43, 43, 43)
                                     .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                            .addComponent(jFormatTxt_rootFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton1))
-                                        .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
                                             .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(RemoveFile_Button)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jButtonBrowseRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(RemoveFile_Button))
+                                        .addComponent(jFormatTxt_rootFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton1)
+                                        .addComponent(jButtonBrowseRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(38, 38, 38))))
                         .addContainerGap(9, Short.MAX_VALUE))))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
@@ -2098,7 +2098,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         };
        
 //        worker.execute();
-        new Thread(worker).start();
+        new Thread(grp, worker).start();
         SwingWorker monitor = new SwingWorker(){
             @Override
             protected Object doInBackground() throws Exception {
@@ -2144,7 +2144,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     @Override
                     protected Object doInBackground() throws Exception {
                         progressBar.setValue(tc);
-                        progressBar.setString(string);
+                        progressBar.setString(tc+string);
                         return null;
                     }
                 };
@@ -2231,16 +2231,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         FileWriter file2Write;
         var saveFile = fc.getSelectedFile();
         if(saveFile == null)
-        return;
+            return;
         else
-        try {
-            file2Write = new FileWriter(saveFile);
-        } catch (IOException ex) {
+        
+            try {
+                file2Write = new FileWriter(saveFile);
+            }catch (IOException ex) {
             javax.swing.JOptionPane.showMessageDialog(this,"Error opeing or creating "+saveFile.getAbsolutePath()+" file for saving");
             return;
-        }
-
+            }
+        
         int nEntries = FileAssignmentTable.getModel().getRowCount();
+       
         for(int Count  = 0 ; Count < nEntries ; Count++){
             var fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
             var fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
@@ -2257,11 +2259,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 } catch (IOException ex) {
                     //Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                     javax.swing.JOptionPane.showMessageDialog(this,"Error writing " + string2write +" to "+saveFile.getAbsolutePath());
-
                 }
             }
         }
-
+        try {
+            file2Write.close();
+        } catch (IOException ex) {
+             javax.swing.JOptionPane.showMessageDialog(this,"Error closing " +saveFile.getAbsolutePath());
+        }
     }//GEN-LAST:event_SaveFileAssignmentsButtonActionPerformed
 
     private void OpenFileAssignmentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFileAssignmentsButtonActionPerformed
@@ -2606,12 +2611,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     } catch (InterruptedException ex) {
                         Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    this.StatusMessageBox.append("Waiting for the data to be read before calculating averages..."+"/n");
-                    System.out.print("Waiting for the data to be read before calculating averages..."+"/n");
+                    this.StatusMessageBox.append("Waiting for the data to be read before calculating averages..."+"\n");
+                    System.out.print("Waiting for the data to be read before calculating averages..."+"\n");
                 }
                 
                 if(timeLapsed){
-                    this.StatusMessageBox.append("Timed Out waiting for calculating averages..."+"/n");
+                    this.StatusMessageBox.append("Timed Out waiting for calculating averages..."+"\n");
                     return ;
                 }
                 
@@ -2681,8 +2686,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     } catch (InterruptedException ex) {
                         Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    this.setStatusMessage("Waiting for the data to be read for generating images..."+"/n",true);
                     this.StatusMessageBox.append("Waiting for the data to be read for generating images..."+"/n");
-                    System.out.print("Waiting for the data to be read for generating images..."+"/n");
+                   // System.out.print("Waiting for the data to be read for generating images..."+"/n");
        }
         
         if(timeLapsed){
