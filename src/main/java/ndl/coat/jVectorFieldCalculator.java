@@ -21,6 +21,8 @@ import ndl.ndllib.SurfaceFit;
  * @author balaji
  */
 public class jVectorFieldCalculator implements Runnable{
+
+    private static final Object finished = new Object();
     
     public jVectorFieldCalculator(){
         
@@ -243,8 +245,10 @@ public class jVectorFieldCalculator implements Runnable{
     private boolean genConv;
     private boolean genDiv;
     private boolean autoGenPool;
+    private static int instanceCount = 1;
     @Override
     public void run() {
+            instanceCount++;
             int polyXOrder = getPolyX();//5;
             int polyYOrder = getPolyY();
             setFldrName(getPathName() + getFileSeparator());//File.separator;
@@ -357,6 +361,9 @@ public class jVectorFieldCalculator implements Runnable{
 
             }
       }
+        synchronized (getFinished()){
+            jVectorFieldCalculator.getFinished().notifyAll();
+    }
     }
     private ImagePlus[] getSurfaces(int polyX, int polyY, JVectorSpace space, Roi sel){
         int nCmp = space.getnComp();
@@ -466,5 +473,19 @@ public class jVectorFieldCalculator implements Runnable{
 
     private boolean isAuotGenPool() {
         return isAutoGenPool();
+    }
+
+    /**
+     * @return the instanceCount
+     */
+    public static int getInstanceCount() {
+        return instanceCount;
+    }
+
+    /**
+     * @return the finished
+     */
+    public static Object getFinished() {
+        return finished;
     }
 }

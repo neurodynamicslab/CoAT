@@ -69,6 +69,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private final SurfaceFit fit;
     private JVector[][] OccCtrs;
     
+    ArrayList allThreads = new ArrayList();
+    private int activeCount;
+    SwingWorker threadMonitor;
     public VectorAnalysisMDI() {
        
         Dimension d = this.getMaximumSize();
@@ -99,6 +102,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fit.setUseSelection(this.useSeljChBx.isSelected());
         fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         //treeModel.reload();
+        
+        threadMonitor = new SwingWorker(){
+            @Override
+            protected Object doInBackground() throws Exception {
+                while(activeCount > 0){
+                    setStatusMessage("Waiting for "+activeCount + "threads to end \n");
+                    //Thread.sleep(100);
+                    jVectorFieldCalculator.getFinished().wait();
+                    activeCount--;
+                }
+                setStatusMessage("All threads are complete \n");
+                return null;
+            }
+            
+        };
         
         
         
@@ -1842,16 +1860,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
         
-        ThreadGroup grp = new ThreadGroup("Analysis");
+       
         
         
         //27th Mar: Would be nice to segregate the progress bar updating to separate function that 
         //takes the progressbar and its value as argument and updates it in a separate thread rather than 
         //creating a thread on the fly everytime. 
 
-        //Form grp relevant data managers
+        //Form threadGrp relevant data managers
         //Get average images
-        //Process both individual as well as grp through
+        //Process both individual as well as threadGrp through
         // steps of i) interpolation - surface fit , bilinear and gaussian blur
         //         ii) differentiation -
         //        iii) divergence maps -
@@ -1991,18 +2009,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
             treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
 
-            int currVal = Count;
-            SwingWorker upFR = new SwingWorker(){
-                @Override
-                protected Object doInBackground() throws Exception {
-                    jProgressBarFR.setValue(currVal);
-                    //jProgressBarDataAssignment.setValue(currVal);
-                    //System.out.print("Current File # \n"+currVal);
-                    return 0;
-                }
-            };
-            //new Thread(upFR).start();
-            upFR.execute();
+            //int currVal = Count;
+            
+            this.UpdateProgress(100*(Count+1)/nFiles, jProgressBarFR,"%");
+            
+//            SwingWorker upFR = new SwingWorker(){
+//                @Override
+//                protected Object doInBackground() throws Exception {
+//                    jProgressBarFR.setValue(currVal);
+//                    //jProgressBarDataAssignment.setValue(currVal);
+//                    //System.out.print("Current File # \n"+currVal);
+//                    return 0;
+//                }
+//            };
+//            new Thread(threadGrp,upFR).start();
+            //upFR.execute();
         }
 
         //Use the errorlist to show the list of files that could not be read.
@@ -2070,7 +2091,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         
                         File tmpFile = new File(fnames[0]);
                         String outPath = tmpFile.getParent()+ File.separator+trialNames.get(tCount)+File.separator+grpNames.get(gCount);
-                        /* Path points to a folder named after the trail name containg another folder corresponding to grp*/
+                        /* Path points to a folder named after the trail name containg another folder corresponding to threadGrp*/
                         //                        currManager.setOutPath(outPath);
                         //                        Thread dataProcessingThd = new Thread(currManager);
                         //                        dataProcessingThd.start();
@@ -2081,9 +2102,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         DataManager[] tempMan = new DataManager[1];
                         tempMan[0] = currManager;
                         
-                        Thread tempThread = new Thread(grp, currManager);
+                        Thread tempThread = new Thread( currManager,"DataReader#"+t*g);
+                        allThreads.add(tempThread);
                         tempThread.start();
-
+                        setStatusMessage("DataReader#"+t*g+" started"+"Thread Count "+"\n");
                         
                         jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);
                         calAveFlds(currManager,gCount,tCount,xRes,yRes);
@@ -2098,19 +2120,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         };
        
 //        worker.execute();
-        new Thread(grp, worker).start();
-        SwingWorker monitor = new SwingWorker(){
-            @Override
-            protected Object doInBackground() throws Exception {
-                int activeThreads = grp.activeCount();
-                while(activeThreads != 0 ){
-                    Thread.sleep(100);
-                    StatusMessageBox.append("Waiting for "+activeThreads+"to end"+"\n");
-                }
-                return null;
-            }
-        };
-        monitor.execute();
+        Thread tp = new Thread( worker,"RunGrp");
+        allThreads.add(tp);
+        tp.start();
+        setStatusMessage("RunGrp started"+"\n");
+        
+//        boolean live = true;
+//        while(live){
+//            for(Object tp1 : allThreads){
+//                
+//            }
+//        }
+      
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
     private void setStatusMessage(String message, boolean toAppend){
        SwingWorker messenger = new SwingWorker(){
@@ -2139,17 +2160,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 };
                 upTP.execute();
    }
- private void UpdateProgress(int tc, JProgressBar progressBar, String string) {
-                SwingWorker upTP = new SwingWorker(){
-                    @Override
-                    protected Object doInBackground() throws Exception {
-                        progressBar.setValue(tc);
-                        progressBar.setString(tc+string);
-                        return null;
-                    }
-                };
-                upTP.execute();
-   }
+    private void UpdateProgress(int tc, JProgressBar progressBar, String string) {
+                   SwingWorker upTP = new SwingWorker(){
+                       @Override
+                       protected Object doInBackground() throws Exception {
+                           progressBar.setValue(tc);
+                           progressBar.setString(tc+string);
+                           return null;
+                       }
+                   };
+                   upTP.execute();
+      }
     private void expDgnTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expDgnTreeMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_expDgnTreeMouseClicked
@@ -2602,35 +2623,35 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void calAveFlds(DataManager currManager, int gCount, int tCount,int xRes, int yRes) {
                 
-                var timeLapsed = false;
-                var startTime = System.currentTimeMillis();
-                while (!currManager.isVectorFldsReady() && !timeLapsed){
-                    timeLapsed = (System.currentTimeMillis() - startTime) > 1000;// timeOut in milliseconds
-                    try {                   
-                            Thread.sleep(100);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    this.StatusMessageBox.append("Waiting for the data to be read before calculating averages..."+"\n");
-                    System.out.print("Waiting for the data to be read before calculating averages..."+"\n");
-                }
-                
-                if(timeLapsed){
-                    this.StatusMessageBox.append("Timed Out waiting for calculating averages..."+"\n");
-                    return ;
-                }
-                
-                
-                JVector OC = currManager.findOC(xRes, yRes);
-                OccCtrs[tCount][gCount] = OC;
-                this.ocXjFtTxt2.setText(""+OC.getComponent(0));
-                this.ocYjFtTxt3.setText(""+OC.getComponent(1));
-                
-                currManager.computeAve(0, OC,true);
-                currManager.saveAverage("grp#_"+gCount+"_",true);
-        //currManager.computeAve(1, Plt,true);
-        // currManager.saveAverage("grp#_comp_Plt"+gCount+"_",false);
-        //currManager.computeAve(3,null,true);
+        var timeLapsed = false;
+        var startTime = System.currentTimeMillis();
+        while (!currManager.isVectorFldsReady() && !timeLapsed){
+            timeLapsed = (System.currentTimeMillis() - startTime) > 1000;// timeOut in milliseconds
+            try {                   
+                    Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            setStatusMessage("Waiting for the data to be read before calculating averages..."+"\n");
+            //System.out.print("Waiting for the data to be read before calculating averages..."+"\n");
+        }
+
+        if(timeLapsed){
+            setStatusMessage("Timed Out waiting for calculating averages..."+"\n");
+            return ;
+        }
+
+
+        JVector OC = currManager.findOC(xRes, yRes);
+        OccCtrs[tCount][gCount] = OC;
+        this.ocXjFtTxt2.setText(""+OC.getComponent(0));
+        this.ocYjFtTxt3.setText(""+OC.getComponent(1));
+
+        currManager.computeAve(0, OC,true);
+        currManager.saveAverage("grp#_"+gCount+"_",true);
+//currManager.computeAve(1, Plt,true);
+// currManager.saveAverage("threadGrp#_comp_Plt"+gCount+"_",false);
+//currManager.computeAve(3,null,true);
         currManager.computeAve(1, OC,true);
         currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
         
@@ -2686,14 +2707,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     } catch (InterruptedException ex) {
                         Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    this.setStatusMessage("Waiting for the data to be read for generating images..."+"/n",true);
-                    this.StatusMessageBox.append("Waiting for the data to be read for generating images..."+"/n");
+                    this.setStatusMessage("Waiting for the data to be read for generating images..."+"\n",true);
+                    this.StatusMessageBox.append("Waiting for the data to be read for generating images..."+"\n");
                    // System.out.print("Waiting for the data to be read for generating images..."+"/n");
        }
         
         if(timeLapsed){
-            this.StatusMessageBox.append("Timed Out waiting for generating images..."+"/n");
-            System.out.print("Timed Out waiting for generating images..."+"/n");
+            this.StatusMessageBox.append("Timed Out waiting for generating images..."+"\n");
+            System.out.print("Timed Out waiting for generating images..."+"\n");
             return null;
         }
         // Having read all the data files estimate the occupancy center. Also allow the user to enter.
@@ -2766,6 +2787,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     public void calculateVectorFldProperties(JVectorSpace VecFld, Roi sampledGrpRoi, boolean isDivergence,String pathName,String suffix) {
         
         System.out.println("Entering field calc...");
+        int counter = 0;
         jVectorFieldCalculator calculator = new jVectorFieldCalculator();
         calculator.setVecFld(VecFld);
         calculator.setPolyX(x_polyOrderJCmbBx.getSelectedIndex()+1);
@@ -2890,9 +2912,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //     
 //    }
     //calculator.run();
-    Thread thread = new Thread(calculator);
+    Thread thread = new Thread(calculator,""+jVectorFieldCalculator.getInstanceCount());
     thread.start();
-    
+    activeCount++;
+    if(activeCount == 1){
+        Thread monitor = new Thread(threadMonitor);
+        monitor.start();
+    }
     
  }
 /** starting from here..**
