@@ -111,6 +111,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     //Thread.sleep(100);
                     jVectorFieldCalculator.getFinished().wait();
                     activeCount--;
+                    //not a correct implementation. Rewrite the wait logic.
                 }
                 setStatusMessage("All threads are complete \n");
                 return null;
