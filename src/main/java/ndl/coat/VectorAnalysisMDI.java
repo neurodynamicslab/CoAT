@@ -5,7 +5,7 @@
  */
 package ndl.coat;
 import ndl.ndllib.*;
-import NDL_JavaClassLib.MultiFileDialog;
+//import NDL_JavaClassLib.MultiFileDialog;
 import java.awt.Dimension;
 import ij.ImagePlus;
 import ij.ImageStack;
@@ -106,12 +106,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         threadMonitor = new SwingWorker(){
             @Override
             protected Object doInBackground() throws Exception {
-                while(activeCount > 0){
+                synchronized(fit){
+                while(jVectorFieldCalculator.getInstanceCount() > 0 ){
                     setStatusMessage("Waiting for "+activeCount + "threads to end \n");
                     //Thread.sleep(100);
-                    jVectorFieldCalculator.getFinished().wait();
+                        wait();
                     activeCount--;
                     //not a correct implementation. Rewrite the wait logic.
+                }
                 }
                 setStatusMessage("All threads are complete \n");
                 return null;

@@ -361,9 +361,11 @@ public class jVectorFieldCalculator implements Runnable{
 
             }
       }
-        synchronized (getFinished()){
-            jVectorFieldCalculator.getFinished().notifyAll();
-    }
+      synchronized (jVectorFieldCalculator.finished){
+          instanceCount--;
+          if(instanceCount == 0)
+                jVectorFieldCalculator.getFinished().notifyAll();
+      }
     }
     private ImagePlus[] getSurfaces(int polyX, int polyY, JVectorSpace space, Roi sel){
         int nCmp = space.getnComp();
