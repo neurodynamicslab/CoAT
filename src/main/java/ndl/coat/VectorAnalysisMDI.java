@@ -109,7 +109,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 synchronized(jVectorFieldCalculator.getFinished()){
                     while(jVectorFieldCalculator.getInstanceCount() > 0 && activeCount > 0){
                         try {
-                            StatusMessageBox.append("Waiting for "+activeCount + "threads to end \n");
+                            //StatusMessageBox.append("Waiting for "+activeCount + "threads to end \n");
                             setStatusMessage("Waiting for "+activeCount + "threads to end" +jVectorFieldCalculator.getInstanceCount() +" \n");
                             //Thread.sleep(100);
                             jVectorFieldCalculator.getFinished().wait();
@@ -121,6 +121,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     }
                 }
                 setStatusMessage("All threads are complete \n");
+                RunGrp_Button.setEnabled(true);
             }
             
         };
@@ -1383,24 +1384,28 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProgIndPanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel29)
                     .addComponent(jLabel28)
-                    .addGroup(ProgIndPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel25)
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel26)
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel27))
-                    .addGroup(ProgIndPanelLayout.createSequentialGroup()
-                        .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jProgressBarGP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jProgressBarDP, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jProgressBarFR, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                    .addComponent(jProgressBarFR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProgIndPanelLayout.createSequentialGroup()
+                        .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ProgIndPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addGap(0, 45, Short.MAX_VALUE))
+                            .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel26)
+                            .addGroup(ProgIndPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jProgressBarGP, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27)
+                            .addComponent(jProgressBarDP, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(17, 17, 17))
         );
         ProgIndPanelLayout.setVerticalGroup(
             ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1413,15 +1418,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(5, 5, 5)
                 .addComponent(jProgressBarFR, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25)
-                    .addComponent(jLabel26)
+                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel27))
                 .addGap(6, 6, 6)
-                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jProgressBarGP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jProgressBarDP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jProgressBarDP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 17, Short.MAX_VALUE))
         );
 
@@ -1499,14 +1505,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 530, 580));
 
+        jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane8.setViewportBorder(javax.swing.BorderFactory.createTitledBorder("Status Messages"));
         jScrollPane8.setAutoscrolls(true);
 
         StatusMessageBox.setColumns(20);
         StatusMessageBox.setLineWrap(true);
-        StatusMessageBox.setRows(50);
+        StatusMessageBox.setRows(5);
         StatusMessageBox.setWrapStyleWord(true);
         StatusMessageBox.setBorder(null);
+        StatusMessageBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         StatusMessageBox.setDragEnabled(true);
         jScrollPane8.setViewportView(StatusMessageBox);
 
@@ -1893,7 +1901,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         String dataSeparator;// ((String)this.jCombo_dataSeparator.getSelectedItem());
         var selIdx = this.jCombo_dataSeparator.getSelectedIndex();
-
+        
+        this.RunGrp_Button.setEnabled(false);
+        
         switch(selIdx){
             case 0:     //Tab
             dataSeparator = "\t";

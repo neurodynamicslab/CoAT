@@ -2020,27 +2020,35 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="38" pref="38" max="-2" attributes="0"/>
-                                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="42" pref="42" max="-2" attributes="0"/>
-                                  <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jProgressBarTP" min="-2" pref="104" max="-2" attributes="0"/>
-                                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                                  <Component id="jProgressBarGP" min="-2" pref="104" max="-2" attributes="0"/>
-                                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                                  <Component id="jProgressBarDP" min="-2" pref="104" max="-2" attributes="0"/>
-                              </Group>
                               <Component id="jProgressBarDataAssignment" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jProgressBarFR" alignment="0" min="-2" pref="348" max="-2" attributes="0"/>
+                              <Component id="jProgressBarFR" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="45" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="jProgressBarTP" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                          <Component id="jProgressBarGP" min="-2" pref="136" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jProgressBarDP" min="-2" pref="131" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="110" max="32767" attributes="0"/>
+                          <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2055,16 +2063,18 @@
                           <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                           <Component id="jProgressBarFR" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel25" alignment="3" max="32767" attributes="0"/>
+                                  <Component id="jLabel26" alignment="3" max="32767" attributes="0"/>
+                              </Group>
                               <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jProgressBarTP" min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="jProgressBarGP" min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="jProgressBarDP" min="-2" pref="21" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jProgressBarGP" alignment="2" min="-2" pref="21" max="-2" attributes="0"/>
+                              <Component id="jProgressBarDP" alignment="2" min="-2" pref="21" max="-2" attributes="0"/>
+                              <Component id="jProgressBarTP" alignment="2" min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
                       </Group>
@@ -2206,12 +2216,16 @@
     </Container>
     <Container class="javax.swing.JScrollPane" name="jScrollPane8">
       <Properties>
+        <Property name="verticalScrollBarPolicy" type="int" value="22"/>
         <Property name="viewportBorder" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Status Messages"/>
           </Border>
         </Property>
         <Property name="autoscrolls" type="boolean" value="true"/>
+        <Property name="viewportView" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="default"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -2225,10 +2239,13 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="lineWrap" type="boolean" value="true"/>
-            <Property name="rows" type="int" value="50"/>
+            <Property name="rows" type="int" value="5"/>
             <Property name="wrapStyleWord" type="boolean" value="true"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
+            </Property>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Default Cursor"/>
             </Property>
             <Property name="dragEnabled" type="boolean" value="true"/>
           </Properties>
