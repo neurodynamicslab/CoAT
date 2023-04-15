@@ -7,7 +7,6 @@ package ndl.coat;
 
 import ij.process.FloatStatistics;
 import ij.process.ImageStatistics;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,9 +36,11 @@ public class DataManager extends Object implements Runnable {
      */
     public synchronized void setVectorFldsReady(boolean VectorFldsReady) {
         this.VectorFldsReady = VectorFldsReady;
+        this.vectorFlag.notifyAll();
     }
 
     private boolean VectorFldsReady = false;
+    private final Object vectorFlag = new Object();
 
     /**
      * @return the timeData
@@ -308,7 +309,8 @@ public class DataManager extends Object implements Runnable {
              var elapsedTime = System.currentTimeMillis() - starttime;
              timeOut = elapsedTime >= timetowait;
             try {
-                Thread.sleep(100);
+                this.vectorFlag.wait();
+                //Thread.sleep(100);
             } catch (InterruptedException ex) {
                 Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
             }
