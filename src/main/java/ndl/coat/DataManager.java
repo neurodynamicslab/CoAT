@@ -7,10 +7,12 @@ package ndl.coat;
 
 import ij.process.FloatStatistics;
 import ij.process.ImageStatistics;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ndl.ndllib.*;
+
 /**
  * The current version is designed assuming the user would be doing the analysis of different 
  * groups outside of this class. This class manages all the data files corresponding to one group
@@ -22,7 +24,7 @@ import ndl.ndllib.*;
  * 
  * @author balam
  */
-public class DataManager extends Object implements Runnable {
+public class DataManager extends Object implements Runnable,Serializable {
 
     /**
      * @return the VectorFldsReady
@@ -36,7 +38,9 @@ public class DataManager extends Object implements Runnable {
      */
     public synchronized void setVectorFldsReady(boolean VectorFldsReady) {
         this.VectorFldsReady = VectorFldsReady;
+        
         this.vectorFlag.notifyAll();
+        
     }
 
     private boolean VectorFldsReady = false;
