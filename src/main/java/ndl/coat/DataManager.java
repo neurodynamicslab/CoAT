@@ -294,7 +294,7 @@ public class DataManager extends Object implements Runnable {
      * @param choice 0: for generating the average field of the vectors as such (no projections) 
      *               1: for generating the average field of projected vectors along a another vector 
      *               2: for generating the average field of projected vectors orthogonal to another vector
-     *               >3: calculates only the residence/number of sample  map average. 
+     *               3: calculates only the residence/number of sample  map average. 
      * @param Vector The position vector along/orthogonal to which we get the projections ( can be null for option "0" for choice).
      * @param resiNorm  True if the vector field needs to normalized for the number of samples. 
      *                  Usually it is true as otherwise they will represent incorrect magnitude.
