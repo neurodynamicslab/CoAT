@@ -404,7 +404,7 @@ public class jVectorFieldCalculator implements Runnable{
                                                                       // sel, false square/rectangle region of interest with 0 for pixels of unmasked
                                                                       //sel, true just the pixels that are selected by roi mask
                                                                       
-       System.out.println("The dimension after fitting is (X x Y) "+selInFrame.getWidth()+" x "+selInFrame.getHeight());
+//       System.out.println("The dimension after fitting is (X x Y) "+selInFrame.getWidth()+" x "+selInFrame.getHeight());
         if( selection != null  ){
             var selX =  selection.getBounds().x ;
             var selY =  selection.getBounds().y ;
