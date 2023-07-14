@@ -7,10 +7,12 @@ package ndl.coat;
 
 import ij.process.FloatStatistics;
 import ij.process.ImageStatistics;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ndl.ndllib.*;
+
 /**
  * The current version is designed assuming the user would be doing the analysis of different 
  * groups outside of this class. This class manages all the data files corresponding to one group
@@ -22,7 +24,7 @@ import ndl.ndllib.*;
  * 
  * @author balam
  */
-public class DataManager extends Object implements Runnable {
+public class DataManager extends Object implements Runnable,Serializable {
 
     /**
      * @return the VectorFldsReady
@@ -364,7 +366,7 @@ public class DataManager extends Object implements Runnable {
                     }                                      
                                        
                     var resMap = this.residenceMaps[Idx++];
-                    var norm = covertScaletoNorm(resMap.getPixelArray());
+                    var norm = convertScaletoNorm(resMap.getPixelArray());
                     var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
                     var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
                     
@@ -389,7 +391,7 @@ public class DataManager extends Object implements Runnable {
 //                    getAveAccFld().fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
 //                }
                 break;
-            case 2:                     //Calculate projections ortogonal to a position vector
+            case 2:                     //Calculate projections orthogonal to a position vector
                                         
                 
                 getAveVelFld().getSpace().clear();
@@ -409,7 +411,7 @@ public class DataManager extends Object implements Runnable {
                         accFldPrj = accelarationField[Idx].getProjection();
                     }  
                     var resMap = this.residenceMaps[Idx++];
-                    var norm = covertScaletoNorm(resMap.getPixelArray());
+                    var norm = convertScaletoNorm(resMap.getPixelArray());
                     var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
                     var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
                     getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
@@ -425,7 +427,7 @@ public class DataManager extends Object implements Runnable {
         setAveReady(true);
     }
 
-    private Double[][] covertScaletoNorm(double [][] norm) {
+    private Double[][] convertScaletoNorm(double [][] norm) {
         
         if(norm == null)
             return null;
