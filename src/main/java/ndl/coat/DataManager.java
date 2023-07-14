@@ -365,7 +365,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                     }                                      
                                        
                     var resMap = this.residenceMaps[Idx++];
-                    var norm = covertScaletoNorm(resMap.getPixelArray());
+                    var norm = convertScaletoNorm(resMap.getPixelArray());
                     var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
                     var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
                     
@@ -390,7 +390,7 @@ public class DataManager extends Object implements Runnable,Serializable {
 //                    getAveAccFld().fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
 //                }
                 break;
-            case 2:                     //Calculate projections ortogonal to a position vector
+            case 2:                     //Calculate projections orthogonal to a position vector
                                         
                 
                 getAveVelFld().getSpace().clear();
@@ -410,7 +410,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                         accFldPrj = accelarationField[Idx].getProjection();
                     }  
                     var resMap = this.residenceMaps[Idx++];
-                    var norm = covertScaletoNorm(resMap.getPixelArray());
+                    var norm = convertScaletoNorm(resMap.getPixelArray());
                     var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
                     var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
                     getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
@@ -426,7 +426,7 @@ public class DataManager extends Object implements Runnable,Serializable {
         setAveReady(true);
     }
 
-    private Double[][] covertScaletoNorm(double [][] norm) {
+    private Double[][] convertScaletoNorm(double [][] norm) {
         
         if(norm == null)
             return null;
