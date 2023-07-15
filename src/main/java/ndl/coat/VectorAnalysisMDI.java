@@ -1656,6 +1656,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //Generate the residence time weighted heat map,velocity map, component along search center and orthogonal
         //Differentiate and produce the differentials
         var inpDataDialog = new MultiFileDialog(null,true);
+        File startDirectory = new File(this.jFormatTxt_rootFolder.getText());
+        inpDataDialog.setStartDirectory(startDirectory);
         inpDataDialog.setVisible(true);
         
         var fNames = inpDataDialog.getSelectionArray();
@@ -2195,7 +2197,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void jButtonBrowseRootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBrowseRootActionPerformed
 
         JFileChooser fc =  new JFileChooser();
-
+        fc.setCurrentDirectory(new File(this.jFormatTxt_rootFolder.getText()));
         int status = fc.showOpenDialog(this);
 
         if(status == JFileChooser.APPROVE_OPTION){
