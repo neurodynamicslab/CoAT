@@ -97,17 +97,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         threadMonitor = new Thread(){
             @Override
             public void  run(){
-                synchronized(jVectorFieldCalculator.getFinished()){
+                synchronized(jVectorFieldCalculator.getFinishedStatus()){
                     while(jVectorFieldCalculator.getInstanceCount() > 0 && activeCount > 0){
                         try {
                             //StatusMessageBox.append("Waiting for "+activeCount + "threads to end \n");
-                            setStatusMessage("Waiting for "+activeCount + "threads to end" +jVectorFieldCalculator.getInstanceCount() +" \n");
+                            setStatusMessage("Waiting for "+activeCount + " threads and " +jVectorFieldCalculator.getInstanceCount() +" calculations to end\n");
                             //Thread.sleep(100);
-                            jVectorFieldCalculator.getFinished().wait();
+                            jVectorFieldCalculator.getFinishedStatus().wait();
                             activeCount--;
                             //not a correct implementation. Rewrite the wait logic.....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
                         } catch (InterruptedException ex) {
                             Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+                            setStatusMessage("Exception Occured:  \n" +ex.getMessage() +"\n");
+                            RunGrp_Button.setEnabled(true);
                         }
                     }
                 }
@@ -682,34 +684,35 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addComponent(jLabel14)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DataFiles_jPanelLayout.createSequentialGroup()
-                                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(SaveFileAssignmentsButton)
-                                        .addComponent(Assign_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                            .addComponent(OpenFileAssignmentsButton)
-                                            .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                                    .addGap(61, 61, 61)
-                                                    .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(RemoveFile_Button))
-                                                .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(chkBoxRemoveAssignedFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addComponent(jFormatTxt_rootFolder))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton1)
-                                        .addComponent(jButtonBrowseRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(38, 38, 38))))
-                        .addContainerGap(9, Short.MAX_VALUE))))
+                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DataFiles_jPanelLayout.createSequentialGroup()
+                                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SaveFileAssignmentsButton)
+                                    .addComponent(Assign_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                                        .addComponent(OpenFileAssignmentsButton)
+                                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                                                .addGap(61, 61, 61)
+                                                .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(RemoveFile_Button))
+                                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(chkBoxRemoveAssignedFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jFormatTxt_rootFolder))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1)
+                                    .addComponent(jButtonBrowseRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(38, 38, 38)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
                 .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
@@ -1021,7 +1024,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
 
         useTan2jChkBx.setText("Treat moving away and into platform differently");
-        useTan2jChkBx.setToolTipText("Uses tan inverse without differentiating vectors differentiating 180 deg. If unchecked then tan2  inverse is used that differentiates these vectors");
+        useTan2jChkBx.setToolTipText("By default the software uses tan inverse without differentiating vectors differing by 180 deg. If checked then tan2  inverse is used that differentiates these vectors");
 
         ScaleY_JChkBx.setSelected(true);
         ScaleY_JChkBx.setText("Scale Y");
@@ -1197,7 +1200,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         y_polyOrderJCmbBx.setSelectedIndex(4);
         y_polyOrderJCmbBx.setToolTipText("Determines the degree of the polynomial to be used in surface fit generation. ");
 
-        vectJChkBx.add(genVeljChkBx1);
         genVeljChkBx1.setText("Use Velocity as is");
 
         genAccjChkBx.setSelected(true);
@@ -1235,7 +1237,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1259,7 +1261,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(OrtoJRadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(61, 61, 61))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1304,7 +1306,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1321,14 +1323,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         InfoTab.addTab("Analysis Setting", jPanel1);
 
-        DeskTopPanel.add(InfoTab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 700));
+        DeskTopPanel.add(InfoTab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 700));
 
         jScrollPane4.setViewportView(DeskTopPanel);
         DeskTopPanel.getAccessibleContext().setAccessibleName("");
         var parentSize = DeskTopPanel.getParent().getSize();
         DeskTopPanel.setSize((int)parentSize.getWidth()/2,(int)parentSize.getHeight()/2);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 580));
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 580));
 
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -1381,7 +1383,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ProgIndPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel25)
-                                .addGap(0, 45, Short.MAX_VALUE))
+                                .addGap(0, 44, Short.MAX_VALUE))
                             .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1655,9 +1657,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //Calculate the velocity using differentiate function
         //Generate the residence time weighted heat map,velocity map, component along search center and orthogonal
         //Differentiate and produce the differentials
-        var inpDataDialog = new MultiFileDialog(null,true);
         File startDirectory = new File(this.jFormatTxt_rootFolder.getText());
-        inpDataDialog.setStartDirectory(startDirectory);
+        var inpDataDialog = new MultiFileDialog(null,true,startDirectory);
+        //inpDataDialog.setStartDirectory(startDirectory);
         inpDataDialog.setVisible(true);
         
         var fNames = inpDataDialog.getSelectionArray();
@@ -1882,7 +1884,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //expData = new ArrayList<ArrayList>();
 
         //Reading parameters and populate design tree
-
+        
+        this.setStatusMessage("Starting new calculation:+\n");
+        
         int xRes = Integer.parseInt(this.xResTxtField.getText());
         int yRes = Integer.parseInt(this.yResTxtField.getText());
         int xPlt = Integer.parseInt(this.PlatXjFtTxt.getText());
@@ -2149,8 +2153,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     StatusMessageBox.append(message);
                else
                     StatusMessageBox.setText(message);
-           return message;
-       }
+             return message;
+           }
        };
        messenger.execute();
     }
@@ -2197,12 +2201,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void jButtonBrowseRootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBrowseRootActionPerformed
 
         JFileChooser fc =  new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fc.setCurrentDirectory(new File(this.jFormatTxt_rootFolder.getText()));
         int status = fc.showOpenDialog(this);
 
         if(status == JFileChooser.APPROVE_OPTION){
-            this.jFormatTxt_rootFolder.setText(fc.getSelectedFile().getName());
-
+            this.jFormatTxt_rootFolder.setText(fc.getSelectedFile().getPath());
         }
 
     }//GEN-LAST:event_jButtonBrowseRootActionPerformed
@@ -2276,11 +2280,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int status = Fc.showOpenDialog(this);
 
         if(status != JFileChooser.APPROVE_OPTION)
-        return;
+            return;
 
         this.jButtonRemoveAssignmentsActionPerformed(evt);
         if(rel2absPathMaps == null)
-        this.rel2absPathMaps = new ConcurrentHashMap();
+            this.rel2absPathMaps = new ConcurrentHashMap();
 
         File asFile = Fc.getSelectedFile();
         FileReader reader;
@@ -2315,9 +2319,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         if(prev != null)
                         javax.swing.JOptionPane.showMessageDialog(null, "Found previous entry for file: removed and updated");
                         if(grpNames.indexOf(gName)== -1)
-                        grpNames.add(gName);
+                            grpNames.add(gName);
                         if(trialNames.indexOf(tName)== -1)
-                        trialNames.add(tName);
+                            trialNames.add(tName);
                         Line = "";
                     }else{
                         if(c > 31) Line += (char)c;
@@ -2625,6 +2629,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         if(timeLapsed){
             setStatusMessage("Timed Out waiting for calculating averages..."+"\n");
+            setStatusMessage("Exiting the calculations.."+"\n");
+            this.RunGrp_Button.setEnabled(true);
             return ;
         }
 
