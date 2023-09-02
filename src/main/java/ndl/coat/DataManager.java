@@ -435,7 +435,7 @@ public class DataManager extends Object implements Runnable,Serializable {
         int xIdx = 0, yIdx = 0;
         for(double[] X : norm){
             for(double Y : X){
-                scale[xIdx][yIdx++] = 1/Y;//(Y == 0) ? 0 : 1/Y ;      //pixels that are not sampled are set to zero during normalisation
+                scale[xIdx][yIdx++] = /*1/Y;//*/(Y == 0) ? 0 : 1/Y ;      //pixels that are not sampled are set to zero during normalisation
             }
             xIdx++;
             yIdx = 0;
