@@ -220,6 +220,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jLabel24 = new javax.swing.JLabel();
         aspectRatiojFmtFld = new javax.swing.JFormattedTextField();
         useRelVelJChkBx = new javax.swing.JCheckBox();
+        jChkBxAssym = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jFrtTxtFld = new javax.swing.JFormattedTextField();
+        jFmtTxtFldRadX = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         autoPoolRoijChkBx = new javax.swing.JCheckBox();
         jLabel18 = new javax.swing.JLabel();
@@ -1045,6 +1051,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         useRelVelJChkBx.setText(" Use Relative Velocity");
         useRelVelJChkBx.setToolTipText("Selecting this nomalises the Peak velocity of Each Data File to Float.Max");
 
+        jChkBxAssym.setText("Assymetric");
+
+        jCheckBox2.setText("Orientation data from file");
+        jCheckBox2.setEnabled(false);
+
+        jLabel15.setText("x Radius");
+
+        jLabel23.setText("y Radius");
+
+        jFrtTxtFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFrtTxtFld.setText("0");
+
+        jFmtTxtFldRadX.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFmtTxtFldRadX.setText("0");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1053,32 +1074,47 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(ScaleY_JChkBx)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(useTan2jChkBx)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(aspectRatiojFmtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(useRelVelJChkBx)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(ScaleY_JChkBx)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(aspectRatiojFmtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(gaussjChkBx)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(useTan2jChkBx))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(gaussjChkBx)
+                                .addGap(76, 76, 76)
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(reSzImgjChkBx)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel21)
-                                .addGap(26, 26, 26)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(scalingfactorJFormFld)
-                            .addComponent(gauRadjFormFld))))
+                                .addGap(26, 26, 26))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jChkBxAssym)
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFmtTxtFldRadX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel23)
+                                .addGap(14, 14, 14))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jCheckBox2)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jFrtTxtFld)
+                            .addComponent(scalingfactorJFormFld, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(gauRadjFormFld, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1091,19 +1127,28 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     .addComponent(reSzImgjChkBx)
                     .addComponent(jLabel21)
                     .addComponent(scalingfactorJFormFld))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(gauRadjFormFld)
                     .addComponent(gaussjChkBx))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jChkBxAssym)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel23)
+                    .addComponent(jFrtTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmtTxtFldRadX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox2)
+                .addGap(8, 8, 8)
                 .addComponent(useTan2jChkBx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ScaleY_JChkBx)
                     .addComponent(jLabel24)
                     .addComponent(aspectRatiojFmtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Post Process (Results/Output)"));
@@ -1172,7 +1217,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGap(8, 8, 8)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel19)
                     .addComponent(yPoolCtrjFormFld))
                 .addGap(12, 12, 12)
@@ -1183,7 +1228,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addComponent(jCheckBox3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saveVelocityjchkBx)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Surface Fit Setting", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -1292,7 +1337,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AlongJRadBtn)
                     .addComponent(OrtoJRadBtn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1312,12 +1357,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(7, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 214, Short.MAX_VALUE))
         );
 
@@ -1383,7 +1428,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ProgIndPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel25)
-                                .addGap(0, 44, Short.MAX_VALUE))
+                                .addGap(0, 45, Short.MAX_VALUE))
                             .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2121,6 +2166,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         
                         jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);
                         calAveFlds(currManager,gCount,tCount,xRes,yRes);
+                        calIndividualFlds(currManager);
                         UpdateProgress(g,jProgressBarGP,"Grp #",nGrps+"complete");
                     }
                     UpdateProgress(tc,jProgressBarTP,"Trial #",nTrial+"complete");
@@ -2145,6 +2191,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        }
       
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
+    private void calIndividualFlds(DataManager manager){
+        
+        
+    }
     private void setStatusMessage(String message, boolean toAppend){
        SwingWorker messenger = new SwingWorker(){
            @Override
@@ -3196,18 +3246,23 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JButton jButtonBrowseRoot;
     private javax.swing.JButton jButtonFileAssignRest;
     private javax.swing.JButton jButtonRemoveAssignments;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jChkBxAssym;
     private javax.swing.JComboBox<String> jCombo_dataSeparator;
+    private javax.swing.JFormattedTextField jFmtTxtFldRadX;
     private javax.swing.JMenuItem jFolderOptions;
     private javax.swing.JFormattedTextField jFormatTxt_rootFolder;
     private javax.swing.JFormattedTextField jFormattedTextField_NoOfGrps;
     private javax.swing.JFormattedTextField jFormattedText_nTrials;
+    private javax.swing.JFormattedTextField jFrtTxtFld;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -3216,6 +3271,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
