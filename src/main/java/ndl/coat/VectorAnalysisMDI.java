@@ -2078,7 +2078,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fnames[0] = fName;
         SwingWorker worker = new SwingWorker(){
             @Override
-            protected Object doInBackground() throws Exception{
+        protected Object doInBackground() throws Exception{
                 for(int tCount = 0 ; tCount < nTrial ; tCount++){
                     int tc = tCount+1;
 //                    UpdateProgress(tc,jProgressBarTP,"Trial #",nTrial+"");
@@ -2119,8 +2119,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         tempThread.start();
                         setStatusMessage("DataReader#"+t*g+" started"+"Thread Count "+"\n");
                         
-                        jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC);
+                        jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC); // Need to refactor this to remove the redundant  arguments
+                                                                                 // Data manager has xRes, yRes and xOC and yOC;
                         calAveFlds(currManager,gCount,tCount,xRes,yRes);
+                        /**
+                         * calIndFlds(tempMan[0]) 
+                         */
                         UpdateProgress(g,jProgressBarGP,"Grp #",nGrps+"complete");
                     }
                     UpdateProgress(tc,jProgressBarTP,"Trial #",nTrial+"complete");
@@ -2697,7 +2701,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     timeLapsed = (System.currentTimeMillis() - startTime) > 1000;// timeOut in milliseconds
                     try {                   
                         Thread.sleep(100);
-                    } catch (InterruptedException ex) {
+                    }catch (InterruptedException ex) {
                         Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     this.setStatusMessage("Waiting for the data to be read for generating images..."+"\n",true);
