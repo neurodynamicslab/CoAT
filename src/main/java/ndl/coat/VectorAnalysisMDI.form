@@ -1472,7 +1472,7 @@
                                               </Group>
                                           </Group>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jFrtTxtFld" max="32767" attributes="0"/>
+                                              <Component id="jFmtTxtFldRadY" max="32767" attributes="0"/>
                                               <Component id="scalingfactorJFormFld" alignment="1" max="32767" attributes="0"/>
                                               <Component id="gauRadjFormFld" alignment="1" max="32767" attributes="0"/>
                                           </Group>
@@ -1504,7 +1504,7 @@
                                       <Component id="jChkBxAssym" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jFrtTxtFld" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jFmtTxtFldRadY" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jFmtTxtFldRadX" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1632,8 +1632,11 @@
                             <Property name="text" type="java.lang.String" value="y Radius"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JFormattedTextField" name="jFrtTxtFld">
+                        <Component class="javax.swing.JFormattedTextField" name="jFmtTxtFldRadY">
                           <Properties>
+                            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                              <Format subtype="1" type="0"/>
+                            </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="text" type="java.lang.String" value="0"/>
                           </Properties>
@@ -1795,35 +1798,43 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel16" min="-2" pref="246" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="x_polyOrderJCmbBx" min="-2" pref="42" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel16" min="-2" pref="246" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="x_polyOrderJCmbBx" min="-2" pref="42" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel17" min="-2" pref="246" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="y_polyOrderJCmbBx" min="-2" pref="42" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                      <Component id="genAccjChkBx" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="useSeljChBx" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="genDivjChkBx" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="res2SeljChkBx" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="genVeljChkBx1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="genConvJChkBx" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="CompforVectorFldjChkBx2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="AlongJRadBtn" min="-2" pref="98" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="OrtoJRadBtn" min="-2" pref="98" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel17" min="-2" pref="246" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="y_polyOrderJCmbBx" min="-2" pref="42" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Component id="genAccjChkBx" min="-2" max="-2" attributes="0"/>
-                                              <Component id="useSeljChBx" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="genDivjChkBx" min="-2" max="-2" attributes="0"/>
-                                              <Component id="res2SeljChkBx" min="-2" max="-2" attributes="0"/>
-                                              <Component id="genVeljChkBx1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="genConvJChkBx" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="CompforVectorFldjChkBx2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="AlongJRadBtn" min="-2" pref="98" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="OrtoJRadBtn" min="-2" pref="98" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="usePltCordChkBx2" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace pref="8" max="32767" attributes="0"/>
@@ -1845,7 +1856,9 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="genVeljChkBx1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="usePltCordChkBx2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="genAccjChkBx" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="useSeljChBx" min="-2" max="-2" attributes="0"/>
@@ -1862,7 +1875,7 @@
                                       <Component id="AlongJRadBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="OrtoJRadBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="70" max="32767" attributes="0"/>
+                                  <EmptySpace pref="56" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1985,6 +1998,11 @@
                               <ComponentRef name="compJRadGrp"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Ortogonal"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JCheckBox" name="usePltCordChkBx2">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Use Platform Cord "/>
                           </Properties>
                         </Component>
                       </SubComponents>
