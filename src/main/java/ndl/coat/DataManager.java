@@ -147,10 +147,10 @@ public class DataManager extends Object implements Runnable,Serializable {
     }
 
     /**
-     * @return the accelarationField
+     * @return the accelerationField
      */
     public synchronized JVectorSpace[] getAccelarationField() {
-        return accelarationField;
+        return accelerationField;
     } 
     public synchronized DataTrace_ver_3[] getAccelaration(){
         return accelaration;
@@ -204,7 +204,7 @@ public class DataManager extends Object implements Runnable,Serializable {
     private DataTrace_ver_3[] velocity;
     private DataTrace_ver_3[] accelaration;
     
-    private JVectorSpace[] velocityField, accelarationField;
+    private JVectorSpace[] velocityField, accelerationField;
     
     private JHeatMapArray[] residenceMaps;
     
@@ -224,6 +224,8 @@ public class DataManager extends Object implements Runnable,Serializable {
      * (i.e. x1 \t y1 \n x2 \t y2\n....EOF). x1,y1 co -respond to co-ordinates at time t1, x2, y2 at time t2.
      * tn+1 is the time sample immediately after tn of an uniformly sampled data. Once read these data are stored in 
      * the internal data structure DataTrace.
+     * Internally this function estimates velocity fld, acceleration fld and residence map arrays using computeAllField private
+     * method. 
      */
     public synchronized void readData(){
         this.setVectorFldsReady(false);
@@ -247,7 +249,7 @@ public class DataManager extends Object implements Runnable,Serializable {
         this.setAccelaration(new DataTrace_ver_3[maxFileNo]);
         
         this.velocityField = new JVectorSpace[maxFileNo];
-        this.accelarationField = new JVectorSpace[maxFileNo];
+        this.accelerationField = new JVectorSpace[maxFileNo];
         
         this.residenceMaps = new JHeatMapArray[maxFileNo];
                        
@@ -283,7 +285,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                Idx++;
            }
 
-           accelarationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),false,posiVects,accVectors);
+           accelerationField[fileCounter] = new JVectorSpace(getXRes(),getYRes(),false,posiVects,accVectors);
            velVectors.add(new JVector(velo.get(Idx).getXY()));
            posiVects.add(tseries.get(Idx));
            velocityField[fileCounter] =  new JVectorSpace(getXRes(),getYRes(),false,posiVects,velVectors);
@@ -338,7 +340,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                 getAveAccFld().getVectors().clear();
                 for(var velFld : this.velocityField)
                     getAveVelFld().fillSpace(velFld.getSpace(), velFld.getVectors(), false);
-                for(var accFld : this.accelarationField)
+                for(var accFld : this.accelerationField)
                     getAveAccFld().fillSpace(accFld.getSpace(), accFld.getVectors(), false); 
 //                for(var resFld : this.residenceMaps)
 //                    getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
@@ -357,12 +359,12 @@ public class DataManager extends Object implements Runnable,Serializable {
                     
                     if(!velFld.isProjectionStatus()){
                          velFld.setUseTan2(useTan2Prj);
-                         accelarationField[Idx].setUseTan2(useTan2Prj);
+                         accelerationField[Idx].setUseTan2(useTan2Prj);
                          prjFld = velFld.getProjections2point(Vector,true);                         
-                         accFldPrj = accelarationField[Idx].getProjections2point(Vector,true);
+                         accFldPrj = accelerationField[Idx].getProjections2point(Vector,true);
                     }else{
                         prjFld = velFld.getProjection();
-                        accFldPrj = accelarationField[Idx].getProjection();
+                        accFldPrj = accelerationField[Idx].getProjection();
                     }                                      
                                        
                     var resMap = this.residenceMaps[Idx++];
@@ -386,7 +388,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                     
                     
                 }
-//                for(var accFld : this.accelarationField){
+//                for(var accFld : this.accelerationField){
 //                    var accCmp = accFld.getProjections2point(Vector,true);
 //                    getAveAccFld().fillSpace(accCmp.getSpace(), accCmp.getVectors(), false); 
 //                }
@@ -402,13 +404,13 @@ public class DataManager extends Object implements Runnable,Serializable {
                 for(var velFld : this.velocityField){
                     if(!velFld.isProjectionStatus()){
                          velFld.setUseTan2(useTan2Prj);
-                         accelarationField[Idx].setUseTan2(useTan2Prj);
+                         accelerationField[Idx].setUseTan2(useTan2Prj);
                          prjFld = velFld.getProjections2point(Vector,false);
-                         accFldPrj = accelarationField[Idx].getProjections2point(Vector,false);
+                         accFldPrj = accelerationField[Idx].getProjections2point(Vector,false);
                     }
                     else  {
                         prjFld = velFld.getProjection();
-                        accFldPrj = accelarationField[Idx].getProjection();
+                        accFldPrj = accelerationField[Idx].getProjection();
                     }  
                     var resMap = this.residenceMaps[Idx++];
                     var norm = convertScaletoNorm(resMap.getPixelArray());
@@ -435,12 +437,15 @@ public class DataManager extends Object implements Runnable,Serializable {
         int xIdx = 0, yIdx = 0;
         for(double[] X : norm){
             for(double Y : X){
-                scale[xIdx][yIdx++] = /*1/Y;//*/(Y == 0) ? 0 : 1/Y ;      //pixels that are not sampled are set to zero during normalisation
+                scale[xIdx][yIdx++] = /*1/Y;//*/(Y == 0) ? Double.NaN : 1/Y ;      //pixels that are not sampled are set to zero during normalisation
             }
             xIdx++;
             yIdx = 0;
         }
         return scale;
+    }
+    public void saveInd(){
+        //To Do fill this 
     }
     public void saveAverage(String prefix, boolean saveResi){
         
