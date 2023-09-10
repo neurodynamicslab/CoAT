@@ -1440,7 +1440,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ProgIndPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel25)
-                                .addGap(0, 45, Short.MAX_VALUE))
+                                .addGap(0, 44, Short.MAX_VALUE))
                             .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

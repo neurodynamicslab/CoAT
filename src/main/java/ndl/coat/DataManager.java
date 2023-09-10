@@ -118,10 +118,10 @@ public class DataManager extends Object implements Runnable,Serializable {
     }    
 
     /**
-     * @param accelaration the accelaration to set
+     * @param accelaration the acceleration to set
      */
     private void setAccelaration(DataTrace_ver_3[] accelaration) {
-        this.accelaration = accelaration;
+        this.acceleration = accelaration;
     }
 
     /**
@@ -153,7 +153,7 @@ public class DataManager extends Object implements Runnable,Serializable {
         return accelerationField;
     } 
     public synchronized DataTrace_ver_3[] getAccelaration(){
-        return accelaration;
+        return acceleration;
     }
     /**
      * @param velocity the velocity[] to set
@@ -202,7 +202,7 @@ public class DataManager extends Object implements Runnable,Serializable {
     //int fileCount  = 0;
     private DataTrace_ver_3[] timeData;
     private DataTrace_ver_3[] velocity;
-    private DataTrace_ver_3[] accelaration;
+    private DataTrace_ver_3[] acceleration;
     
     private JVectorSpace[] velocityField, accelerationField;
     
@@ -267,14 +267,14 @@ public class DataManager extends Object implements Runnable,Serializable {
            velocity[fileCounter] = tseries.differentiate(false);
            if(this.isScaleforAspectRatio())
                velocity[fileCounter].scaleYaxis(this.getPixelAspectRatio());
-           accelaration[fileCounter] = velocity[fileCounter].differentiate(false); //once scaled for pixel ratio accelaration doesn't 
+           acceleration[fileCounter] = velocity[fileCounter].differentiate(false); //once scaled for pixel ratio acceleration doesn't 
                                                                                    //need to be scaled       
            ArrayList<JVector> accVectors = new ArrayList<>();
            ArrayList<JVector> velVectors = new ArrayList<>();
            ArrayList<OrdXYData> posiVects = new ArrayList<>();
            //ArrayList<JVector> resiScalars = new ArrayList<>();
            velo = velocity[fileCounter];
-           acc = accelaration[fileCounter];
+           acc = acceleration[fileCounter];
            Idx = 0;
 
            for(OrdXYErrData accVect : acc){
@@ -315,10 +315,10 @@ public class DataManager extends Object implements Runnable,Serializable {
         while(!this.isVectorFldsReady()&& !timeOut){
              var elapsedTime = System.currentTimeMillis() - starttime;
              timeOut = elapsedTime >= timetowait;
-            try {
+             try {
                 this.vectorFlag.wait();
                 //Thread.sleep(100);
-            } catch (InterruptedException ex) {
+             }catch (InterruptedException ex) {
                 Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -331,7 +331,7 @@ public class DataManager extends Object implements Runnable,Serializable {
        JVectorSpace prjFld,accFldPrj;
         switch(choice){
             
-            case 0:             //Calculate average of velocity and accelaration
+            case 0:             //Calculate average of velocity and acceleration
                                 //To do: implement normalisation to residence map
                                 //similar to case 1: velocity projection.
                 getAveVelFld().getSpace().clear();
