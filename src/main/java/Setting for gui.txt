@@ -1,0 +1,11 @@
+
+Check Plat Cord
+Check rest sel to pix
+scaling factor 10
+sigma radius 25
+
+uncheck : use Oc coord manually enter the Plt Cord
+
+Data is separated by tab for APP mice (SC and V grps).
+
+Settings as on 1st Nov 2023
