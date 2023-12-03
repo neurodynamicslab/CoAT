@@ -407,10 +407,9 @@ public class DataManager extends Object implements Runnable,Serializable {
                          accelerationField[Idx].setUseTan2(useTan2Prj);
                          prjFld = velFld.getProjections2point(Vector,false);
                          accFldPrj = accelerationField[Idx].getProjections2point(Vector,false);
-                    }
-                    else  {
-                        prjFld = velFld.getProjection();
-                        accFldPrj = accelerationField[Idx].getProjection();
+                    }else{
+                         prjFld = velFld.getProjection();
+                         accFldPrj = accelerationField[Idx].getProjection();
                     }  
                     var resMap = this.residenceMaps[Idx++];
                     var norm = convertScaletoNorm(resMap.getPixelArray());
