@@ -35,6 +35,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
@@ -103,6 +104,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         try {
                             //StatusMessageBox.append("Waiting for "+activeCount + "threads to end \n");
                             setStatusMessage("Waiting for "+activeCount + " threads and " +jVectorFieldCalculator.getInstanceCount() +" calculations to end\n");
+                            
                             //Thread.sleep(100);
                             jVectorFieldCalculator.getFinishedStatus().wait();
                             activeCount--;
@@ -270,7 +272,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jScrollPane8 = new javax.swing.JScrollPane();
+        statMssgScrollPane = new javax.swing.JScrollPane();
         StatusMessageBox = new javax.swing.JTextArea();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -1440,7 +1442,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ProgIndPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel25)
-                                .addGap(0, 44, Short.MAX_VALUE))
+                                .addGap(0, 45, Short.MAX_VALUE))
                             .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1552,10 +1554,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 530, 580));
 
-        jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane8.setViewportBorder(javax.swing.BorderFactory.createTitledBorder("Status Messages"));
-        jScrollPane8.setAutoscrolls(true);
-        jScrollPane8.setViewportView(null);
+        statMssgScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        statMssgScrollPane.setViewportBorder(javax.swing.BorderFactory.createTitledBorder("Status Messages"));
+        statMssgScrollPane.setAutoscrolls(true);
+        statMssgScrollPane.setViewportView(null);
 
         StatusMessageBox.setColumns(20);
         StatusMessageBox.setLineWrap(true);
@@ -1564,9 +1566,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         StatusMessageBox.setBorder(null);
         StatusMessageBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         StatusMessageBox.setDragEnabled(true);
-        jScrollPane8.setViewportView(StatusMessageBox);
+        statMssgScrollPane.setViewportView(StatusMessageBox);
 
-        getContentPane().add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 1250, 130));
+        getContentPane().add(statMssgScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 1250, 130));
 
         menuBar.setAutoscrolls(true);
         menuBar.setMinimumSize(new java.awt.Dimension(300, 23));
@@ -2224,8 +2226,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
        SwingWorker messenger = new SwingWorker(){
            @Override
            protected Object doInBackground() throws Exception {
-               if(toAppend)
+               if(toAppend){
                     StatusMessageBox.append(message);
+                    JScrollBar vert = statMssgScrollPane.getVerticalScrollBar();
+                    int yMax = vert.getMaximum();
+                    vert.setValue(yMax);
+               }
                else
                     StatusMessageBox.setText(message);
              return message;
@@ -3347,7 +3353,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JMenu mapsMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JFormattedTextField nAnimals_Text;
@@ -3365,6 +3370,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JCheckBox saveVelocityjchkBx;
     private javax.swing.JFormattedTextField scalingfactorJFormFld;
+    private javax.swing.JScrollPane statMssgScrollPane;
     private javax.swing.JButton upDateButton;
     private javax.swing.JCheckBox usePltCordChkBx2;
     private javax.swing.JCheckBox useRelVelJChkBx;
