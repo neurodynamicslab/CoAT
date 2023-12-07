@@ -134,6 +134,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         compJRadGrp = new javax.swing.ButtonGroup();
         vectJChkBx = new javax.swing.ButtonGroup();
@@ -258,15 +259,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ImageDisplay_Panel = new javax.swing.JPanel();
         ProgIndPanel = new javax.swing.JPanel();
         jProgressBarDataAssignment = new javax.swing.JProgressBar();
-        jProgressBarTP = new javax.swing.JProgressBar();
-        jLabel25 = new javax.swing.JLabel();
-        jProgressBarGP = new javax.swing.JProgressBar();
-        jLabel26 = new javax.swing.JLabel();
-        jProgressBarDP = new javax.swing.JProgressBar();
-        jLabel27 = new javax.swing.JLabel();
         jProgressBarFR = new javax.swing.JProgressBar();
         jLabel29 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jProgressBarTP = new javax.swing.JProgressBar();
+        jProgressBarGP = new javax.swing.JProgressBar();
+        jProgressBarDP = new javax.swing.JProgressBar();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
         MessageBox_Panel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
@@ -1401,154 +1403,213 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ImageDisplay_Panel.setMinimumSize(new java.awt.Dimension(0, 0));
         ImageDisplay_Panel.setName("ImageDisplay Panel"); // NOI18N
         ImageDisplay_Panel.setPreferredSize(new java.awt.Dimension(525, 700));
+        ImageDisplay_Panel.setLayout(new java.awt.GridBagLayout());
 
         ProgIndPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Progress Indicator", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         ProgIndPanel.setPreferredSize(new java.awt.Dimension(500, 100));
+        ProgIndPanel.setLayout(new java.awt.GridBagLayout());
 
         jProgressBarDataAssignment.setToolTipText("Indicates the progress of data assignment");
         jProgressBarDataAssignment.setStringPainted(true);
-
-        jProgressBarTP.setStringPainted(true);
-
-        jLabel25.setText("Trials Processed");
-
-        jProgressBarGP.setStringPainted(true);
-
-        jLabel26.setText("Grps Processed");
-
-        jProgressBarDP.setStringPainted(true);
-
-        jLabel27.setText("Data processed");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 431;
+        gridBagConstraints.ipady = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 27, 0, 22);
+        ProgIndPanel.add(jProgressBarDataAssignment, gridBagConstraints);
 
         jProgressBarFR.setToolTipText("Indicates the progress of data assignment");
         jProgressBarFR.setStringPainted(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 431;
+        gridBagConstraints.ipady = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 27, 0, 22);
+        ProgIndPanel.add(jProgressBarFR, gridBagConstraints);
 
         jLabel29.setText("Data Assignment Status");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 27, 0, 0);
+        ProgIndPanel.add(jLabel29, gridBagConstraints);
 
         jLabel28.setText("Files Read");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 27, 0, 0);
+        ProgIndPanel.add(jLabel28, gridBagConstraints);
 
-        javax.swing.GroupLayout ProgIndPanelLayout = new javax.swing.GroupLayout(ProgIndPanel);
-        ProgIndPanel.setLayout(ProgIndPanelLayout);
-        ProgIndPanelLayout.setHorizontalGroup(
-            ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProgIndPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel29)
-                    .addComponent(jLabel28)
-                    .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jProgressBarFR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProgIndPanelLayout.createSequentialGroup()
-                        .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ProgIndPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel25)
-                                .addGap(0, 45, Short.MAX_VALUE))
-                            .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel26)
-                            .addGroup(ProgIndPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jProgressBarGP, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(28, 28, 28)
-                        .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel27)
-                            .addComponent(jProgressBarDP, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(17, 17, 17))
-        );
-        ProgIndPanelLayout.setVerticalGroup(
-            ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProgIndPanelLayout.createSequentialGroup()
-                .addComponent(jLabel29)
-                .addGap(12, 12, 12)
-                .addComponent(jProgressBarDataAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jLabel28)
-                .addGap(5, 5, 5)
-                .addComponent(jProgressBarFR, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel27))
-                .addGap(6, 6, 6)
-                .addGroup(ProgIndPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jProgressBarGP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jProgressBarDP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jProgressBarTP, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 17, Short.MAX_VALUE))
-        );
+        jPanel6.setLayout(new java.awt.GridBagLayout());
+
+        jProgressBarTP.setStringPainted(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 118;
+        gridBagConstraints.ipady = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        jPanel6.add(jProgressBarTP, gridBagConstraints);
+
+        jProgressBarGP.setStringPainted(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 118;
+        gridBagConstraints.ipady = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 4, 0, 0);
+        jPanel6.add(jProgressBarGP, gridBagConstraints);
+
+        jProgressBarDP.setStringPainted(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 118;
+        gridBagConstraints.ipady = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 4, 0, 0);
+        jPanel6.add(jProgressBarDP, gridBagConstraints);
+
+        jLabel25.setText("Trials Processed");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 27, 0, 0);
+        jPanel6.add(jLabel25, gridBagConstraints);
+
+        jLabel27.setText("Data processed");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 28, 0, 0);
+        jPanel6.add(jLabel27, gridBagConstraints);
+
+        jLabel26.setText("Grps Processed");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
+        jPanel6.add(jLabel26, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        ProgIndPanel.add(jPanel6, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 23;
+        gridBagConstraints.ipady = 76;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 21);
+        ImageDisplay_Panel.add(ProgIndPanel, gridBagConstraints);
 
         MessageBox_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Video/Image/Graph Display", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         MessageBox_Panel.setAutoscrolls(true);
-        MessageBox_Panel.setPreferredSize(new java.awt.Dimension(500, 500));
+        MessageBox_Panel.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        MessageBox_Panel.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 11, 11, 11);
+        ImageDisplay_Panel.add(MessageBox_Panel, gridBagConstraints);
 
-        javax.swing.GroupLayout MessageBox_PanelLayout = new javax.swing.GroupLayout(MessageBox_Panel);
-        MessageBox_Panel.setLayout(MessageBox_PanelLayout);
-        MessageBox_PanelLayout.setHorizontalGroup(
-            MessageBox_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
-        );
-        MessageBox_PanelLayout.setVerticalGroup(
-            MessageBox_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 377, Short.MAX_VALUE)
-        );
+        jPanel5.setLayout(new java.awt.GridBagLayout());
 
         jButton5.setText("jButton2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = -37;
+        gridBagConstraints.ipady = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(15, 6, 18, 0);
+        jPanel5.add(jButton5, gridBagConstraints);
 
-        jButton6.setText("jButton2");
+        jButton6.setText("Button");
+        jButton6.setToolTipText("");
+        jButton6.setAutoscrolls(true);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = -37;
+        gridBagConstraints.ipady = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(15, 6, 18, 12);
+        jPanel5.add(jButton6, gridBagConstraints);
 
         jButton7.setText("jButton2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = -37;
+        gridBagConstraints.ipady = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(15, 12, 18, 0);
+        jPanel5.add(jButton7, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(352, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout ImageDisplay_PanelLayout = new javax.swing.GroupLayout(ImageDisplay_Panel);
-        ImageDisplay_Panel.setLayout(ImageDisplay_PanelLayout);
-        ImageDisplay_PanelLayout.setHorizontalGroup(
-            ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 31, Short.MAX_VALUE))
-            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MessageBox_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ProgIndPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        ImageDisplay_PanelLayout.setVerticalGroup(
-            ImageDisplay_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ImageDisplay_PanelLayout.createSequentialGroup()
-                .addComponent(ProgIndPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MessageBox_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 316;
+        gridBagConstraints.ipady = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 2, 18, 0);
+        ImageDisplay_Panel.add(jPanel5, gridBagConstraints);
 
         jScrollPane5.setViewportView(ImageDisplay_Panel);
 
@@ -2597,6 +2658,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //this.updateGrpTrialSelTable();
     }//GEN-LAST:event_jFormattedTextField_NoOfGrpsActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     private boolean updateAnimalGrpSummaryTable() throws NumberFormatException, HeadlessException {
         boolean sameSampleSz = this.SampleSizeSel.getModel().isSelected();
         boolean tableEmpty = true;
@@ -3341,6 +3406,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JProgressBar jProgressBarDP;
     private javax.swing.JProgressBar jProgressBarDataAssignment;
     private javax.swing.JProgressBar jProgressBarFR;
