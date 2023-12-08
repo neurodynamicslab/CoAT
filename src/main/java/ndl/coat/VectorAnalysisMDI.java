@@ -315,9 +315,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         setSize(new java.awt.Dimension(1275, 775));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane4.setViewportBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 0), 1, true));
         jScrollPane4.setAutoscrolls(true);
         jScrollPane4.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
@@ -1439,8 +1436,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.weighty = 0.5;
         getContentPane().add(jScrollPane4, gridBagConstraints);
 
-        jScrollPaneProgImgDisp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPaneProgImgDisp.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPaneProgImgDisp.setAutoscrolls(true);
         jScrollPaneProgImgDisp.setMinimumSize(new java.awt.Dimension(650, 850));
         jScrollPaneProgImgDisp.setPreferredSize(new java.awt.Dimension(1000, 1000));
