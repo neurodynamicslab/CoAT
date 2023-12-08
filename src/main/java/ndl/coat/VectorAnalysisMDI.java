@@ -211,7 +211,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         ocXjFtTxt2 = new javax.swing.JFormattedTextField();
         ocYjFtTxt3 = new javax.swing.JFormattedTextField();
         CheckBoxBoolean = new javax.swing.JCheckBox();
-        jPanel1 = new javax.swing.JPanel();
+        AnalysisSettingTabPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         gaussjChkBx = new javax.swing.JCheckBox();
         jLabel21 = new javax.swing.JLabel();
@@ -255,8 +255,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         AlongJRadBtn = new javax.swing.JRadioButton();
         OrtoJRadBtn = new javax.swing.JRadioButton();
         usePltCordChkBx2 = new javax.swing.JCheckBox();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        ImageDisplay_Panel = new javax.swing.JPanel();
+        jScrollPaneProgImgDisp = new javax.swing.JScrollPane();
+        ProgImgDispParent = new javax.swing.JPanel();
         ProgIndPanel = new javax.swing.JPanel();
         jProgressBarDataAssignment = new javax.swing.JProgressBar();
         jProgressBarFR = new javax.swing.JProgressBar();
@@ -269,8 +269,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jLabel25 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        MessageBox_Panel = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        ImageDispPanel = new javax.swing.JPanel();
+        controllerPanel = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -306,31 +306,43 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CoAT");
-        setBounds(new java.awt.Rectangle(0, 0, 1275, 775));
+        setBounds(new java.awt.Rectangle(0, 0, 2500, 2500));
         setLocation(new java.awt.Point(0, 0));
-        setMaximizedBounds(new java.awt.Rectangle(0, 0, 1275, 800));
+        setMaximizedBounds(new java.awt.Rectangle(0, 0, 2147483647, 2147483647));
         setMinimumSize(new java.awt.Dimension(600, 500));
         setName("Frame"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1275, 775));
         setSize(new java.awt.Dimension(1275, 775));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane4.setViewportBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 0), 1, true));
-        jScrollPane4.setPreferredSize(new java.awt.Dimension(600, 700));
+        jScrollPane4.setAutoscrolls(true);
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         DeskTopPanel.setMinimumSize(new java.awt.Dimension(600, 500));
         DeskTopPanel.setPreferredSize(new java.awt.Dimension(740, 675));
-        DeskTopPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        DeskTopPanel.setLayout(new java.awt.GridBagLayout());
 
         InfoTab.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        InfoTab.setPreferredSize(new java.awt.Dimension(740, 500));
+        InfoTab.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        InfoTab.setAutoscrolls(true);
+        InfoTab.setPreferredSize(new java.awt.Dimension(800, 800));
 
         ExpDef_jPanel.setAutoscrolls(true);
         ExpDef_jPanel.setPreferredSize(new java.awt.Dimension(733, 500));
+        ExpDef_jPanel.setLayout(new java.awt.GridBagLayout());
 
         jLabel_Number_of_GrpTxt.setText("Number of Groups");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.ipadx = 466;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(9, 6, 0, 0);
+        ExpDef_jPanel.add(jLabel_Number_of_GrpTxt, gridBagConstraints);
 
         jFormattedTextField_NoOfGrps.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         jFormattedTextField_NoOfGrps.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -340,8 +352,24 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 jFormattedTextField_NoOfGrpsActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 13;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        ExpDef_jPanel.add(jFormattedTextField_NoOfGrps, gridBagConstraints);
 
         jLabel_NoOfAnimals.setText("Number of Animals per Grp");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 6, 0, 0);
+        ExpDef_jPanel.add(jLabel_NoOfAnimals, gridBagConstraints);
 
         SampleSizeSel.setSelected(true);
         SampleSizeSel.setText("Same N for all grps");
@@ -351,6 +379,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 SampleSizeSelItemStateChanged(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 6, 0, 0);
+        ExpDef_jPanel.add(SampleSizeSel, gridBagConstraints);
 
         AnimalGrpSummaryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -372,6 +408,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         AnimalGrpSummaryTable.setShowGrid(true);
         jScrollPane3.setViewportView(AnimalGrpSummaryTable);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 23;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 712;
+        gridBagConstraints.ipady = 183;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 6);
+        ExpDef_jPanel.add(jScrollPane3, gridBagConstraints);
+
         Trial_No_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -386,24 +435,77 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jScrollPane1.setViewportView(Trial_No_Table);
         Trial_No_Table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 23;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 712;
+        gridBagConstraints.ipady = 183;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 169, 6);
+        ExpDef_jPanel.add(jScrollPane1, gridBagConstraints);
+
         upDateButton.setText("Finalise  Animals Grp Trial #s");
         upDateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 upDateButtonActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 18, 0, 0);
+        ExpDef_jPanel.add(upDateButton, gridBagConstraints);
 
         nAnimals_Text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         nAnimals_Text.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         nAnimals_Text.setText("5");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 13;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
+        ExpDef_jPanel.add(nAnimals_Text, gridBagConstraints);
 
         jLabel1.setText("Number of animals (N) ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 222;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 28, 0, 0);
+        ExpDef_jPanel.add(jLabel1, gridBagConstraints);
 
         jFormattedText_nTrials.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         jFormattedText_nTrials.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedText_nTrials.setText("2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 13;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        ExpDef_jPanel.add(jFormattedText_nTrials, gridBagConstraints);
 
         jLabel2.setText("Number of Trials");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 28;
+        gridBagConstraints.ipady = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(1, 6, 0, 0);
+        ExpDef_jPanel.add(jLabel2, gridBagConstraints);
 
         reset_AnGrTr_Button.setText("Reset Animals Grp Trial #s ");
         reset_AnGrTr_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -411,8 +513,23 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 reset_AnGrTr_ButtonActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 40, 0, 0);
+        ExpDef_jPanel.add(reset_AnGrTr_Button, gridBagConstraints);
 
         jLabel3.setText("Group Selection Table:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 6, 0, 0);
+        ExpDef_jPanel.add(jLabel3, gridBagConstraints);
 
         AllGrpsinAllTrialCheckBox.setSelected(true);
         AllGrpsinAllTrialCheckBox.setText(" All groups are there in all trials");
@@ -422,78 +539,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 AllGrpsinAllTrialCheckBoxItemStateChanged(evt);
             }
         });
-
-        javax.swing.GroupLayout ExpDef_jPanelLayout = new javax.swing.GroupLayout(ExpDef_jPanel);
-        ExpDef_jPanel.setLayout(ExpDef_jPanelLayout);
-        ExpDef_jPanelLayout.setHorizontalGroup(
-            ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_NoOfAnimals, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel_Number_of_GrpTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                                .addComponent(SampleSizeSel, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedText_nTrials, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(AllGrpsinAllTrialCheckBox)
-                .addGap(18, 18, 18)
-                .addComponent(upDateButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(reset_AnGrTr_Button)
-                .addGap(138, 138, 138))
-        );
-        ExpDef_jPanelLayout.setVerticalGroup(
-            ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_Number_of_GrpTxt)
-                    .addComponent(jFormattedTextField_NoOfGrps, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedText_nTrials, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SampleSizeSel)
-                    .addGroup(ExpDef_jPanelLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(nAnimals_Text, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(2, 2, 2)
-                .addComponent(jLabel_NoOfAnimals)
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(ExpDef_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AllGrpsinAllTrialCheckBox)
-                    .addComponent(reset_AnGrTr_Button)
-                    .addComponent(upDateButton))
-                .addGap(5, 5, 5)
-                .addComponent(jLabel3)
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(13, 12, 0, 0);
+        ExpDef_jPanel.add(AllGrpsinAllTrialCheckBox, gridBagConstraints);
 
         InfoTab.addTab("Experiment Definition", ExpDef_jPanel);
 
+        DataFiles_jPanel.setAutoscrolls(true);
         DataFiles_jPanel.setPreferredSize(new java.awt.Dimension(640, 700));
+        DataFiles_jPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         AddFiles_Button.setText(" Add Files");
         AddFiles_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -501,6 +559,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 AddFiles_ButtonActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(AddFiles_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(359, 165, 121, -1));
 
         RemoveFile_Button.setText("Remove Files");
         RemoveFile_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -508,6 +567,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 RemoveFile_ButtonActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(RemoveFile_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 165, -1, -1));
 
         FileDetail_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -525,10 +585,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 return types [columnIndex];
             }
         });
-        FileDetail_Table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         FileDetail_Table.setColumnSelectionAllowed(true);
+        FileDetail_Table.setDoubleBuffered(true);
+        FileDetail_Table.setDragEnabled(true);
+        FileDetail_Table.setEditingColumn(1);
+        FileDetail_Table.setEditingRow(1);
         jScrollPane6.setViewportView(FileDetail_Table);
         FileDetail_Table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        DataFiles_jPanel.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 12, 701, 125));
 
         Assign_Button.setText("Assign");
         Assign_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -536,6 +601,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 Assign_ButtonActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(Assign_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 199, 124, -1));
 
         FileAssignmentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -563,6 +629,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         FileAssignmentTable.setShowGrid(true);
         jScrollPane7.setViewportView(FileAssignmentTable);
 
+        DataFiles_jPanel.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 371, 720, 202));
+
         GrpSelComboBox.setEditable(true);
         GrpSelComboBox.setDoubleBuffered(true);
         GrpSelComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -570,8 +638,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 GrpSelComboBoxActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(GrpSelComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 165, 80, -1));
 
         AnimalSelComboBox.setEnabled(false);
+        DataFiles_jPanel.add(AnimalSelComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 165, 68, -1));
 
         TrialSelComboBox.setEditable(true);
         TrialSelComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -579,14 +649,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 TrialSelComboBoxActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(TrialSelComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 165, 68, -1));
 
         SelDesLabel.setText("Select Grp, Trial and Animal for assigning the data files");
+        DataFiles_jPanel.add(SelDesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 149, 311, -1));
 
         GrpLabel.setText("Group");
+        DataFiles_jPanel.add(GrpLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 168, 31, -1));
 
         TrialLabel.setText("Trial");
+        DataFiles_jPanel.add(TrialLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 168, 31, -1));
 
         AnimalLabel.setText("Animal");
+        DataFiles_jPanel.add(AnimalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 168, 43, -1));
 
         OpenFileAssignmentsButton.setText("Open File Assignments");
         OpenFileAssignmentsButton.setToolTipText("Open test file with assignments shown in table below(no headers) tab sep col and new line separators for rows");
@@ -595,6 +670,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 OpenFileAssignmentsButtonActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(OpenFileAssignmentsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 287, -1, -1));
 
         SaveFileAssignmentsButton.setText("Save Assignments");
         SaveFileAssignmentsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -602,6 +678,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 SaveFileAssignmentsButtonActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(SaveFileAssignmentsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 287, -1, -1));
 
         xResTxtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         xResTxtField.setText("1920");
@@ -610,6 +687,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 xResTxtFieldActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(xResTxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 321, 77, -1));
 
         yResTxtField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         yResTxtField.setText("1080");
@@ -618,22 +696,31 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 yResTxtFieldActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(yResTxtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(503, 321, 77, -1));
 
         jLabel4.setText("x Res");
+        DataFiles_jPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(323, 324, 49, -1));
 
         jLabel5.setText("yRes");
+        DataFiles_jPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(461, 324, -1, -1));
 
         jLabel6.setText("Total Number of Files Expected");
+        DataFiles_jPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 629, 168, 22));
 
         jLabel7.setText("Total Number of Files Assigned");
+        DataFiles_jPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 657, 168, 22));
 
         jLabel8.setText("Remainaing data files that require assignment/selection");
+        DataFiles_jPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 685, 263, 22));
 
         expFileNoJText.setEnabled(false);
+        DataFiles_jPanel.add(expFileNoJText, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 629, 54, -1));
 
         assignFileJTxt.setEnabled(false);
+        DataFiles_jPanel.add(assignFileJTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 657, 54, -1));
 
         remainingDatafilesJText.setEnabled(false);
+        DataFiles_jPanel.add(remainingDatafilesJText, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 685, 54, -1));
 
         jButtonFileAssignRest.setText("Reset File Assignments");
         jButtonFileAssignRest.addActionListener(new java.awt.event.ActionListener() {
@@ -641,17 +728,22 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 jButtonFileAssignRestActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(jButtonFileAssignRest, new org.netbeans.lib.awtextra.AbsoluteConstraints(525, 629, -1, -1));
 
         jCombo_dataSeparator.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "\"\\t\" (Tab)", "  (Space)", "\",\" (Comma)", "\";\"  (Semi-colon)", "(user def: Clear and type the charecter ) " }));
         jCombo_dataSeparator.setSelectedIndex(1);
         jCombo_dataSeparator.setToolTipText("The user can choose one of the listed separators or can provide new. Click to enter and new string");
+        DataFiles_jPanel.add(jCombo_dataSeparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 321, 159, -1));
 
         jLabel13.setText("Choose the data separator ");
+        DataFiles_jPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 324, -1, -1));
 
         jFormatTxt_rootFolder.setBackground(new java.awt.Color(204, 255, 204));
         jFormatTxt_rootFolder.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Root Folder for Data Files ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(204, 255, 204))); // NOI18N
         jFormatTxt_rootFolder.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jFormatTxt_rootFolder.setEnabled(false);
+        DataFiles_jPanel.add(jFormatTxt_rootFolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 193, 436, -1));
+        DataFiles_jPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(549, 199, -1, -1));
 
         jButtonBrowseRoot.setText("Browse");
         jButtonBrowseRoot.addActionListener(new java.awt.event.ActionListener() {
@@ -659,6 +751,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 jButtonBrowseRootActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(jButtonBrowseRoot, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 215, 79, 44));
 
         jButtonRemoveAssignments.setText("Remove Assignments");
         jButtonRemoveAssignments.addActionListener(new java.awt.event.ActionListener() {
@@ -666,185 +759,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 jButtonRemoveAssignmentsActionPerformed(evt);
             }
         });
+        DataFiles_jPanel.add(jButtonRemoveAssignments, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 629, -1, -1));
 
         jButton1.setText("Relativise");
         jButton1.setEnabled(false);
+        DataFiles_jPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 265, -1, 44));
 
         chkBoxRemoveAssignedFiles.setSelected(true);
         chkBoxRemoveAssignedFiles.setText(" Remove Files  After Assignment");
-
-        javax.swing.GroupLayout DataFiles_jPanelLayout = new javax.swing.GroupLayout(DataFiles_jPanel);
-        DataFiles_jPanel.setLayout(DataFiles_jPanelLayout);
-        DataFiles_jPanelLayout.setHorizontalGroup(
-            DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addComponent(AnimalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AnimalSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TrialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TrialSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GrpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GrpSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel14)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DataFiles_jPanelLayout.createSequentialGroup()
-                                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(SaveFileAssignmentsButton)
-                                    .addComponent(Assign_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                        .addComponent(OpenFileAssignmentsButton)
-                                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                                .addGap(61, 61, 61)
-                                                .addComponent(AddFiles_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(RemoveFile_Button))
-                                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addComponent(chkBoxRemoveAssignedFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(jFormatTxt_rootFolder))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButtonBrowseRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(assignFileJTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(remainingDatafilesJText, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                .addComponent(expFileNoJText, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonRemoveAssignments)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonFileAssignRest))))
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(SelDesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        DataFiles_jPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel6, jLabel7});
-
-        DataFiles_jPanelLayout.setVerticalGroup(
-            DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(SelDesLabel)
-                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TrialSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AnimalSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GrpSelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AnimalLabel)
-                            .addComponent(TrialLabel)
-                            .addComponent(GrpLabel)
-                            .addComponent(AddFiles_Button)
-                            .addComponent(RemoveFile_Button))
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(SaveFileAssignmentsButton)
-                                            .addComponent(OpenFileAssignmentsButton)
-                                            .addComponent(chkBoxRemoveAssignedFiles)))))
-                            .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(Assign_Button))
-                                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jFormatTxt_rootFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGap(0, 4, Short.MAX_VALUE)
-                        .addComponent(jButtonBrowseRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)
-                        .addComponent(jCombo_dataSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(xResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)
-                        .addComponent(yResTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DataFiles_jPanelLayout.createSequentialGroup()
-                        .addGroup(DataFiles_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(expFileNoJText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonRemoveAssignments)
-                            .addComponent(jButtonFileAssignRest))
-                        .addGap(6, 6, 6)
-                        .addComponent(assignFileJTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(remainingDatafilesJText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(DataFiles_jPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel7)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel8)))
-                .addContainerGap(50, Short.MAX_VALUE))
-        );
-
-        DataFiles_jPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {assignFileJTxt, expFileNoJText, jLabel6, jLabel7, jLabel8, remainingDatafilesJText});
+        DataFiles_jPanel.add(chkBoxRemoveAssignedFiles, new org.netbeans.lib.awtextra.AbsoluteConstraints(316, 288, 256, -1));
 
         InfoTab.addTab("Data Files", DataFiles_jPanel);
 
         AnalysisDesign_jPanel.setPreferredSize(new java.awt.Dimension(740, 900));
+        AnalysisDesign_jPanel.setLayout(new java.awt.GridBagLayout());
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Experiment");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Probe Trial 1");
@@ -866,44 +794,133 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
         jScrollPane2.setViewportView(expDgnTree);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        AnalysisDesign_jPanel.add(jScrollPane2, gridBagConstraints);
+
         RunGrp_Button.setText("Run Grp Analysis");
         RunGrp_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RunGrp_ButtonActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(RunGrp_Button, gridBagConstraints);
 
         HeatMap_Button.setText("Generate Heat Map");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(HeatMap_Button, gridBagConstraints);
 
         QuadAna_Button.setText("Quadrant Analysis");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(QuadAna_Button, gridBagConstraints);
 
         GenConMaps_Button.setText("Generate Convergence Maps");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(GenConMaps_Button, gridBagConstraints);
 
         GenCurlMaps_Button.setText("Generate Curl Maps");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(GenCurlMaps_Button, gridBagConstraints);
 
         jLabel9.setText("Platform X Co-Ordinate");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        AnalysisDesign_jPanel.add(jLabel9, gridBagConstraints);
 
         jLabel10.setText("Platform Y Co-Ordinate");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(jLabel10, gridBagConstraints);
 
         jLabel11.setText("OC X Co-Ordinate");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(jLabel11, gridBagConstraints);
 
         jLabel12.setText("OC Y Co-Ordinate");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(jLabel12, gridBagConstraints);
 
         PlatXjFtTxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         PlatXjFtTxt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         PlatXjFtTxt.setText("120");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(PlatXjFtTxt, gridBagConstraints);
 
         PlatYjFtTxt1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         PlatYjFtTxt1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         PlatYjFtTxt1.setText("120");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(PlatYjFtTxt1, gridBagConstraints);
 
         ocXjFtTxt2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         ocXjFtTxt2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         ocXjFtTxt2.setText("120");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(ocXjFtTxt2, gridBagConstraints);
 
         ocYjFtTxt3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         ocYjFtTxt3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         ocYjFtTxt3.setText("120");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(ocYjFtTxt3, gridBagConstraints);
 
         CheckBoxBoolean.setSelected(true);
         CheckBoxBoolean.setText("Select the check box to auto estimate OC");
@@ -912,93 +929,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 CheckBoxBooleanActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout AnalysisDesign_jPanelLayout = new javax.swing.GroupLayout(AnalysisDesign_jPanel);
-        AnalysisDesign_jPanel.setLayout(AnalysisDesign_jPanelLayout);
-        AnalysisDesign_jPanelLayout.setHorizontalGroup(
-            AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(HeatMap_Button)
-                            .addComponent(GenConMaps_Button)
-                            .addComponent(QuadAna_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RunGrp_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GenCurlMaps_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
-                                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                .addGap(33, 33, 33)
-                                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ocXjFtTxt2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ocYjFtTxt3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PlatXjFtTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PlatYjFtTxt1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(CheckBoxBoolean, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(71, 71, 71))
-                    .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        AnalysisDesign_jPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {GenConMaps_Button, GenCurlMaps_Button, HeatMap_Button, QuadAna_Button, RunGrp_Button});
-
-        AnalysisDesign_jPanelLayout.setVerticalGroup(
-            AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel10))
-                            .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                                .addComponent(PlatXjFtTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(PlatYjFtTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(AnalysisDesign_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
-                                .addComponent(ocXjFtTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ocYjFtTxt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnalysisDesign_jPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CheckBoxBoolean))
-                    .addGroup(AnalysisDesign_jPanelLayout.createSequentialGroup()
-                        .addComponent(RunGrp_Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(QuadAna_Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(HeatMap_Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GenConMaps_Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GenCurlMaps_Button)))
-                .addContainerGap(96, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisDesign_jPanel.add(CheckBoxBoolean, gridBagConstraints);
 
         InfoTab.addTab("Design Tree", AnalysisDesign_jPanel);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(732, 900));
+        AnalysisSettingTabPanel.setPreferredSize(new java.awt.Dimension(732, 900));
+        AnalysisSettingTabPanel.setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pre Processing", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
 
         gaussjChkBx.setSelected(true);
         gaussjChkBx.setText("Use Gaussian Blur");
@@ -1007,8 +951,23 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 gaussjChkBxItemStateChanged(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(13, 19, 0, 0);
+        jPanel2.add(gaussjChkBx, gridBagConstraints);
 
         jLabel21.setText("Scaling Factor");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 22;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(9, 44, 0, 0);
+        jPanel2.add(jLabel21, gridBagConstraints);
 
         scalingfactorJFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         scalingfactorJFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1019,13 +978,37 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 scalingfactorJFormFldActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 48;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 40;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 14, 0, 11);
+        jPanel2.add(scalingfactorJFormFld, gridBagConstraints);
 
         jLabel22.setText("Filter Radius");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 22;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 18;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(15, 36, 0, 0);
+        jPanel2.add(jLabel22, gridBagConstraints);
 
         gauRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         gauRadjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         gauRadjFormFld.setText("1.0");
         gauRadjFormFld.setToolTipText("The radius of the 2D Gaussian Blur it is symetrical ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 48;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 40;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 14, 0, 11);
+        jPanel2.add(gauRadjFormFld, gridBagConstraints);
 
         reSzImgjChkBx.setText("Resize images");
         reSzImgjChkBx.setToolTipText("Enable this to resize images before surface fit");
@@ -1034,14 +1017,44 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 reSzImgjChkBxItemStateChanged(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 19, 0, 0);
+        jPanel2.add(reSzImgjChkBx, gridBagConstraints);
 
         useTan2jChkBx.setText("Treat moving away and into platform differently");
         useTan2jChkBx.setToolTipText("By default the software uses tan inverse without differentiating vectors differing by 180 deg. If checked then tan2  inverse is used that differentiates these vectors");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridwidth = 24;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 19, 0, 0);
+        jPanel2.add(useTan2jChkBx, gridBagConstraints);
 
         ScaleY_JChkBx.setSelected(true);
         ScaleY_JChkBx.setText("Scale Y");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 19, 0, 0);
+        jPanel2.add(ScaleY_JChkBx, gridBagConstraints);
 
         jLabel24.setText("Pixel Aspect Ratio (x/y)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 39;
+        gridBagConstraints.ipadx = 56;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 0, 0);
+        jPanel2.add(jLabel24, gridBagConstraints);
 
         aspectRatiojFmtFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.000"))));
         aspectRatiojFmtFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1052,213 +1065,269 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 aspectRatiojFmtFldActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 87;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = -27;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 2, 11);
+        jPanel2.add(aspectRatiojFmtFld, gridBagConstraints);
 
         useRelVelJChkBx.setSelected(true);
         useRelVelJChkBx.setText(" Use Relative Velocity");
         useRelVelJChkBx.setToolTipText("Selecting this nomalises the Peak velocity of Each Data File to Float.Max");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(32, 19, 0, 0);
+        jPanel2.add(useRelVelJChkBx, gridBagConstraints);
 
         jChkBxAssym.setText("Assymetric");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 19, 0, 0);
+        jPanel2.add(jChkBxAssym, gridBagConstraints);
 
         jCheckBox2.setText("Orientation data from file");
         jCheckBox2.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 15;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 19, 0, 0);
+        jPanel2.add(jCheckBox2, gridBagConstraints);
 
         jLabel15.setText("x Radius");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(9, 11, 0, 0);
+        jPanel2.add(jLabel15, gridBagConstraints);
 
         jLabel23.setText("y Radius");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 23;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(9, 22, 0, 0);
+        jPanel2.add(jLabel23, gridBagConstraints);
 
         jFmtTxtFldRadY.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         jFmtTxtFldRadY.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFmtTxtFldRadY.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 48;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 40;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 14, 0, 11);
+        jPanel2.add(jFmtTxtFldRadY, gridBagConstraints);
 
         jFmtTxtFldRadX.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFmtTxtFldRadX.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 22;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        jPanel2.add(jFmtTxtFldRadX, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(ScaleY_JChkBx)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(useTan2jChkBx)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(aspectRatiojFmtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(useRelVelJChkBx)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(gaussjChkBx)
-                                .addGap(76, 76, 76)
-                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(reSzImgjChkBx)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel21)
-                                .addGap(26, 26, 26))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jChkBxAssym)
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFmtTxtFldRadX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel23)
-                                .addGap(14, 14, 14))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jCheckBox2)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jFmtTxtFldRadY)
-                            .addComponent(scalingfactorJFormFld, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(gauRadjFormFld, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(useRelVelJChkBx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(reSzImgjChkBx)
-                    .addComponent(jLabel21)
-                    .addComponent(scalingfactorJFormFld))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(gauRadjFormFld)
-                    .addComponent(gaussjChkBx))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jChkBxAssym)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel23)
-                    .addComponent(jFmtTxtFldRadY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFmtTxtFldRadX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox2)
-                .addGap(8, 8, 8)
-                .addComponent(useTan2jChkBx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ScaleY_JChkBx)
-                    .addComponent(jLabel24)
-                    .addComponent(aspectRatiojFmtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisSettingTabPanel.add(jPanel2, gridBagConstraints);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Post Process (Results/Output)"));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
 
         autoPoolRoijChkBx.setSelected(true);
         autoPoolRoijChkBx.setText("Auto determine pool ROI");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 17;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(35, 16, 0, 0);
+        jPanel3.add(autoPoolRoijChkBx, gridBagConstraints);
 
         jLabel18.setText("x Ctr");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 40, 0, 0);
+        jPanel3.add(jLabel18, gridBagConstraints);
 
         xPoolCtrjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         xPoolCtrjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         xPoolCtrjFormFld.setText("0");
         xPoolCtrjFormFld.setMinimumSize(new java.awt.Dimension(60, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 1, 0, 0);
+        jPanel3.add(xPoolCtrjFormFld, gridBagConstraints);
 
         jLabel19.setText("y Ctr");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 42, 0, 0);
+        jPanel3.add(jLabel19, gridBagConstraints);
 
         yPoolCtrjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         yPoolCtrjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         yPoolCtrjFormFld.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(9, 6, 0, 0);
+        jPanel3.add(yPoolCtrjFormFld, gridBagConstraints);
 
         jLabel20.setText("Radius");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(15, 64, 0, 0);
+        jPanel3.add(jLabel20, gridBagConstraints);
 
         poolRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         poolRadjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         poolRadjFormFld.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 19, 0, 0);
+        jPanel3.add(poolRadjFormFld, gridBagConstraints);
 
         jCheckBox3.setText("Save magnitude of velocity Vs Radial diststance");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 48, 0, 3);
+        jPanel3.add(jCheckBox3, gridBagConstraints);
 
         saveVelocityjchkBx.setText("Save Velocity Maps");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 48, 8, 0);
+        jPanel3.add(saveVelocityjchkBx, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(saveVelocityjchkBx)
-                            .addComponent(jCheckBox3)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(autoPoolRoijChkBx)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(yPoolCtrjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(poolRadjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(autoPoolRoijChkBx)
-                .addGap(8, 8, 8)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(xPoolCtrjFormFld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel19)
-                    .addComponent(yPoolCtrjFormFld))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(poolRadjFormFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBox3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveVelocityjchkBx)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisSettingTabPanel.add(jPanel3, gridBagConstraints);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Surface Fit Setting", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel4.setLayout(new java.awt.GridBagLayout());
 
         jLabel16.setText("Order of fit for the x (horizontal axis)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 15;
+        gridBagConstraints.ipadx = 54;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(66, 12, 0, 0);
+        jPanel4.add(jLabel16, gridBagConstraints);
 
         x_polyOrderJCmbBx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         x_polyOrderJCmbBx.setSelectedIndex(4);
         x_polyOrderJCmbBx.setToolTipText("Determines the degree of the polynomial to be used in surface fit generation. ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 32;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = -30;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(63, 6, 0, 11);
+        jPanel4.add(x_polyOrderJCmbBx, gridBagConstraints);
 
         jLabel17.setText("Order of fit for the y (vertical axis)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 15;
+        gridBagConstraints.ipadx = 69;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(29, 12, 0, 0);
+        jPanel4.add(jLabel17, gridBagConstraints);
 
         y_polyOrderJCmbBx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         y_polyOrderJCmbBx.setSelectedIndex(4);
         y_polyOrderJCmbBx.setToolTipText("Determines the degree of the polynomial to be used in surface fit generation. ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 32;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = -30;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(26, 6, 0, 11);
+        jPanel4.add(y_polyOrderJCmbBx, gridBagConstraints);
 
         genVeljChkBx1.setText("Use Velocity as is");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 12, 0, 0);
+        jPanel4.add(genVeljChkBx1, gridBagConstraints);
 
         genAccjChkBx.setSelected(true);
         genAccjChkBx.setText("Generate Accelaration Surfaces");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
+        jPanel4.add(genAccjChkBx, gridBagConstraints);
 
         useSeljChBx.setSelected(true);
         useSeljChBx.setText(" Use Selection( Only use the region that is sampled)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 31;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
+        jPanel4.add(useSeljChBx, gridBagConstraints);
 
         res2SeljChkBx.setText("Restrict selection to pixels (Use only the pixels). ");
         res2SeljChkBx.setToolTipText("(This would be a sub-grp of above)");
@@ -1267,143 +1336,122 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 res2SeljChkBxActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 16;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
+        jPanel4.add(res2SeljChkBx, gridBagConstraints);
 
         genConvJChkBx.setSelected(true);
         genConvJChkBx.setText("Generate Convergence Image");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
+        jPanel4.add(genConvJChkBx, gridBagConstraints);
 
         genDivjChkBx.setText("Generate Divergence Image");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
+        jPanel4.add(genDivjChkBx, gridBagConstraints);
 
         vectJChkBx.add(CompforVectorFldjChkBx2);
         CompforVectorFldjChkBx2.setSelected(true);
         CompforVectorFldjChkBx2.setText("Use Components for Convergence");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridwidth = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
+        jPanel4.add(CompforVectorFldjChkBx2, gridBagConstraints);
 
         compJRadGrp.add(AlongJRadBtn);
         AlongJRadBtn.setSelected(true);
         AlongJRadBtn.setText("Along ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 41, 17, 0);
+        jPanel4.add(AlongJRadBtn, gridBagConstraints);
 
         compJRadGrp.add(OrtoJRadBtn);
         OrtoJRadBtn.setText("Ortogonal");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.ipadx = 21;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 6, 17, 0);
+        jPanel4.add(OrtoJRadBtn, gridBagConstraints);
 
         usePltCordChkBx2.setText("Use Platform Cord ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 11, 0, 0);
+        jPanel4.add(usePltCordChkBx2, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(x_polyOrderJCmbBx, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(y_polyOrderJCmbBx, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(genAccjChkBx)
-                                    .addComponent(useSeljChBx)
-                                    .addComponent(genDivjChkBx)
-                                    .addComponent(res2SeljChkBx)
-                                    .addComponent(genVeljChkBx1)
-                                    .addComponent(genConvJChkBx)
-                                    .addComponent(CompforVectorFldjChkBx2))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                    .addComponent(AlongJRadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(OrtoJRadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(61, 61, 61)))))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(usePltCordChkBx2)))
-                .addContainerGap(8, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(x_polyOrderJCmbBx, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(y_polyOrderJCmbBx, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(18, 18, 18)
-                .addComponent(genVeljChkBx1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usePltCordChkBx2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(genAccjChkBx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(useSeljChBx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(res2SeljChkBx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(genConvJChkBx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(genDivjChkBx)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CompforVectorFldjChkBx2)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AlongJRadBtn)
-                    .addComponent(OrtoJRadBtn))
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        AnalysisSettingTabPanel.add(jPanel4, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 214, Short.MAX_VALUE))
-        );
+        InfoTab.addTab("Analysis Setting", AnalysisSettingTabPanel);
 
-        InfoTab.addTab("Analysis Setting", jPanel1);
-
-        DeskTopPanel.add(InfoTab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 700));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        DeskTopPanel.add(InfoTab, gridBagConstraints);
 
         jScrollPane4.setViewportView(DeskTopPanel);
         DeskTopPanel.getAccessibleContext().setAccessibleName("");
         var parentSize = DeskTopPanel.getParent().getSize();
         DeskTopPanel.setSize((int)parentSize.getWidth()/2,(int)parentSize.getHeight()/2);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 580));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 702;
+        gridBagConstraints.ipady = 822;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.weighty = 0.5;
+        getContentPane().add(jScrollPane4, gridBagConstraints);
 
-        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane5.setAutoscrolls(true);
-        jScrollPane5.setPreferredSize(new java.awt.Dimension(600, 700));
+        jScrollPaneProgImgDisp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPaneProgImgDisp.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPaneProgImgDisp.setAutoscrolls(true);
+        jScrollPaneProgImgDisp.setMinimumSize(new java.awt.Dimension(650, 850));
+        jScrollPaneProgImgDisp.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
-        ImageDisplay_Panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ImageDisplay_Panel.setMaximumSize(new java.awt.Dimension(650000, 6500000));
-        ImageDisplay_Panel.setMinimumSize(new java.awt.Dimension(0, 0));
-        ImageDisplay_Panel.setName("ImageDisplay Panel"); // NOI18N
-        ImageDisplay_Panel.setPreferredSize(new java.awt.Dimension(525, 700));
-        ImageDisplay_Panel.setLayout(new java.awt.GridBagLayout());
+        ProgImgDispParent.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ProgImgDispParent.setAutoscrolls(true);
+        ProgImgDispParent.setMaximumSize(new java.awt.Dimension(650000, 6500000));
+        ProgImgDispParent.setMinimumSize(new java.awt.Dimension(0, 0));
+        ProgImgDispParent.setName("ImageDisplay Panel"); // NOI18N
+        ProgImgDispParent.setPreferredSize(new java.awt.Dimension(650, 850));
+        ProgImgDispParent.setLayout(new java.awt.GridBagLayout());
 
         ProgIndPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Progress Indicator", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         ProgIndPanel.setPreferredSize(new java.awt.Dimension(500, 100));
@@ -1535,28 +1583,28 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 23;
-        gridBagConstraints.ipady = 76;
+        gridBagConstraints.ipadx = 125;
+        gridBagConstraints.ipady = 125;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 21);
-        ImageDisplay_Panel.add(ProgIndPanel, gridBagConstraints);
+        ProgImgDispParent.add(ProgIndPanel, gridBagConstraints);
 
-        MessageBox_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Video/Image/Graph Display", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        MessageBox_Panel.setAutoscrolls(true);
-        MessageBox_Panel.setPreferredSize(new java.awt.Dimension(1000, 1000));
-        MessageBox_Panel.setLayout(new java.awt.GridBagLayout());
+        ImageDispPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Video/Image/Graph Display", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        ImageDispPanel.setMinimumSize(new java.awt.Dimension(400, 400));
+        ImageDispPanel.setPreferredSize(new java.awt.Dimension(500, 500));
+        ImageDispPanel.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 11, 11, 11);
-        ImageDisplay_Panel.add(MessageBox_Panel, gridBagConstraints);
+        ProgImgDispParent.add(ImageDispPanel, gridBagConstraints);
 
-        jPanel5.setLayout(new java.awt.GridBagLayout());
+        controllerPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        controllerPanel.setLayout(new java.awt.GridBagLayout());
 
         jButton5.setText("jButton2");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1568,7 +1616,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.ipady = 13;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(15, 6, 18, 0);
-        jPanel5.add(jButton5, gridBagConstraints);
+        controllerPanel.add(jButton5, gridBagConstraints);
 
         jButton6.setText("Button");
         jButton6.setToolTipText("");
@@ -1587,7 +1635,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.ipady = 13;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(15, 6, 18, 12);
-        jPanel5.add(jButton6, gridBagConstraints);
+        controllerPanel.add(jButton6, gridBagConstraints);
 
         jButton7.setText("jButton2");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1598,26 +1646,36 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.ipady = 13;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(15, 12, 18, 0);
-        jPanel5.add(jButton7, gridBagConstraints);
+        controllerPanel.add(jButton7, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 316;
-        gridBagConstraints.ipady = 12;
+        gridBagConstraints.ipady = 15;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 2, 18, 0);
-        ImageDisplay_Panel.add(jPanel5, gridBagConstraints);
+        ProgImgDispParent.add(controllerPanel, gridBagConstraints);
 
-        jScrollPane5.setViewportView(ImageDisplay_Panel);
+        jScrollPaneProgImgDisp.setViewportView(ProgImgDispParent);
 
-        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 530, 580));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.75;
+        gridBagConstraints.weighty = 0.75;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
+        getContentPane().add(jScrollPaneProgImgDisp, gridBagConstraints);
 
         statMssgScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         statMssgScrollPane.setViewportBorder(javax.swing.BorderFactory.createTitledBorder("Status Messages"));
         statMssgScrollPane.setAutoscrolls(true);
+        statMssgScrollPane.setPreferredSize(new java.awt.Dimension(1000, 50));
         statMssgScrollPane.setViewportView(null);
 
         StatusMessageBox.setColumns(20);
@@ -1629,7 +1687,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         StatusMessageBox.setDragEnabled(true);
         statMssgScrollPane.setViewportView(StatusMessageBox);
 
-        getContentPane().add(statMssgScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 1250, 130));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(statMssgScrollPane, gridBagConstraints);
 
         menuBar.setAutoscrolls(true);
         menuBar.setMinimumSize(new java.awt.Dimension(300, 23));
@@ -1762,7 +1828,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         setJMenuBar(menuBar);
 
-        setBounds(0, 0, 1276, 748);
+        setBounds(0, 0, 1409, 1005);
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
@@ -3286,6 +3352,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JCheckBox AllGrpsinAllTrialCheckBox;
     private javax.swing.JRadioButton AlongJRadBtn;
     private javax.swing.JPanel AnalysisDesign_jPanel;
+    private javax.swing.JPanel AnalysisSettingTabPanel;
     private javax.swing.JTable AnimalGrpSummaryTable;
     private javax.swing.JLabel AnimalLabel;
     private javax.swing.JComboBox<String> AnimalSelComboBox;
@@ -3302,14 +3369,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel GrpLabel;
     private javax.swing.JComboBox<String> GrpSelComboBox;
     private javax.swing.JButton HeatMap_Button;
-    private javax.swing.JPanel ImageDisplay_Panel;
+    private javax.swing.JPanel ImageDispPanel;
     private javax.swing.JMenuItem ImportMenuItem;
     private javax.swing.JTabbedPane InfoTab;
-    private javax.swing.JPanel MessageBox_Panel;
     private javax.swing.JButton OpenFileAssignmentsButton;
     private javax.swing.JRadioButton OrtoJRadBtn;
     private javax.swing.JFormattedTextField PlatXjFtTxt;
     private javax.swing.JFormattedTextField PlatYjFtTxt1;
+    private javax.swing.JPanel ProgImgDispParent;
     private javax.swing.JPanel ProgIndPanel;
     private javax.swing.JButton QuadAna_Button;
     private javax.swing.JButton RemoveFile_Button;
@@ -3330,6 +3397,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JCheckBox chkBoxRemoveAssignedFiles;
     private javax.swing.ButtonGroup compJRadGrp;
     private javax.swing.JMenuItem contentMenuItem;
+    private javax.swing.JPanel controllerPanel;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
@@ -3401,11 +3469,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem jMenuItemExpDes;
     private javax.swing.JMenuItem jMenuItemGrpID;
     private javax.swing.JMenuItem jMenuItemMeasure;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JProgressBar jProgressBarDP;
     private javax.swing.JProgressBar jProgressBarDataAssignment;
@@ -3416,9 +3482,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPaneProgImgDisp;
     private javax.swing.JMenu mapsMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JFormattedTextField nAnimals_Text;
