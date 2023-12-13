@@ -2722,7 +2722,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
-
+    
     private boolean updateAnimalGrpSummaryTable() throws NumberFormatException, HeadlessException {
         boolean sameSampleSz = this.SampleSizeSel.getModel().isSelected();
         boolean tableEmpty = true;
