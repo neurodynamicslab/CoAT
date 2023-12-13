@@ -116,7 +116,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         }
                     }
                 }
-                setStatusMessage("All threads are complete \n");
+                setStatusMessage("All the threads have completed.\n");
                 RunGrp_Button.setEnabled(true);
             }
             
@@ -1270,7 +1270,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 32;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -30;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(63, 6, 0, 11);
         jPanel4.add(x_polyOrderJCmbBx, gridBagConstraints);
@@ -1293,7 +1292,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 32;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -30;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(26, 6, 0, 11);
         jPanel4.add(y_polyOrderJCmbBx, gridBagConstraints);
@@ -1686,10 +1684,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
         getContentPane().add(statMssgScrollPane, gridBagConstraints);
 
         menuBar.setAutoscrolls(true);
@@ -2900,6 +2897,47 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         } catch (IOException ex) {
             Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        // Block for wirting individual files
+        
+        int fileCount = 0;
+        int dataLen = currManager.getFileCount();
+        var dataFileNames = currManager.getDataFileNames();        
+        var VecField = currManager.getVelocityField();        
+        var AccField = currManager.getAccelarationField();
+        var resMaps = currManager.getResidenceMaps();
+        //var curRoi;  
+        
+        String FldrName = currManager.getOutPath()+File.separator+"Individual"+File.separator;
+        
+        File vFolder =  new File(FldrName+"Velocity");
+        File aFolder =  new File(FldrName+"Acceleration");
+        if(!vFolder.exists())
+            vFolder.mkdir();
+        if(!aFolder.exists())
+            aFolder.mkdir();
+        //String resultPath = vFolder.getAbsolutePath();
+        //JVectorSpace vField, acField;
+        while( fileCount < dataLen){
+            
+            var curRoi = this.getSampledROI(1, resMaps[fileCount]);
+            
+            calculateVectorFldProperties(VecField[fileCount],curRoi,
+                                                                true,vFolder.getAbsolutePath(),"T#_"+tCount+"G#_"+gCount+dataFileNames[fileCount]);
+            calculateVectorFldProperties(AccField[fileCount],curRoi,
+                                                                true,aFolder.getAbsolutePath(),"T#_"+tCount+"G#_"+gCount+dataFileNames[fileCount]);
+            fileCount++;
+        }
+        
+//        for (var vField : VecField){
+//            
+//            calculateVectorFldProperties(vField, sampledGrpRoi,true,velFolder.getAbsolutePath(),"AccCmpAlgAve_"+"T_#"+tCount+"G_#"+gCount);
+//        }
+//        
+//        for (var aField : AccField){
+//            
+//        }
+        //Block  for writing individual files ends here
     }
 
     private JVector jVecFieldImgGenerator(DataManager currManager, int xRes, int yRes, int xOC, int yOC) throws InterruptedException{
@@ -2994,7 +3032,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
      * @param pathName  pathname to store the resulting files
      * @param suffix    suffix that will be added to the result file. Typically this will be mapped to data file name prefix/suffix. 
      */
-    public void calculateVectorFldProperties(JVectorSpace VecFld, Roi sampledGrpRoi, boolean isDivergence,String pathName,String suffix) {
+    public void calculateVectorFldProperties(JVectorSpace VecFld, Roi sampledGrpRoi, boolean isDivergence,String pathName,String suffix){
         
         System.out.println("Entering field calc...");
         jVectorFieldCalculator calculator = new jVectorFieldCalculator();
@@ -3080,7 +3118,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //    fs = new FileSaver(finalVelImg);
 //    fs.saveAsTiff(fldrName+suffix+"forPres");
      calculator.setGenConv(this.genConvJChkBx.isSelected());
-     calculator.setGenDiv(this.genConvJChkBx.isSelected());
+     calculator.setGenDiv(isDivergence/*this.genConvJChkBx.isSelected()*/);
      calculator.setAutoGenPool(this.autoPoolRoijChkBx.isSelected());
 //    float LThld, HThld;
 //    if(this.genConvJChkBx.isSelected()){

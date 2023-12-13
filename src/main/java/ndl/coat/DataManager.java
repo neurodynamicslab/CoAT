@@ -27,6 +27,13 @@ import ndl.ndllib.*;
 public class DataManager extends Object implements Runnable,Serializable {
 
     /**
+     * @return the residenceMaps
+     */
+    public JHeatMapArray[] getResidenceMaps() {
+        return residenceMaps;
+    }
+
+    /**
      * @return the VectorFldsReady
      */
     public synchronized boolean isVectorFldsReady() {
@@ -367,7 +374,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                         accFldPrj = accelerationField[Idx].getProjection();
                     }                                      
                                        
-                    var resMap = this.residenceMaps[Idx++];
+                    var resMap = this.getResidenceMaps()[Idx++];
                     var norm = convertScaletoNorm(resMap.getPixelArray());
                     var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
                     var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
@@ -411,7 +418,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                          prjFld = velFld.getProjection();
                          accFldPrj = accelerationField[Idx].getProjection();
                     }  
-                    var resMap = this.residenceMaps[Idx++];
+                    var resMap = this.getResidenceMaps()[Idx++];
                     var norm = convertScaletoNorm(resMap.getPixelArray());
                     var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
                     var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
@@ -421,7 +428,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                 break;
             default: //Calculate only the residence map
                 aveResMap.getTimeSeries().clear();
-                for(var resFld : this.residenceMaps)
+                for(var resFld : this.getResidenceMaps())
                     getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
                 break;
         }       
@@ -535,7 +542,7 @@ public class DataManager extends Object implements Runnable,Serializable {
         if(!newData)
             readData();                                             //Not an efficient way to calculate everything for all
                                                                     //even for a change of single file
-        return residenceMaps;
+        return getResidenceMaps();
     }
     /**
      * @return the residenceField
