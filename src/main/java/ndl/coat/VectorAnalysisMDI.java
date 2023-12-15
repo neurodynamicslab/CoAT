@@ -316,7 +316,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jScrollPane4.setAutoscrolls(true);
-        jScrollPane4.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(950, 950));
 
         DeskTopPanel.setMinimumSize(new java.awt.Dimension(600, 500));
         DeskTopPanel.setPreferredSize(new java.awt.Dimension(740, 675));
@@ -1429,8 +1429,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 702;
-        gridBagConstraints.ipady = 822;
+        gridBagConstraints.ipadx = 800;
+        gridBagConstraints.ipady = 900;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
@@ -1664,7 +1664,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 0.75;
         gridBagConstraints.weighty = 0.75;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
         getContentPane().add(jScrollPaneProgImgDisp, gridBagConstraints);
 
         statMssgScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
