@@ -11,6 +11,7 @@ import ij.process.FloatBlitter;
 import ij.process.FloatProcessor;
 import ij.process.ImageProcessor;
 import java.awt.Rectangle;
+import java.io.File;
 import ndl.ndllib.ImageDifferentials;
 import ndl.ndllib.JVectorCmpImg;
 import ndl.ndllib.JVectorSpace;
@@ -21,6 +22,20 @@ import ndl.ndllib.SurfaceFit;
  * @author balaji
  */
 public class jVectorFieldCalculator implements Runnable{
+
+    /**
+     * @return the toSave
+     */
+    public boolean isToSave() {
+        return toSave;
+    }
+
+    /**
+     * @param toSave the toSave to set
+     */
+    public void setToSave(boolean toSave) {
+        this.toSave = toSave;
+    }
 
     private static final Object finished = new Object();
     
@@ -88,7 +103,11 @@ public class jVectorFieldCalculator implements Runnable{
      * @return the fileSeparator
      */
     public String getFileSeparator() {
-        return fileSeparator;
+        if(fileSeparator != null)
+            return fileSeparator;
+        else
+            return File.pathSeparator;
+        
     }
 
     /**
@@ -246,6 +265,7 @@ public class jVectorFieldCalculator implements Runnable{
     private boolean genDiv;
     private boolean autoGenPool;
     private static int instanceCount = 1;
+    private boolean toSave = true;
     @Override
     public void run() {
             instanceCount++;
@@ -269,9 +289,11 @@ public class jVectorFieldCalculator implements Runnable{
 /* Make sure to pass a preset fit object */
         ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder, getVecFld(), getSampledGrpRoi());
         int count  = 0;
-        for(ImagePlus imp : vecSurface){
-            FileSaver fs  = new FileSaver(imp);
-            fs.saveAsTiff(getPathName() +"Ave_VectorSurface"+"Comp_#"+count++);
+        if(isToSave()){
+            for(ImagePlus imp : vecSurface){
+                FileSaver fs  = new FileSaver(imp);
+                fs.saveAsTiff(getPathName() +"_VectorSurface"+"Comp_#"+count++);
+            }
         }
 
     ImageStack diffVel =  new ImageStack(getVecFld().getxRes(),getVecFld().getyRes(),2);
@@ -282,8 +304,8 @@ public class jVectorFieldCalculator implements Runnable{
    */  
    int x = 0 ,y = 0;
    if(  getSampledGrpRoi() != null){
-    x =     getSampledGrpRoi().getBounds().x;
-    y =     getSampledGrpRoi().getBounds().y;
+        x =   getSampledGrpRoi().getBounds().x;
+        y =   getSampledGrpRoi().getBounds().y;
    }
     FloatProcessor vecxS, vecyS;
     vecxS = new FloatProcessor(getVecFld().getxRes(),getVecFld().getyRes());
@@ -319,8 +341,8 @@ public class jVectorFieldCalculator implements Runnable{
   //  fit.setGaussFilt(false);
     if(isGenConv() || isGenDiv()){
             ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), getSampledGrpRoi());
-            fs = new FileSaver(finalVelImg);
-            fs.saveAsTiff(getFldrName()+getSuffix()+"forPres");
+           // fs = new FileSaver(finalVelImg);
+           // fs.saveAsTiff(getFldrName()+getSuffix()+"forPres");
 
             float LThld, HThld;
             if(this.isGenConv()){
