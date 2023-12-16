@@ -72,18 +72,13 @@ public class jVectorFieldCalculator implements Runnable{
     }
 
     /**
+     * fldrName is the place holder for pathname with file separator
      * @return the fldrName
      */
-    public String getFldrName() {
-        return fldrName;
+    private String getFldrName() {
+        return getPathName()+getFileSeparator();
     }
 
-    /**
-     * @param fldrName the fldrName to set
-     */
-    public void setFldrName(String fldrName) {
-        this.fldrName = fldrName;
-    }
 
     /**
      * @return the pathName
@@ -251,7 +246,6 @@ public class jVectorFieldCalculator implements Runnable{
     }
     private int polyX;
     private int polyY;
-    private String fldrName;
     private String pathName;
     private String fileSeparator;
     private SurfaceFit fit;
@@ -270,29 +264,14 @@ public class jVectorFieldCalculator implements Runnable{
     public void run() {
             instanceCount++;
             int polyXOrder = getPolyX();//5;
-            int polyYOrder = getPolyY();
-            setFldrName(getPathName() + getFileSeparator());//File.separator;
-        
-        
-        
-        //System.out.printf("Polynomial Order in (x,y) format:(%d,%d)",polyXOrder,polyYOrder);
-       
-//        fit.setPreScale(this.reSzImgjChkBx.isSelected());
-//        fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
-//        
-//        fit.setGaussFilt(this.gaussjChkBx.isSelected());
-//        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
-//        
-//        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
-//        fit.setUseSelection(this.useSeljChBx.isSelected());
-        
+            int polyYOrder = getPolyY();        
 /* Make sure to pass a preset fit object */
         ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder, getVecFld(), getSampledGrpRoi());
         int count  = 0;
         if(isToSave()){
             for(ImagePlus imp : vecSurface){
                 FileSaver fs  = new FileSaver(imp);
-                fs.saveAsTiff(getPathName() +"_VectorSurface"+"Comp_#"+count++);
+                fs.saveAsTiff(getFldrName()+getSuffix() +"_VectorSurface"+"Comp_#"+count++);
             }
         }
 
@@ -333,9 +312,9 @@ public class jVectorFieldCalculator implements Runnable{
     var img = new ImagePlus("VelCon");
     img.setStack(diffVel);
     var fs = new FileSaver(img);
-    fs.saveAsTiff(getFldrName()+getSuffix()+"Divergence_diffVel");
+    fs.saveAsTiff(getFldrName()+getSuffix()+"_Divergence_diffVel");
     var velProj = new FileSaver(velProjections);
-    velProj.saveAsTiff(getFldrName()+getSuffix()+"Convergence_vel");
+    velProj.saveAsTiff(getFldrName()+getSuffix()+"_Convergence_vel");
     
   //  fit.setPreScale(false);
   //  fit.setGaussFilt(false);
@@ -361,7 +340,7 @@ public class jVectorFieldCalculator implements Runnable{
                 var Img  = new ImagePlus("Conv");
                 Img.setProcessor(ConvIP);
                 fs = new FileSaver(Img);
-                fs.saveAsTiff(getFldrName()+getSuffix()+"ConvPres");
+                fs.saveAsTiff(getFldrName()+getSuffix()+"_ConvPres");
 
             }
             if(this.isGenDiv()){
@@ -379,8 +358,7 @@ public class jVectorFieldCalculator implements Runnable{
                 var Img  = new ImagePlus("Div");
                 Img.setProcessor(DivIP);
                 fs = new FileSaver(Img);
-                fs.saveAsTiff(getFldrName()+getSuffix()+"DivPres");
-
+                fs.saveAsTiff(getFldrName()+getSuffix()+"_DivPres");
             }
       }
       synchronized (jVectorFieldCalculator.finished){

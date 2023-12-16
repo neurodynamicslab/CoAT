@@ -2861,18 +2861,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         currManager.computeAve(1, OC,true);
         currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
         
-        //Retrive the average and run through for the covnergence divergence estimates.
-        //selectout Reg
-        //compute surface
-        //compute divergence
-        //selctout reg
-        //Id peaks
-        //measure center,width and intensity
-        //compute accuracy, undertainity and intensity (rel and abs).
-        /*** Surface fit on average*/
-        //read this numbers through gui
-        //var temp  =  currManager.getAveResMap();
-        //Roi sampledGrpRoi = getSampledROI( 1,currManager);
+        
         currManager.computeAve(3, null,false);
         Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
         
@@ -2897,7 +2886,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        // Block for wirting individual files
+        // Block for writing individual files
         
         int fileCount = 0;
         int dataLen = currManager.getFileCount();
@@ -2908,23 +2897,36 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //var curRoi;  
         
         String FldrName = currManager.getOutPath()+File.separator+"Individual"+File.separator;
-        
-        File vFolder =  new File(FldrName+"Velocity");
-        File aFolder =  new File(FldrName+"Acceleration");
+        String vFldrName = FldrName + "Velocity";
+        String aFldrName = FldrName + "Acceleration";
+        File vFolder =  new File(vFldrName);
+        File aFolder =  new File(aFldrName);
         if(!vFolder.exists())
-            vFolder.mkdir();
+            vFolder.mkdirs();
         if(!aFolder.exists())
-            aFolder.mkdir();
+            aFolder.mkdirs();
         //String resultPath = vFolder.getAbsolutePath();
         //JVectorSpace vField, acField;
+        String indFName ;
         while( fileCount < dataLen){
+            var residence = resMaps[fileCount];
+            var OCi = currManager.findOC(xRes, yRes, residence);
+            var curRoi = this.getSampledROI(1, residence);
+            indFName = dataFileNames[fileCount];
+            var indexFSep = indFName.lastIndexOf(File.separator);
+            indexFSep = indexFSep == -1 ? 0 : indexFSep+1;
+            indFName = indFName.substring(indexFSep);
+            var indexExt = indFName.lastIndexOf(".");
+            indexExt = indexExt == -1 ? indFName.length() : indexExt;
+            indFName = indFName.substring(0,indexExt);
             
-            var curRoi = this.getSampledROI(1, resMaps[fileCount]);
+            var vFieldNorm = VecField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
+            var accFieldNorm = AccField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
             
-            calculateVectorFldProperties(VecField[fileCount],curRoi,
-                                                                true,vFolder.getAbsolutePath(),"T#_"+tCount+"G#_"+gCount+dataFileNames[fileCount]);
-            calculateVectorFldProperties(AccField[fileCount],curRoi,
-                                                                true,aFolder.getAbsolutePath(),"T#_"+tCount+"G#_"+gCount+dataFileNames[fileCount]);
+            calculateVectorFldProperties(vFieldNorm,curRoi,
+                                                                true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
+            calculateVectorFldProperties(accFieldNorm,curRoi,
+                                                                true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
             fileCount++;
         }
         
@@ -3031,7 +3033,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
      * @param pathName  pathname to store the resulting files
      * @param suffix    suffix that will be added to the result file. Typically this will be mapped to data file name prefix/suffix. 
      */
-    public void calculateVectorFldProperties(JVectorSpace VecFld, Roi sampledGrpRoi, boolean isDivergence,String pathName,String suffix){
+    public void calculateVectorFldProperties(JVectorSpace VecFld, Roi currentRoi, boolean isDivergence,String pathName,String suffix){
         
         System.out.println("Entering field calc...");
         jVectorFieldCalculator calculator = new jVectorFieldCalculator();
@@ -3041,11 +3043,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         calculator.setSuffix(suffix);
         calculator.setPathName(pathName);
         calculator.setFileSeparator(File.separator);
-//        int polyXOrder = this.x_polyOrderJCmbBx.getSelectedIndex()+1;//5;
-//        int polyYOrder = this.y_polyOrderJCmbBx.getSelectedIndex()+1;
-//        String fldrName = pathName + File.separator;
-        
-//        System.out.printf("Polynomial Order in (x,y) format:(%d,%d)",polyXOrder,polyYOrder);
+
        
         fit.setPreScale(this.reSzImgjChkBx.isSelected());
         fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
@@ -3056,108 +3054,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         fit.setUseSelection(this.useSeljChBx.isSelected());
         
-//        fit.setPolyOrderX(x_polyOrderJCmbBx.getSelectedIndex()+1);
-//        fit.setPolyOrderX(y_polyOrderJCmbBx.getSelectedIndex()+1);
+
         
         calculator.setFit(fit);
-        
-        
-//        ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder,VecFld,sampledGrpRoi);
-//        int count  = 0;
-//        for(ImagePlus imp : vecSurface){
-//            FileSaver fs  = new FileSaver(imp);
-//            fs.saveAsTiff(pathName +"Ave_VectorSurface"+"Comp_#"+count++);
-//        }
-//
-//    ImageStack diffVel =  new ImageStack(VecFld.getxRes(),VecFld.getyRes(),2);
-    
-  /**
-   * Check for the sampledGrpRoi when auto determine OC is not checked. 
-   * This throws a null pointer when it is not checked as there is no sampledGrpRoi in that case.
-   */  
-//   int x = 0 ,y = 0;
-   if(sampledGrpRoi != null)
-       calculator.setSampledGrpRoi(sampledGrpRoi);
-//    x = sampledGrpRoi.getBounds().x;
-//    y = sampledGrpRoi.getBounds().y;
-   
-//    FloatProcessor vecxS, vecyS;
-//    vecxS = new FloatProcessor(VecFld.getxRes(),VecFld.getyRes());
-//    vecyS = new FloatProcessor(VecFld.getxRes(),VecFld.getyRes());
-//   
-//    vecSurface[0].setRoi(sampledGrpRoi);
-//    vecSurface[1].setRoi(sampledGrpRoi);
-//    
-//    vecxS.insert(this.getDifferentials(vecSurface[0].crop(), false).getProcessor(),x,y);
-//    vecyS.insert(this.getDifferentials(vecSurface[1].crop(), true).getProcessor(),x,y);
-//    
-//
-//    diffVel.setProcessor(vecxS, 1);
-//    diffVel.setProcessor(vecyS, 2);
-//    
-//    ImagePlus Projections = new ImagePlus();
-//    Projections.setStack(diffVel);
-//    ZProjector projector = new ZProjector();
-//    projector.setMethod(ZProjector.SUM_METHOD);
-//    projector.setImage(Projections);
-//    projector.doProjection();
-//    ImagePlus velProjections = projector.getProjection();
 
-//   
-//    var img = new ImagePlus("VelCon");
-//    img.setStack(diffVel);
-//    var fs = new FileSaver(img);
-//    fs.saveAsTiff(fldrName+suffix+"Divergence_diffVel");
-//    var velProj = new FileSaver(velProjections);
-//    velProj.saveAsTiff(fldrName+suffix+"Convergence_vel");
-//    
-//  //  fit.setPreScale(false);
-//  //  fit.setGaussFilt(false);
-//    ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), sampledGrpRoi);
-//    fs = new FileSaver(finalVelImg);
-//    fs.saveAsTiff(fldrName+suffix+"forPres");
-     calculator.setGenConv(this.genConvJChkBx.isSelected());
-     calculator.setGenDiv(isDivergence/*this.genConvJChkBx.isSelected()*/);
-     calculator.setAutoGenPool(this.autoPoolRoijChkBx.isSelected());
-//    float LThld, HThld;
-//    if(this.genConvJChkBx.isSelected()){
-//        LThld = Float.NEGATIVE_INFINITY;
-//        HThld = 0;
-//        ImageProcessor ConvIP = finalVelImg.getProcessor().duplicate();
-//        
-//        ConvIP.setThreshold(LThld, HThld);
-//        var mask = ConvIP.createMask();
-//        mask.add(-254);
-//        
-//        FloatBlitter fb = new FloatBlitter((FloatProcessor)ConvIP);
-//        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-//        ConvIP.multiply(-1);
-//        
-//        var Img  = new ImagePlus("Conv");
-//        Img.setProcessor(ConvIP);
-//        fs = new FileSaver(Img);
-//        fs.saveAsTiff(fldrName+suffix+"ConvPres");
-//        
-//    }
-//    if(this.genDivjChkBx.isSelected()){
-//        LThld = 0;
-//        HThld = Float.POSITIVE_INFINITY;
-//        ImageProcessor DivIP = finalVelImg.getProcessor().duplicate();
-//        
-//        DivIP.setThreshold(LThld, HThld);
-//        var mask = DivIP.createMask();
-//        mask.add(-254);
-//
-//        FloatBlitter fb = new FloatBlitter((FloatProcessor)DivIP);
-//        fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-//        
-//        var Img  = new ImagePlus("Div");
-//        Img.setProcessor(DivIP);
-//        fs = new FileSaver(Img);
-//        fs.saveAsTiff(fldrName+suffix+"DivPres");
-//     
-//    }
-    //calculator.run();
+    if(currentRoi != null)
+       calculator.setSampledGrpRoi(currentRoi);
+
+    calculator.setGenConv(this.genConvJChkBx.isSelected());
+    calculator.setGenDiv(isDivergence/*this.genConvJChkBx.isSelected()*/);
+    calculator.setAutoGenPool(this.autoPoolRoijChkBx.isSelected());
+     
     Thread thread = new Thread(calculator,""+jVectorFieldCalculator.getInstanceCount());
     thread.start();
     activeCount++;
@@ -3168,107 +3075,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }
     
  }
-/** starting from here..**
-    private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledGrpRoi) {
-
-            converImg.setRoi(sampledGrpRoi);
-           
-            int polyXOrder  = this.x_polyOrderJCmbBx.getSelectedIndex();
-            int polyYOrder  = this.y_polyOrderJCmbBx.getSelectedIndex();
-            
-            
-            fit.setPolyOrderX(polyYOrder);
-            fit.setPolyOrderY(polyYOrder);
-            fit.setPreScale(false);
-            fit.setGaussFilt(false);
-            if(sampledGrpRoi != null ){
-                fit.setUseSelection(true);
-                fit.setSelectPixels(true);
-            }
-            
-            
-            ImagePlus surfaceOut = this.getSurface(polyXOrder, polyYOrder, converImg, sampledGrpRoi);
-           
-            OvalRoi Pool;
-
-   
-            if(this.autoPoolRoijChkBx.isSelected()){                                   //Check for pool roi or parameters
-                Rectangle rect;
-                if(sampledGrpRoi != null){
-                    rect = sampledGrpRoi.getBounds();
-                    
-                }else{
-                    rect = surfaceOut.getRoi().getBounds();
-                }
-                Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);
-            }else{
-                int xCtr = Integer.parseInt(this.xPoolCtrjFormFld.getText());
-                int yCtr = Integer.parseInt(this.yPoolCtrjFormFld.getText());
-                int dia = 2 * Integer.parseInt(this.poolRadjFormFld.getText());
-                Pool = new OvalRoi(xCtr,yCtr,dia,dia);
-            }
-            surfaceOut.getProcessor().setValue(0);
-            surfaceOut.getProcessor().fillOutside(Pool);
-
-        return surfaceOut;
-    }
-    private ImagePlus[] getSurfaces(int polyX, int polyY, JVectorSpace space, Roi sel){
-        int nCmp = space.getnComp();
-        ImagePlus[] surfaces = new ImagePlus[nCmp];
-        JVectorCmpImg images = new JVectorCmpImg(space);
-        ImageProcessor[] cmpImages = images.getProcessorArray();
-        int count = 0;
-        for(ImageProcessor ip : cmpImages){
-                //var ByIp = ip.convertToByteProcessor();
-                surfaces[count++] = getSurface(polyX,polyY,ip,sel);
-        }
-       
-       return surfaces;
-    }
-    private ImagePlus getSurface(int polyXOrder, int polyYOrder, ImageProcessor cmpIP, Roi selection){
-        ImagePlus surface = new ImagePlus();
-        //SurfaceFit fit = new SurfaceFit(polyXOrder, polyYOrder);
-        
-//        fit.setPreScale(this.reSzImgjChkBx.isSelected());
-//        fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
-//        
-//        fit.setGaussFilt(this.gaussjChkBx.isSelected());
-//        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
-//        fit.setSelectPixels(this.res2SeljChkBx.isSelected());
-//        fit.setUseSelection(this.useSeljChBx.isSelected());
-        FloatProcessor frame; 
-        //frame.setBackgroundValue(0);
-        
-        //int selWidth, selHeight;
-        //selection = (this.useSeljChBx.isSelected()) ? selection : null ;
-        cmpIP.setRoi(selection);
-        FloatProcessor selInFrame = fit.FitSurface(cmpIP,selection); //null, false square/rectangle region of interest as such 
-                                                                      // sel, false square/rectangle region of interest with 0 for pixels of unmasked
-                                                                      //sel, true just the pixels that are selected by roi mask
-       System.out.println("The dimension after fitting is (X x Y) "+selInFrame.getWidth()+" x "+selInFrame.getHeight());
-        if( selection != null  ){
-            var selX =  selection.getBounds().x ;
-            var selY =  selection.getBounds().y ;
-            frame = new FloatProcessor(cmpIP.getWidth(),cmpIP.getHeight());
-            frame.insert(selInFrame,selX,selY);
-            surface.setProcessor(frame);
-        }
-        else{
-            surface.setProcessor(selInFrame);
-        }
-        return surface;
-    }
-    private ImagePlus getDifferentials(ImagePlus imp, boolean vertical){
-        ImagePlus differentials = new ImagePlus();
-        ImageDifferentials Diff = new ImageDifferentials();
-        if (vertical) 
-            differentials.setProcessor(Diff.DifferentialY(imp.getProcessor()));
-        else
-            differentials.setProcessor(Diff.DifferentialX(imp.getProcessor()));
-        return differentials;
-    }
-    
-    **...till here could be commented out**/
     private ij.gui.Roi getSampledROI(int thershold, JHeatMapArray aveResMap) {
         ij.gui.Roi roi ;
         FloatProcessor ip;
@@ -3279,34 +3085,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         roi = new ThresholdToSelection().convert(ip);
         return roi;
     }
-//    private JVector findOC(DataManager currManager, int xRes, int yRes) {
-//        int xOC;
-//        int yOC;
-//        //this.generateResidenceMap(currManager);
-//        //timeTrace = currManager.getTimeData();
-//        currManager.computeAve(3, null,false);        //Just compute the residence map
-//        var heatMap = currManager.getAveResMap();
-//        heatMap.convertTimeSeriestoArray(xRes, yRes);
-//        JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);
-//        heatMapImg.addScalar(heatMap);
-//        var AveHMap_imp = heatMapImg.getImages()[0];
-//        //AveHMap_imp.show();
-//        var ip = AveHMap_imp.getProcessor().duplicate();
-//        double sigma = (xRes > yRes) ? yRes/40 : xRes/40 ;
-//        ip.blurGaussian(sigma);
-//        ip.setAutoThreshold("MaxEntropy dark");
-////        ip.createMask();
-//        var lThld = ip.getMinThreshold();
-//        var hThld = ip.getMaxThreshold();
-//        System.out.println("The thlds are " + lThld + "," + hThld);
-//        var stat = new FloatStatistics(ip,ImageStatistics.CENTER_OF_MASS+ImageStatistics.LIMIT,null);
-//        
-//        xOC = (int) stat.xCenterOfMass;
-//        yOC = (int) stat.yCenterOfMass;
-//        this.ocXjFtTxt2.setText(""+xOC);
-//        this.ocYjFtTxt3.setText(""+yOC);
-//        return new JVector(xOC,yOC);
-//    }
 
     private boolean readnGrps() throws NumberFormatException, HeadlessException {
         if (!jFormattedTextField_NoOfGrps.isEditValid()) {
@@ -3318,6 +3096,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }
     
 
+    
     /**
      * @param args the command line arguments
      */

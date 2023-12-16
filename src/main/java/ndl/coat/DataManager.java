@@ -331,11 +331,11 @@ public class DataManager extends Object implements Runnable,Serializable {
         }
         if(timeOut && !this.isVectorFldsReady()) 
             return;
-       if( aveResMap == null) aveResMap =  new JHeatMapArray(XRes,YRes);
-       if( aveVelFld == null) aveVelFld = new JVectorSpace(XRes,YRes);
-       if( aveAccFld == null) aveAccFld = new JVectorSpace(XRes,YRes);
-       int Idx = 0;
-       JVectorSpace prjFld,accFldPrj;
+        if( aveResMap == null) aveResMap =  new JHeatMapArray(XRes,YRes);
+        if( aveVelFld == null) aveVelFld = new JVectorSpace(XRes,YRes);
+        if( aveAccFld == null) aveAccFld = new JVectorSpace(XRes,YRes);
+        int Idx = 0;
+        JVectorSpace prjFld,accFldPrj;
         switch(choice){
             
             case 0:             //Calculate average of velocity and acceleration
@@ -375,9 +375,9 @@ public class DataManager extends Object implements Runnable,Serializable {
                     }                                      
                                        
                     var resMap = this.getResidenceMaps()[Idx++];
-                    var norm = convertScaletoNorm(resMap.getPixelArray());
-                    var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
-                    var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
+                    var norm = resMap.getPixelArray();
+                    var scaledFldvel = (resiNorm)? prjFld.normaliseVectors(norm): prjFld;  
+                    var scaledAcc =(resiNorm)? accFldPrj.normaliseVectors(norm):accFldPrj;
                     
                      if(this.isUseRelativeVelocity()){
                         if(!scaledFldvel.isChkMinMaxandAdd())
@@ -390,10 +390,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                     
                     
                     getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
-                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);  
-                                       
-                    
-                    
+                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);                              
                 }
 //                for(var accFld : this.accelerationField){
 //                    var accCmp = accFld.getProjections2point(Vector,true);
@@ -419,14 +416,27 @@ public class DataManager extends Object implements Runnable,Serializable {
                          accFldPrj = accelerationField[Idx].getProjection();
                     }  
                     var resMap = this.getResidenceMaps()[Idx++];
-                    var norm = convertScaletoNorm(resMap.getPixelArray());
-                    var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
-                    var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
+//                    var norm = convertScaletoNorm(resMap.getPixelArray());
+//                    var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
+//                    var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
+                    var normMat = resMap.getPixelArray();
+                    var scaledFldvel = (resiNorm)? prjFld.normaliseVectors(normMat): prjFld;
+                    var scaledAcc = (resiNorm)? accFldPrj.normaliseVectors(normMat):accFldPrj;
+                    
+                    if(this.isUseRelativeVelocity()){
+                        if(!scaledFldvel.isChkMinMaxandAdd())
+                            scaledFldvel.setChkMinMaxandAdd(true);
+                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,1);
+                        if(!scaledAcc.isChkMinMaxandAdd())
+                            scaledAcc.setChkMinMaxandAdd(true);
+                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,1);
+                    }
+                    
                     getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
                     getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);                  
                 }               
                 break;
-            default: //Calculate only the residence map
+            default: //Calculate only the average residence map
                 aveResMap.getTimeSeries().clear();
                 for(var resFld : this.getResidenceMaps())
                     getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
@@ -435,21 +445,21 @@ public class DataManager extends Object implements Runnable,Serializable {
         setAveReady(true);
     }
 
-    private Double[][] convertScaletoNorm(double [][] norm) {
-        
-        if(norm == null)
-            return null;
-        Double [][] scale = new Double[norm.length][norm[0].length];
-        int xIdx = 0, yIdx = 0;
-        for(double[] X : norm){
-            for(double Y : X){
-                scale[xIdx][yIdx++] = /*1/Y;//*/(Y == 0) ? Double.NaN : 1/Y ;      //pixels that are not sampled are set to zero during normalisation
-            }
-            xIdx++;
-            yIdx = 0;
-        }
-        return scale;
-    }
+//    private Double[][] convertScaletoNorm(double [][] norm) {
+//        
+//        if(norm == null)
+//            return null;
+//        Double [][] scale = new Double[norm.length][norm[0].length];
+//        int xIdx = 0, yIdx = 0;
+//        for(double[] X : norm){
+//            for(double Y : X){
+//                scale[xIdx][yIdx++] = /*1/Y;//*/(Y == 0) ? Double.NaN : 1/Y ;      //pixels that are not sampled are set to zero during normalisation
+//            }
+//            xIdx++;
+//            yIdx = 0;
+//        }
+//        return scale;
+//    }
     public void saveInd(){
         //To Do fill this 
     }
@@ -589,20 +599,13 @@ public class DataManager extends Object implements Runnable,Serializable {
     public synchronized void setUseRelativeVelocity(boolean useRelativeVelocity) {
         this.useRelativeVelocity = useRelativeVelocity;
     }
-    
-    /**
-     * Estimates the occupancy center of the residence map ()and returns a position vector to OC 
-     * as JVector. The method used is described in Hippo ref. briefly: i) Apply Gaussian Filter of 
-     * a preset radius (usually this should be in pixels corresponding to size of mice/animal). This 
-     * is followed by MEM thresholding and then estimating the center of mass. 
-     * 
+    /***
+     * Overloaded method to estimate OC. This uses the average residence map of the current datamanager.
      * @param xRes  x axis resolution
      * @param yRes  y axis resolution
-     * @return JVector representing the position vector to the occupancy center defined as above.
+     * @return JVector representing the position vector to the occupancy center.
      */
-    public JVector findOC(int xRes, int yRes) {
-        int xOC;
-        int yOC;
+    public JVector findOC(int xRes, int yRes){
         DataManager currManager = this;
         if(!this.isVectorFldsReady())
             readData();
@@ -610,6 +613,29 @@ public class DataManager extends Object implements Runnable,Serializable {
         //timeTrace = currManager.getTimeData();
         currManager.computeAve(3, null,false);        //Just compute the residence map
         var heatMap = currManager.getAveResMap();
+        return findOC(xRes,yRes,heatMap);
+    }
+    /**
+     * Estimates the occupancy center of the residence map ()and returns a position vector to OC 
+     * as JVector.The method used is described in Hippo ref. briefly: i) Apply Gaussian Filter of 
+ a preset radius (usually this should be in pixels corresponding to size of mice/animal). This 
+ is followed by MEM threshold and then estimating the center of mass. 
+     * 
+     * @param xRes  x axis resolution
+     * @param yRes  y axis resolution
+     * @param heatMap residence  or any heat map for which the OC needs to estimated
+     * @return JVector representing the position vector to the occupancy center defined as above.
+     */
+    public JVector findOC(int xRes, int yRes, JHeatMapArray heatMap) {
+        int xOC;
+        int yOC;
+//        DataManager currManager = this;
+//        if(!this.isVectorFldsReady())
+//            readData();
+//        //this.generateResidenceMap(currManager);
+//        //timeTrace = currManager.getTimeData();
+//        currManager.computeAve(3, null,false);        //Just compute the residence map
+//        var heatMap = currManager.getAveResMap();
         heatMap.convertTimeSeriestoArray(xRes, yRes);
         JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);
         heatMapImg.addScalar(heatMap);
