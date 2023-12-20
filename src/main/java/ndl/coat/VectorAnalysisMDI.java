@@ -2899,12 +2899,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         String FldrName = currManager.getOutPath()+File.separator+"Individual"+File.separator;
         String vFldrName = FldrName + "Velocity";
         String aFldrName = FldrName + "Acceleration";
+        String roiFldr = FldrName + "Rois";
         File vFolder =  new File(vFldrName);
         File aFolder =  new File(aFldrName);
+        File rFolder = new File(roiFldr);
         if(!vFolder.exists())
             vFolder.mkdirs();
         if(!aFolder.exists())
             aFolder.mkdirs();
+        if(!rFolder.exists())
+            rFolder.mkdirs();
         //String resultPath = vFolder.getAbsolutePath();
         //JVectorSpace vField, acField;
         String indFName ;
@@ -2927,6 +2931,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                                                                 true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
             calculateVectorFldProperties(accFieldNorm,curRoi,
                                                                 true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
+            RoiEncoder indiEnc = new RoiEncoder(rFolder+File.separator+indFName+".roi");
+            try {
+                indiEnc.write(curRoi);
+            }catch (IOException ex) {
+                Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             fileCount++;
         }
         
