@@ -3039,7 +3039,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
      * Call this function to calculate the vector field properties of an Vector space. Typically this in turn instantiates a 
      * jVectorFieldCalulator Object to calculate these in a separate thread. 
      * @param VecFld  The vector space for which we need to calculate the properties
-     * @param sampledGrpRoi The roi representing the sampled sub space 
+     * @param currentRoi The roi representing the sampled sub space 
      * @param isDivergence  set this to true for calculating divergence surface (addition to convergence)
      * @param pathName  pathname to store the resulting files
      * @param suffix    suffix that will be added to the result file. Typically this will be mapped to data file name prefix/suffix. 
