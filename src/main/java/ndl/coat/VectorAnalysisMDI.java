@@ -329,16 +329,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         ExpDef_jPanel.setAutoscrolls(true);
         ExpDef_jPanel.setPreferredSize(new java.awt.Dimension(733, 500));
-        ExpDef_jPanel.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagLayout ExpDef_jPanelLayout = new java.awt.GridBagLayout();
+        ExpDef_jPanelLayout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        ExpDef_jPanelLayout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        ExpDef_jPanel.setLayout(ExpDef_jPanelLayout);
 
         jLabel_Number_of_GrpTxt.setText("Number of Groups");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.ipadx = 466;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 6, 0, 0);
         ExpDef_jPanel.add(jLabel_Number_of_GrpTxt, gridBagConstraints);
 
         jFormattedTextField_NoOfGrps.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
@@ -350,10 +350,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
+        gridBagConstraints.gridx = 26;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 9;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridwidth = 17;
+        gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
         ExpDef_jPanel.add(jFormattedTextField_NoOfGrps, gridBagConstraints);
@@ -361,11 +361,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jLabel_NoOfAnimals.setText("Number of Animals per Grp");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.gridy = 14;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 6, 0, 0);
         ExpDef_jPanel.add(jLabel_NoOfAnimals, gridBagConstraints);
 
         SampleSizeSel.setSelected(true);
@@ -378,11 +375,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 9;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 6, 0, 0);
         ExpDef_jPanel.add(SampleSizeSel, gridBagConstraints);
 
         AnimalGrpSummaryTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -407,15 +401,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 23;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridwidth = 45;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 712;
-        gridBagConstraints.ipady = 183;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 6);
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.weighty = 0.5;
         ExpDef_jPanel.add(jScrollPane3, gridBagConstraints);
 
         Trial_No_Table.setModel(new javax.swing.table.DefaultTableModel(
@@ -434,15 +425,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 23;
+        gridBagConstraints.gridy = 24;
+        gridBagConstraints.gridwidth = 45;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 712;
-        gridBagConstraints.ipady = 183;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 169, 6);
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.weighty = 0.5;
         ExpDef_jPanel.add(jScrollPane1, gridBagConstraints);
 
         upDateButton.setText("Finalise  Animals Grp Trial #s");
@@ -452,43 +440,38 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 18;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 18, 0, 0);
         ExpDef_jPanel.add(upDateButton, gridBagConstraints);
 
         nAnimals_Text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         nAnimals_Text.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         nAnimals_Text.setText("5");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 9;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridx = 26;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 17;
+        gridBagConstraints.gridheight = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         ExpDef_jPanel.add(nAnimals_Text, gridBagConstraints);
 
         jLabel1.setText("Number of animals (N) ");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 222;
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 28, 0, 0);
         ExpDef_jPanel.add(jLabel1, gridBagConstraints);
 
         jFormattedText_nTrials.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         jFormattedText_nTrials.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedText_nTrials.setText("2");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridx = 26;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 17;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
         ExpDef_jPanel.add(jFormattedText_nTrials, gridBagConstraints);
@@ -496,12 +479,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jLabel2.setText("Number of Trials");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 28;
-        gridBagConstraints.ipady = 9;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 6, 0, 0);
         ExpDef_jPanel.add(jLabel2, gridBagConstraints);
 
         reset_AnGrTr_Button.setText("Reset Animals Grp Trial #s ");
@@ -511,21 +490,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 18;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 40, 0, 0);
         ExpDef_jPanel.add(reset_AnGrTr_Button, gridBagConstraints);
 
         jLabel3.setText("Group Selection Table:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 22;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 6, 0, 0);
         ExpDef_jPanel.add(jLabel3, gridBagConstraints);
 
         AllGrpsinAllTrialCheckBox.setSelected(true);
@@ -538,10 +514,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridy = 18;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(13, 12, 0, 0);
         ExpDef_jPanel.add(AllGrpsinAllTrialCheckBox, gridBagConstraints);
 
         InfoTab.addTab("Experiment Definition", ExpDef_jPanel);
@@ -1630,7 +1605,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.insets = new java.awt.Insets(15, 6, 18, 12);
         controllerPanel.add(jButton6, gridBagConstraints);
 
-        jButton7.setText("jButton2");
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ndl/coat/Play.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
