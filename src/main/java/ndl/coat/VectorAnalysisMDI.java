@@ -286,6 +286,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         exitMenuItem = new javax.swing.JMenuItem();
         mapsMenu = new javax.swing.JMenu();
         residencemapMenuItem = new javax.swing.JMenuItem();
+        activityMap_jMenu = new javax.swing.JMenuItem();
         analysisMenu = new javax.swing.JMenu();
         jMenuItemGrpID = new javax.swing.JMenuItem();
         jMenuItemExpDes = new javax.swing.JMenuItem();
@@ -1720,6 +1721,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
         mapsMenu.add(residencemapMenuItem);
 
+        activityMap_jMenu.setText("Create Activity Map");
+        activityMap_jMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                activityMap_jMenuActionPerformed(evt);
+            }
+        });
+        mapsMenu.add(activityMap_jMenu);
+
         menuBar.add(mapsMenu);
 
         analysisMenu.setText("Analysis");
@@ -2693,6 +2702,27 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void activityMap_jMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activityMap_jMenuActionPerformed
+        // TODO add your handling code here:
+        
+        //To do read the spatial data
+        //To do read the channel data
+        // User choice of channel
+        //Create the JHeatMapArray with channel data as intensity and spatial data and XY co -ord
+        
+        //Show a Dialog box to get the number of channels present
+        // User choice of channels 
+            //First dialog box asks a) how many channels are present in data b) how many of the present channels are selected for processiog
+            //Based om the above input a table with rows equal to the number of selected channels is shown.  Each row will have to provide an option of one among the many channels available in the data file
+        
+        //Data structure : Spatial  - Data Trace ver3 as in residence map generation
+        //               : Intensity map  - loop through the number of selections at any given point the data would be stored in one data trace and concurrent arraylist of numbers of intensity
+        // Logic for creation of map: form a 2D arrayof Xdim , Ydim and populate the cell (x, y) with I of same Idx using ArrayElement[DataTrace.getXY(Idx)] += Intensity.getData[Idx];)
+        
+        
+        
+    }//GEN-LAST:event_activityMap_jMenuActionPerformed
     
     private boolean updateAnimalGrpSummaryTable() throws NumberFormatException, HeadlessException {
         boolean sameSampleSz = this.SampleSizeSel.getModel().isSelected();
@@ -3187,6 +3217,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JComboBox<String> TrialSelComboBox;
     private javax.swing.JTable Trial_No_Table;
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JMenuItem activityMap_jMenu;
     private javax.swing.JMenu analysisMenu;
     private javax.swing.JFormattedTextField aspectRatiojFmtFld;
     private javax.swing.JTextField assignFileJTxt;
