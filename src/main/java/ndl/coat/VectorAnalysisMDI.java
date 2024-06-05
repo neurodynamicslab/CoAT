@@ -271,9 +271,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jLabel26 = new javax.swing.JLabel();
         ImageDispPanel = new javax.swing.JPanel();
         controllerPanel = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         statMssgScrollPane = new javax.swing.JScrollPane();
         StatusMessageBox = new javax.swing.JTextArea();
         menuBar = new javax.swing.JMenuBar();
@@ -1574,49 +1571,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         controllerPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         controllerPanel.setLayout(new java.awt.GridBagLayout());
-
-        jButton5.setText("jButton2");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = -37;
-        gridBagConstraints.ipady = 13;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(15, 6, 18, 0);
-        controllerPanel.add(jButton5, gridBagConstraints);
-
-        jButton6.setText("Button");
-        jButton6.setToolTipText("");
-        jButton6.setAutoscrolls(true);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = -37;
-        gridBagConstraints.ipady = 13;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(15, 6, 18, 12);
-        controllerPanel.add(jButton6, gridBagConstraints);
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ndl/coat/Play.png"))); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = -37;
-        gridBagConstraints.ipady = 13;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(15, 12, 18, 0);
-        controllerPanel.add(jButton7, gridBagConstraints);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -2699,10 +2653,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //this.updateGrpTrialSelTable();
     }//GEN-LAST:event_jFormattedTextField_NoOfGrpsActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void activityMap_jMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activityMap_jMenuActionPerformed
         // TODO add your handling code here:
         
@@ -3242,9 +3192,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JCheckBox genVeljChkBx1;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButtonBrowseRoot;
     private javax.swing.JButton jButtonFileAssignRest;
     private javax.swing.JButton jButtonRemoveAssignments;
