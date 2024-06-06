@@ -2875,15 +2875,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         String vFldrName = FldrName + "Velocity";
         String aFldrName = FldrName + "Acceleration";
         String roiFldr = FldrName + "Rois";
+        String hMapFldr = FldrName + "HMaps";
         File vFolder =  new File(vFldrName);
         File aFolder =  new File(aFldrName);
         File rFolder = new File(roiFldr);
+        File hFolder = new File(hMapFldr);
         if(!vFolder.exists())
             vFolder.mkdirs();
         if(!aFolder.exists())
             aFolder.mkdirs();
         if(!rFolder.exists())
             rFolder.mkdirs();
+        if(!hFolder.exists())
+            hFolder.mkdirs();
         //String resultPath = vFolder.getAbsolutePath();
         //JVectorSpace vField, acField;
         String indFName ;
