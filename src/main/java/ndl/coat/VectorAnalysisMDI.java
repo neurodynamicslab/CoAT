@@ -2908,10 +2908,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             var vFieldNorm = VecField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
             var accFieldNorm = AccField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
             
-            calculateVectorFldProperties(vFieldNorm,curRoi,
-                                                                true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
-            calculateVectorFldProperties(accFieldNorm,curRoi,
-                                                                true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
+            calculateVectorFldProperties(vFieldNorm,curRoi,true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
+            calculateVectorFldProperties(accFieldNorm,curRoi,true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
+            /****Add Code for heat map generation
+            
+            */
+            
             RoiEncoder indiEnc = new RoiEncoder(rFolder+File.separator+indFName+".roi");
             try {
                 indiEnc.write(curRoi);
