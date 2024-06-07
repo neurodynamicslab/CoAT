@@ -1893,7 +1893,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         int xRes = manager.getXRes();
         int yRes = manager.getYRes();
         int count = 0;
-        JHeatMapArray rMaps[] = new JHeatMapArray[manager.getFileCount()];
         JVectorCmpImg [] rmapImages = new JVectorCmpImg[manager.getFileCount()];
         
         //dManager.aveHMap = new FloatProcessor(dManager.getXRes(),dManager.getYRes(),residenceMap.to1DArray());
@@ -2913,6 +2912,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             /****Add Code for heat map generation
             
             */
+            var hMap = (JHeatMapArray)residence;
+            JVectorCmpImg resImg = new JVectorCmpImg(xRes,yRes,1);
+            resImg.addScalar(hMap);
+            resImg.saveImages(hFolder.getAbsolutePath(), "hMap_T#"+tCount+"G#_"+gCount+indFName);
             
             RoiEncoder indiEnc = new RoiEncoder(rFolder+File.separator+indFName+".roi");
             try {
