@@ -15,7 +15,7 @@
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>ndl.coat.VectorAnalysisMDI</exec.mainClass>
                 <exec.executable>java</exec.executable>
-                <exec.workingdir>E:\Data\Prog\Java\CoAT</exec.workingdir>
+                <exec.workingdir>E:\Balaji\Java\CoAT</exec.workingdir>
             </properties>
         </action>
         <action>
@@ -34,7 +34,7 @@
                 <exec.mainClass>ndl.coat.VectorAnalysisMDI</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
-                <exec.workingdir>E:\Data\Prog\Java\CoAT</exec.workingdir>
+                <exec.workingdir>E:\Balaji\Java\CoAT</exec.workingdir>
             </properties>
         </action>
         <action>
@@ -52,28 +52,7 @@
                 <exec.mainClass>ndl.coat.VectorAnalysisMDI</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <exec.appArgs></exec.appArgs>
-                <exec.workingdir>E:\Data\Prog\Java\CoAT</exec.workingdir>
+                <exec.workingdir>E:\Balaji\Java\CoAT</exec.workingdir>
             </properties>
-        </action>
-        <action>
-            <actionName>build-with-dependencies</actionName>
-            <reactor>also-make</reactor>
-            <packagings>
-                <packaging>jar</packaging>
-            </packagings>
-            <goals>
-                <goal>install</goal>
-                <goal>package</goal>
-                
-            </goals>
-        </action>
-        <action>
-            <actionName>build</actionName>
-            <packagings>
-                <packaging>jar</packaging>
-            </packagings>
-            <goals>
-                <goal>install</goal>
-            </goals>
         </action>
     </actions>

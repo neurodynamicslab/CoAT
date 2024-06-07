@@ -316,11 +316,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jScrollPane4.setAutoscrolls(true);
-        jScrollPane4.setPreferredSize(new java.awt.Dimension(950, 950));
+        jScrollPane4.setMinimumSize(new java.awt.Dimension(740, 720));
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(750, 750));
 
-        DeskTopPanel.setMinimumSize(new java.awt.Dimension(600, 500));
-        DeskTopPanel.setPreferredSize(new java.awt.Dimension(740, 675));
-        DeskTopPanel.setLayout(new java.awt.GridBagLayout());
+        DeskTopPanel.setMinimumSize(new java.awt.Dimension(760, 760));
+        DeskTopPanel.setPreferredSize(new java.awt.Dimension(760, 760));
+        DeskTopPanel.setLayout(new java.awt.GridLayout());
 
         InfoTab.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         InfoTab.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -341,9 +342,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         ExpDef_jPanel.add(jLabel_Number_of_GrpTxt, gridBagConstraints);
 
-        jFormattedTextField_NoOfGrps.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
+        jFormattedTextField_NoOfGrps.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jFormattedTextField_NoOfGrps.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_NoOfGrps.setText("2");
+        jFormattedTextField_NoOfGrps.setMinimumSize(new java.awt.Dimension(20, 20));
+        jFormattedTextField_NoOfGrps.setPreferredSize(new java.awt.Dimension(20, 20));
         jFormattedTextField_NoOfGrps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextField_NoOfGrpsActionPerformed(evt);
@@ -449,6 +451,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         nAnimals_Text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         nAnimals_Text.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         nAnimals_Text.setText("5");
+        nAnimals_Text.setMinimumSize(new java.awt.Dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 26;
         gridBagConstraints.gridy = 8;
@@ -468,6 +471,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jFormattedText_nTrials.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         jFormattedText_nTrials.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedText_nTrials.setText("2");
+        jFormattedText_nTrials.setMinimumSize(new java.awt.Dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 26;
         gridBagConstraints.gridy = 4;
@@ -522,7 +526,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         InfoTab.addTab("Experiment Definition", ExpDef_jPanel);
 
         DataFiles_jPanel.setAutoscrolls(true);
-        DataFiles_jPanel.setPreferredSize(new java.awt.Dimension(640, 700));
+        DataFiles_jPanel.setMinimumSize(new java.awt.Dimension(726, 713));
+        DataFiles_jPanel.setPreferredSize(new java.awt.Dimension(726, 713));
         DataFiles_jPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         AddFiles_Button.setText(" Add Files");
@@ -759,6 +764,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         expDgnTree.setDragEnabled(true);
         expDgnTree.setEditable(true);
         expDgnTree.setLargeModel(true);
+        expDgnTree.setMaximumSize(new java.awt.Dimension(100, 32));
+        expDgnTree.setPreferredSize(new java.awt.Dimension(100, 32));
         expDgnTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 expDgnTreeMouseClicked(evt);
@@ -1150,6 +1157,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         xPoolCtrjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         xPoolCtrjFormFld.setText("0");
         xPoolCtrjFormFld.setMinimumSize(new java.awt.Dimension(60, 25));
+        xPoolCtrjFormFld.setPreferredSize(new java.awt.Dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -1169,6 +1177,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         yPoolCtrjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         yPoolCtrjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         yPoolCtrjFormFld.setText("0");
+        yPoolCtrjFormFld.setMinimumSize(new java.awt.Dimension(20, 20));
+        yPoolCtrjFormFld.setPreferredSize(new java.awt.Dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -1191,6 +1201,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         poolRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         poolRadjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         poolRadjFormFld.setText("0");
+        poolRadjFormFld.setPreferredSize(new java.awt.Dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
@@ -1386,12 +1397,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         InfoTab.addTab("Analysis Setting", AnalysisSettingTabPanel);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        DeskTopPanel.add(InfoTab, gridBagConstraints);
+        DeskTopPanel.add(InfoTab);
 
         jScrollPane4.setViewportView(DeskTopPanel);
         DeskTopPanel.getAccessibleContext().setAccessibleName("");
@@ -1402,8 +1408,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 800;
-        gridBagConstraints.ipady = 900;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.weighty = 0.5;
@@ -1604,8 +1608,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(15, 6, 18, 12);
         controllerPanel.add(jButton6, gridBagConstraints);
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ndl/coat/Play.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1794,7 +1796,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         setJMenuBar(menuBar);
 
-        setBounds(0, 0, 1409, 1005);
+        setBounds(0, 0, 1416, 1013);
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
