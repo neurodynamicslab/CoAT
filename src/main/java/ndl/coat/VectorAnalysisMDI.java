@@ -321,7 +321,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         DeskTopPanel.setMinimumSize(new java.awt.Dimension(760, 760));
         DeskTopPanel.setPreferredSize(new java.awt.Dimension(760, 760));
-        DeskTopPanel.setLayout(new java.awt.GridLayout());
+        DeskTopPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         InfoTab.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         InfoTab.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
