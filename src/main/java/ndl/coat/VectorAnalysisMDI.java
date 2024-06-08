@@ -2892,6 +2892,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //String resultPath = vFolder.getAbsolutePath();
         //JVectorSpace vField, acField;
         String indFName ;
+        
         while( fileCount < dataLen){
             var residence = resMaps[fileCount];
             var OCi = currManager.findOC(xRes, yRes, residence);
