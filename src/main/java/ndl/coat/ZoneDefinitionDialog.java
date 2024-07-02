@@ -63,7 +63,6 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Regions of Interest", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jList1.setBorder(null);
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -167,11 +166,11 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 536, Short.MAX_VALUE)
+            .addGap(0, 626, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 322, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -208,6 +207,7 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         XSz_jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
         XSz_jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         XSz_jFormattedTextField1.setText("0");
+        XSz_jFormattedTextField1.setMinimumSize(new java.awt.Dimension(20, 20));
         XSz_jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 XSz_jFormattedTextField1ActionPerformed(evt);
@@ -216,13 +216,14 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel2.add(XSz_jFormattedTextField1, gridBagConstraints);
 
         YSz_jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
         YSz_jFormattedTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         YSz_jFormattedTextField2.setText("0");
+        YSz_jFormattedTextField2.setMinimumSize(new java.awt.Dimension(20, 20));
         YSz_jFormattedTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 YSz_jFormattedTextField2ActionPerformed(evt);
@@ -230,7 +231,7 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel2.add(YSz_jFormattedTextField2, gridBagConstraints);
@@ -245,12 +246,14 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel2.add(YCtr_jFormattedTextField1, gridBagConstraints);
 
         XCtr_jFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0"))));
         XCtr_jFormattedTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         XCtr_jFormattedTextField.setText("0");
+        XCtr_jFormattedTextField.setMinimumSize(new java.awt.Dimension(20, 20));
         XCtr_jFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 XCtr_jFormattedTextFieldActionPerformed(evt);
@@ -259,12 +262,13 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel2.add(XCtr_jFormattedTextField, gridBagConstraints);
 
         jLabel1.setText("X Len");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridy = 10;
         jPanel2.add(jLabel1, gridBagConstraints);
 
         specify_jCheckBox2.setText("Specify ROI");
@@ -275,8 +279,8 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
 
         Sym_jCheckBox1.setText("Symmetric");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 0;
         jPanel2.add(Sym_jCheckBox1, gridBagConstraints);
 
         jLabel3.setText("X Center");
@@ -294,7 +298,7 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         jLabel6.setText("Y Len");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridy = 10;
         jPanel2.add(jLabel6, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
