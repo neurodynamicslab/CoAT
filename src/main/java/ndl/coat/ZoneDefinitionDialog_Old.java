@@ -8,12 +8,12 @@ package ndl.coat;
  *
  * @author balaji
  */
-public class ZoneDefinitionDialog extends javax.swing.JDialog {
+public class ZoneDefinitionDialog_Old extends javax.swing.JDialog {
 
     /**
      * Creates new form ZoneDefinitionDialog
      */
-    public ZoneDefinitionDialog(java.awt.Frame parent, boolean modal) {
+    public ZoneDefinitionDialog_Old(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -361,20 +361,21 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ZoneDefinitionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ZoneDefinitionDialog_Old.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ZoneDefinitionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ZoneDefinitionDialog_Old.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ZoneDefinitionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ZoneDefinitionDialog_Old.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ZoneDefinitionDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ZoneDefinitionDialog_Old.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ZoneDefinitionDialog dialog = new ZoneDefinitionDialog(new javax.swing.JFrame(), true);
+                ZoneDefinitionDialog_Old dialog = new ZoneDefinitionDialog_Old(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
