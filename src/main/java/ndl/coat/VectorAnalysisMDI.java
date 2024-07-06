@@ -344,7 +344,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jFormattedTextField_NoOfGrps.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jFormattedTextField_NoOfGrps.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_NoOfGrps.setMinimumSize(new java.awt.Dimension(20, 20));
+        jFormattedTextField_NoOfGrps.setMinimumSize(new java.awt.Dimension(40, 20));
         jFormattedTextField_NoOfGrps.setPreferredSize(new java.awt.Dimension(20, 20));
         jFormattedTextField_NoOfGrps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -354,10 +354,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 26;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 17;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
         ExpDef_jPanel.add(jFormattedTextField_NoOfGrps, gridBagConstraints);
 
         jLabel_NoOfAnimals.setText("Number of Animals per Grp");
@@ -451,14 +450,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         nAnimals_Text.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         nAnimals_Text.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         nAnimals_Text.setText("5");
-        nAnimals_Text.setMinimumSize(new java.awt.Dimension(20, 20));
+        nAnimals_Text.setMinimumSize(new java.awt.Dimension(40, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 26;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 17;
-        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
         ExpDef_jPanel.add(nAnimals_Text, gridBagConstraints);
 
         jLabel1.setText("Number of animals (N) ");
@@ -471,13 +468,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jFormattedText_nTrials.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0"))));
         jFormattedText_nTrials.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedText_nTrials.setText("2");
-        jFormattedText_nTrials.setMinimumSize(new java.awt.Dimension(20, 20));
+        jFormattedText_nTrials.setMinimumSize(new java.awt.Dimension(40, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 26;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 17;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
         ExpDef_jPanel.add(jFormattedText_nTrials, gridBagConstraints);
 
         jLabel2.setText("Number of Trials");
