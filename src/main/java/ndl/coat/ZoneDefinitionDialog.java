@@ -415,7 +415,7 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         gridBagConstraints.gridy = 30;
         getContentPane().add(jButton11, gridBagConstraints);
 
-        jButton12.setText("jButton12");
+        jButton12.setText("Track All");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 14;
         gridBagConstraints.gridy = 30;

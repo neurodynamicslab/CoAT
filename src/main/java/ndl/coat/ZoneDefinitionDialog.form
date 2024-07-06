@@ -1801,7 +1801,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton12">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton12"/>
+        <Property name="text" type="java.lang.String" value="Track All"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
