@@ -974,7 +974,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         gauRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         gauRadjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        gauRadjFormFld.setText("1.0");
+        gauRadjFormFld.setText("10.0");
         gauRadjFormFld.setToolTipText("The radius of the 2D Gaussian Blur it is symetrical ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 48;
@@ -1306,6 +1306,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
         jPanel4.add(useSeljChBx, gridBagConstraints);
 
+        res2SeljChkBx.setSelected(true);
         res2SeljChkBx.setText("Restrict selection to pixels (Use only the pixels). ");
         res2SeljChkBx.setToolTipText("(This would be a sub-grp of above)");
         res2SeljChkBx.addActionListener(new java.awt.event.ActionListener() {

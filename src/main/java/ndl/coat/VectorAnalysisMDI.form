@@ -2623,7 +2623,7 @@
                               <Format format="#0.00" subtype="-1" type="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
-                            <Property name="text" type="java.lang.String" value="1.0"/>
+                            <Property name="text" type="java.lang.String" value="10.0"/>
                             <Property name="toolTipText" type="java.lang.String" value="The radius of the 2D Gaussian Blur it is symetrical "/>
                           </Properties>
                           <Constraints>
@@ -3038,6 +3038,7 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="res2SeljChkBx">
                           <Properties>
+                            <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="Restrict selection to pixels (Use only the pixels). "/>
                             <Property name="toolTipText" type="java.lang.String" value="(This would be a sub-grp of above)"/>
                           </Properties>
