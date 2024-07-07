@@ -4,6 +4,9 @@
  */
 package ndl.coat;
 
+import ij.ImagePlus;
+import java.io.File;
+
 /**
  *
  * @author balaji
@@ -47,8 +50,8 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         oval_jToggle = new javax.swing.JToggleButton();
         delAll_jButton = new javax.swing.JButton();
         recgtangle_jToggle = new javax.swing.JToggleButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        addROI_jButton = new javax.swing.JButton();
+        delROI_jButton = new javax.swing.JButton();
         open_jButton = new javax.swing.JButton();
         save_jButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -104,7 +107,7 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         );
         ImageDisplayPanelLayout.setVerticalGroup(
             ImageDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 185, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -255,21 +258,21 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         gridBagConstraints.gridy = 12;
         RoiPropertiesPanel.add(recgtangle_jToggle, gridBagConstraints);
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton4.setText("(+)");
+        addROI_jButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        addROI_jButton.setText("(+)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        RoiPropertiesPanel.add(jButton4, gridBagConstraints);
+        RoiPropertiesPanel.add(addROI_jButton, gridBagConstraints);
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton5.setText("(-)");
+        delROI_jButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        delROI_jButton.setText("(-)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        RoiPropertiesPanel.add(jButton5, gridBagConstraints);
+        RoiPropertiesPanel.add(delROI_jButton, gridBagConstraints);
 
         open_jButton.setText("Open");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -310,6 +313,7 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         imagestack_jSlider.setValue(0);
         imagestack_jSlider.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         imagestack_jSlider.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        imagestack_jSlider.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 22;
@@ -333,6 +337,11 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
 
         play_jButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         play_jButton.setText("Pay [ > ]");
+        play_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                play_jButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 30;
@@ -466,6 +475,15 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_XSz_jFormattedTextField1ActionPerformed
 
+    private void play_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_play_jButtonActionPerformed
+        // TODO add your handling code here:
+        String fileName = dataFile_jList.getSelectedValue();
+        File file = new File(fileName);
+        if(!file.exists())
+            return;
+        ImagePlus imp = new ImagePlus(file.getAbsolutePath());
+    }//GEN-LAST:event_play_jButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -517,10 +535,12 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField XSz_jFormattedTextField1;
     private javax.swing.JFormattedTextField YCtr_jFormattedTextField1;
     private javax.swing.JFormattedTextField YSz_jFormattedTextField2;
+    private javax.swing.JButton addROI_jButton;
     private javax.swing.JButton bind_jButton;
     private javax.swing.JButton browse_jButton;
     private javax.swing.JList<String> dataFile_jList;
     private javax.swing.JButton delAll_jButton;
+    private javax.swing.JButton delROI_jButton;
     private javax.swing.JFormattedTextField fnameDsp_jFormattedTextField;
     private javax.swing.JButton forward_jButton;
     private javax.swing.JToggleButton freehand_jToggle;
@@ -528,8 +548,6 @@ public class ZoneDefinitionDialog extends javax.swing.JDialog {
     private javax.swing.JLabel grp_jLabel;
     private javax.swing.JButton home_jButton;
     private javax.swing.JSlider imagestack_jSlider;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabelXCenter;
     private javax.swing.JLabel jLabelXLen;
     private javax.swing.JLabel jLabelYCenter;

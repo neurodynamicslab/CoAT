@@ -2072,16 +2072,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         String g,t;
         var  tModel = FileAssignmentTable.getModel();
-        for(int Count  = FileAssignmentTable.getModel().getRowCount()-1 ; Count >= 0 ; Count --){
+        var lastRow = FileAssignmentTable.getModel().getRowCount();
+        //boolean newGrp = false, newTrial = false;
+        for(int Count  =  lastRow-1; Count >= 0 ; Count --){
 
             g = (String)tModel.getValueAt(Count, 2);            //grp name
             t = (String)tModel.getValueAt(Count, 3);            //trial name
 
-            if (!grpNames.contains(g))                          //Check if these names are there already if not add them
+            if (!grpNames.contains(g))                         //Check if these names are there already if not add them
                 grpNames.add(g);
+                
             
             if(!trialNames.contains(t))
                 trialNames.add(t);
+               
 
         }
 
@@ -2110,7 +2114,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.jProgressBarDataAssignment.setValue(0);
         
         //jProgressBarDataAssignment.setEnabled(true);
-
+//Update the tree Model
         for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
 
             trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
@@ -2128,6 +2132,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         }
 
         treeModel.reload();
+
 
         int nFiles = FileAssignmentTable.getRowCount();
         if(nFiles <= 0 )
@@ -2280,7 +2285,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         jVecFieldImgGenerator(tempMan[0], xRes, yRes, xOC, yOC); // Need to refactor this to remove the redundant  arguments
                                                                                  // Data manager has xRes, yRes and xOC and yOC;
                         calAveFlds(currManager,gCount,tCount,xRes,yRes);
-                        calIndividualFlds(currManager);
+                        //calIndividualFlds(currManager);
                         /**
                          * calIndFlds(tempMan[0]) 
                          */
@@ -2292,7 +2297,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
 
            
-        };
+        };  //Worker thread for running the group
        
 //        worker.execute();
         Thread tp = new Thread( worker,"RunGrp");
@@ -2308,10 +2313,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        }
       
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
-    private void calIndividualFlds(DataManager manager){
+    /**private void calIndividualFlds(DataManager manager){
         
         
-    }
+    }**/
     private void setStatusMessage(String message, boolean toAppend){
        SwingWorker messenger = new SwingWorker(){
            @Override
