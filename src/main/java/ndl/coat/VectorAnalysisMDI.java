@@ -2164,6 +2164,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 errorlist[unassigned++] = fnameKey;
                 return;
             }
+            var errorCount = errorlist.length;
+            for(int a = 0 ;  a < errorCount ; a++){
+                this.setStatusMessage("Error reading the file:" + this.rel2absPathMaps.get(errorlist[a])+"\n");
+            }
             grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
             trialName = (String)FileAssignmentTable.getValueAt(Count,3);
             gUID = grpNames.indexOf(grpName);
@@ -2366,7 +2370,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void jButtonRemoveAssignmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveAssignmentsActionPerformed
         // TODO add your handling code here:
-        int[] selIdx = this.FileAssignmentTable.getSelectedRows();
+        int[] selIdx = this.FileAssignmentTable.getSelectedRows();      //makes an implicit assumption that the seltected indexes are sorted in ascending
         int nSelected = selIdx.length;
         if(nSelected > 0)
         for(int count = nSelected -1 ; count >= 0 ; count --)
