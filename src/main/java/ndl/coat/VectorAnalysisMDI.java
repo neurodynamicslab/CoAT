@@ -2171,7 +2171,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
             var errorCount = errorlist.length;
             for(int a = 0 ;  a < errorCount ; a++){
-                this.setStatusMessage("Error reading the file#:" + Count + this.rel2absPathMaps.get(errorlist[a])+"\n");
+                this.setStatusMessage("Error reading the file#:" + this.rel2absPathMaps.get(errorlist[a])+"\n");
+                
             }
             grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
             trialName = (String)FileAssignmentTable.getValueAt(Count,3);
