@@ -1641,7 +1641,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         statMssgScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         statMssgScrollPane.setViewportBorder(javax.swing.BorderFactory.createTitledBorder("Status Messages"));
         statMssgScrollPane.setAutoscrolls(true);
-        statMssgScrollPane.setPreferredSize(new java.awt.Dimension(1000, 50));
+        statMssgScrollPane.setMinimumSize(new java.awt.Dimension(35, 75));
+        statMssgScrollPane.setPreferredSize(new java.awt.Dimension(1000, 75));
         statMssgScrollPane.setViewportView(null);
 
         StatusMessageBox.setColumns(20);
@@ -2158,6 +2159,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         for(int Count = 0 ; Count < nFiles ; Count++){
 
             fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
+            if(fnameKey == null) {
+                 this.setStatusMessage("Ignoring the empty / non - readable entry at row #" + Count);
+                 continue;
+            }
             fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
             if(fName == null){
                 //javax.swing.JOptionPane.showMessageDialog(this, "fileName is null the key "+fnameKey+" did not fetch a file");
@@ -2166,7 +2171,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
             var errorCount = errorlist.length;
             for(int a = 0 ;  a < errorCount ; a++){
-                this.setStatusMessage("Error reading the file:" + this.rel2absPathMaps.get(errorlist[a])+"\n");
+                this.setStatusMessage("Error reading the file#:" + Count + this.rel2absPathMaps.get(errorlist[a])+"\n");
             }
             grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
             trialName = (String)FileAssignmentTable.getValueAt(Count,3);
@@ -3062,17 +3067,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         calculator.setFit(fit);
 
-    if(currentRoi != null)
-       calculator.setSampledGrpRoi(currentRoi);
+        if(currentRoi != null)
+           calculator.setSampledGrpRoi(currentRoi);
 
-    calculator.setGenConv(this.genConvJChkBx.isSelected());
-    calculator.setGenDiv(isDivergence/*this.genConvJChkBx.isSelected()*/);
-    calculator.setAutoGenPool(this.autoPoolRoijChkBx.isSelected());
-     
-    Thread thread = new Thread(calculator,""+jVectorFieldCalculator.getInstanceCount());
-    thread.start();
-    activeCount++;
-    if(activeCount == 1){
+        calculator.setGenConv(this.genConvJChkBx.isSelected());
+        calculator.setGenDiv(isDivergence/*this.genConvJChkBx.isSelected()*/);
+        calculator.setAutoGenPool(this.autoPoolRoijChkBx.isSelected());
+
+        Thread thread = new Thread(calculator,""+jVectorFieldCalculator.getInstanceCount());
+        thread.start();
+        activeCount++;
+        if(activeCount == 1){
         Thread monitor = new Thread(threadMonitor);
         setStatusMessage("Starting Monitor..");
         monitor.start();
