@@ -65,6 +65,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private int activeCount;
     Thread threadMonitor;
     private boolean usePltCord;
+    private String ver =  "0.1";
     public VectorAnalysisMDI() {
        
         Dimension d = this.getMaximumSize();
@@ -2019,7 +2020,15 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
     private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
         
-       
+        File setting =  new File(this.jFormatTxt_rootFolder.getText()+"settings.txt");
+        FileWriter writer;
+        try {
+            writer = new FileWriter(setting);
+        } catch (IOException ex) {
+            Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String settingString = "";
+        
         
         
         //27th Mar: Would be nice to segregate the progress bar updating to separate function that 
@@ -2117,6 +2126,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         //jProgressBarDataAssignment.setEnabled(true);
 //Update the tree Model
+
+        try {
+            
+            writer.write("Settings for the Analysis through CoAT version : " + this.ver);
+            
+            writer.write(settingString);
+        } catch (IOException ex) {
+            Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
 
             trialNode = new DefaultMutableTreeNode(trialNames.get(trialCount));
@@ -2156,6 +2175,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jProgressBarFR.setMaximum(nFiles-1);
         jProgressBarFR.setValue(0);
 
+        
         for(int Count = 0 ; Count < nFiles ; Count++){
 
             fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
