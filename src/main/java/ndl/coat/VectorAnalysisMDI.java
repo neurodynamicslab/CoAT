@@ -2021,7 +2021,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
         
         File setting =  new File(this.jFormatTxt_rootFolder.getText()+"settings.txt");
-        FileWriter writer;
+        FileWriter writer = null;
         try {
             writer = new FileWriter(setting);
         } catch (IOException ex) {
