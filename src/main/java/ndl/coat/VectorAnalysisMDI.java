@@ -2021,13 +2021,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
         
         File setting =  new File(this.jFormatTxt_rootFolder.getText()+"settings.txt");
+        File log    = new File(this.jFormatTxt_rootFolder.getText() + "log.txt");
         FileWriter writer = null;
-        try {
-            writer = new FileWriter(setting);
-        } catch (IOException ex) {
-            Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //FileWriter logFile = null;
         String settingString = "";
+        writer = TextFileWriter(writer, setting, settingString);
+        
         
         
         
@@ -2343,6 +2342,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        }
       
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
+
+    private FileWriter TextFileWriter(FileWriter writer, File setting, String settingString) {
+        try {
+            writer = new FileWriter(setting);
+            writer.append(settingString);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return writer;
+    }
     /**private void calIndividualFlds(DataManager manager){
         
         
