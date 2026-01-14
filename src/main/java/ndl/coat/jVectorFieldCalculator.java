@@ -15,6 +15,7 @@ import java.io.File;
 import ndl.ndllib.ImageDifferentials;
 import ndl.ndllib.JVectorCmpImg;
 import ndl.ndllib.JVectorSpace;
+import ndl.ndllib.Natural_NeighInter;
 import ndl.ndllib.SurfaceFit;
 
 /**
@@ -22,6 +23,22 @@ import ndl.ndllib.SurfaceFit;
  * @author balaji
  */
 public class jVectorFieldCalculator implements Runnable{
+
+    /**
+     * @return the useNNI
+     */
+    public boolean isUseNNI() {
+        return useNNI;
+    }
+
+    /**
+     * @param useNNI the useNNI to set
+     */
+    public void setUseNNI(boolean useNNI) {
+        this.useNNI = useNNI;
+    }
+
+    private boolean useNNI = true;
 
     /**
      * @return the toSave
@@ -143,15 +160,15 @@ public class jVectorFieldCalculator implements Runnable{
     /**
      * @return the sampledGrpRoi
      */
-    public Roi getSampledGrpRoi() {
-        return sampledGrpRoi;
+    public Roi getSampledRoi() {
+        return sampledRoi;
     }
 
     /**
      * @param sampledGrpRoi the sampledGrpRoi to set
      */
-    public void setSampledGrpRoi(Roi sampledGrpRoi) {
-        this.sampledGrpRoi = sampledGrpRoi;
+    public void setSampledRoi(Roi sampledRoi) {
+        this.sampledRoi = sampledRoi;
     }
 
     /**
@@ -250,7 +267,7 @@ public class jVectorFieldCalculator implements Runnable{
     private String fileSeparator;
     private SurfaceFit fit;
     private JVectorSpace VecFld;
-    private Roi sampledGrpRoi;
+    private Roi sampledRoi;
     private String suffix;
     private int xPoolCtrjFormFld;
     private int yPoolCtrjFormFld;
@@ -260,13 +277,15 @@ public class jVectorFieldCalculator implements Runnable{
     private boolean autoGenPool;
     private static int instanceCount = 1;
     private boolean toSave = true;
+    private int FilterType = 1; // 3 = no filter, 2 = Median and 1 = Gauss
+    private float FilterRadius = 1;
     @Override
     public void run() {
             instanceCount++;
             int polyXOrder = getPolyX();//5;
             int polyYOrder = getPolyY();        
 /* Make sure to pass a preset fit object */
-        ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder, getVecFld(), getSampledGrpRoi());
+        ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder, getVecFld(), getSampledRoi());
         int count  = 0;
         if(isToSave()){
             for(ImagePlus imp : vecSurface){
@@ -282,16 +301,16 @@ public class jVectorFieldCalculator implements Runnable{
    * This throws a null pointer when it is not checked as there is no sampledGrpRoi in that case.
    */  
    int x = 0 ,y = 0;
-   if(  getSampledGrpRoi() != null){
-        x =   getSampledGrpRoi().getBounds().x;
-        y =   getSampledGrpRoi().getBounds().y;
+   if(  getSampledRoi() != null){
+        x =   getSampledRoi().getBounds().x;
+        y =   getSampledRoi().getBounds().y;
    }
     FloatProcessor vecxS, vecyS;
     vecxS = new FloatProcessor(getVecFld().getxRes(),getVecFld().getyRes());
     vecyS = new FloatProcessor(getVecFld().getxRes(),getVecFld().getyRes());
    
-    vecSurface[0].setRoi(getSampledGrpRoi());
-    vecSurface[1].setRoi(getSampledGrpRoi());
+    vecSurface[0].setRoi(getSampledRoi());
+    vecSurface[1].setRoi(getSampledRoi());
     
     vecxS.insert(this.getDifferentials(vecSurface[0].crop(), false).getProcessor(),x,y);
     vecyS.insert(this.getDifferentials(vecSurface[1].crop(), true).getProcessor(),x,y);
@@ -319,7 +338,7 @@ public class jVectorFieldCalculator implements Runnable{
   //  fit.setPreScale(false);
   //  fit.setGaussFilt(false);
     if(isGenConv() || isGenDiv()){
-            ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), getSampledGrpRoi());
+            ImagePlus finalVelImg = GenerateConvergenceImages(velProjections.getProcessor(), getSampledRoi());
            // fs = new FileSaver(finalVelImg);
            // fs.saveAsTiff(getFldrName()+getSuffix()+"forPres");
 
@@ -373,12 +392,36 @@ public class jVectorFieldCalculator implements Runnable{
         JVectorCmpImg images = new JVectorCmpImg(space);
         ImageProcessor[] cmpImages = images.getProcessorArray();
         int count = 0;
+        System.out.println("Sel " + (sel == null));
         for(ImageProcessor ip : cmpImages){
                 //var ByIp = ip.convertToByteProcessor();
-                surfaces[count++] = getSurface(polyX,polyY,ip,sel);
+                //ip.setRoi(sel);
+                
+                surfaces[count++] = (isUseNNI())? getNNISurface(ip, sel):
+                                            getSurface(polyX,polyY,ip,sel);
         }
        
        return surfaces;
+    }
+    private ImagePlus getNNISurface(ImageProcessor ip, Roi selection){
+        ImagePlus NNIin = new ImagePlus();
+        ImagePlus NNISurf;
+        
+        NNIin.setProcessor(ip);
+        
+        Natural_NeighInter NNI = new Natural_NeighInter(NNIin,selection);
+        //System.out.println(suffix);
+       // NNI.setRoi(selection);
+        
+        //NNI.setMask((ByteProcessor) selection.getMask());
+        
+        NNI.setFILTER(getFilterType());
+        NNI.setBlurRad(getFilterRadius());
+        NNI.setPath(getFldrName()+getSuffix());
+        NNI.initialize();
+        NNISurf = NNI.getSurface();
+        
+        return NNISurf;
     }
     private ImagePlus getSurface(int polyXOrder, int polyYOrder, ImageProcessor cmpIP, Roi selection){
         ImagePlus surface = new ImagePlus();
@@ -426,9 +469,9 @@ public class jVectorFieldCalculator implements Runnable{
             differentials.setProcessor(Diff.DifferentialX(imp.getProcessor()));
         return differentials;
     }
-    private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledGrpRoi) {
+    private ImagePlus GenerateConvergenceImages(ImageProcessor converImg, Roi sampledRoi) {
 
-            converImg.setRoi(sampledGrpRoi);
+            converImg.setRoi(sampledRoi);
            
 //            int polyXOrder  = this.x_polyOrderJCmbBx.getSelectedIndex();
 //            int polyYOrder  = this.y_polyOrderJCmbBx.getSelectedIndex();
@@ -438,21 +481,30 @@ public class jVectorFieldCalculator implements Runnable{
 //            getFit().setPolyOrderY(getPolyY()-1);
             getFit().setPreScale(false);
             getFit().setGaussFilt(false);
-            if(sampledGrpRoi != null ){
+            if(sampledRoi != null ){
                 getFit().setUseSelection(true);
                 getFit().setSelectPixels(true);
             }
-            
-            
-            ImagePlus surfaceOut = this.getSurface(getPolyX()-1, getPolyY()-1, converImg, sampledGrpRoi);
+            ImagePlus surfaceOut;
+            if(true/*intrapolate by poly*/){
+                surfaceOut = (this.isUseNNI())?this.getNNISurface(converImg,  sampledRoi):this.getSurface(getPolyX()-1, getPolyY()-1, converImg, sampledRoi);
+            }else{
+                surfaceOut = new ImagePlus();
+                //converImg.setRoi(sampledRoi);
+                converImg.setBackgroundValue(0);
+                converImg.fillOutside(sampledRoi);
+               
+               // converImg.blurGaussian(20);
+                surfaceOut.setProcessor(converImg);                
+            }
            
             OvalRoi Pool;
 
    
             if(this.isAuotGenPool()){                                   //Check for pool roi or parameters
                 Rectangle rect;
-                if(sampledGrpRoi != null){
-                    rect = sampledGrpRoi.getBounds();
+                if(sampledRoi != null){
+                    rect = sampledRoi.getBounds();
                     
                 }else{
                     rect = surfaceOut.getRoi().getBounds();
@@ -489,5 +541,33 @@ public class jVectorFieldCalculator implements Runnable{
      */
     public static Object getFinishedStatus() {
         return finished;
+    }
+
+    /**
+     * @return the FilterType
+     */
+    public int getFilterType() {
+        return FilterType;
+    }
+
+    /**
+     * @param FilterType the FilterType to set
+     */
+    public void setFilterType(int FilterType) {
+        this.FilterType = FilterType;
+    }
+
+    /**
+     * @return the FilterRadius
+     */
+    public float getFilterRadius() {
+        return FilterRadius;
+    }
+
+    /**
+     * @param FilterRadius the FilterRadius to set
+     */
+    public void setFilterRadius(float FilterRadius) {
+        this.FilterRadius = FilterRadius;
     }
 }

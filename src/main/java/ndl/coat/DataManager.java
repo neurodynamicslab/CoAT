@@ -5,10 +5,16 @@
  */
 package ndl.coat;
 
+import ij.gui.Roi;
+import ij.measure.Measurements;
+import ij.measure.ResultsTable;
+import ij.plugin.filter.ParticleAnalyzer;
+import ij.plugin.frame.RoiManager;
 import ij.process.FloatStatistics;
 import ij.process.ImageStatistics;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ndl.ndllib.*;
@@ -25,6 +31,22 @@ import ndl.ndllib.*;
  * @author balam
  */
 public class DataManager extends Object implements Runnable,Serializable {
+
+    private Roi[] islands;
+
+    /**
+     * @return the gblurRadius
+     */
+    public double getGblurRadius() {
+        return gblurRadius;
+    }
+
+    /**
+     * @param gblurRadius the gblurRadius to set
+     */
+    public void setGblurRadius(double gblurRadius) {
+        this.gblurRadius = gblurRadius;
+    }
 
     /**
      * @return the residenceMaps
@@ -52,6 +74,7 @@ public class DataManager extends Object implements Runnable,Serializable {
     }
 
     private boolean VectorFldsReady = false;
+ 
     private final Object vectorFlag = new Object();
 
     /**
@@ -72,7 +95,8 @@ public class DataManager extends Object implements Runnable,Serializable {
     private boolean useTan2Prj;
     private boolean useRelativeVelocity;
     private boolean rescaleIndividual;
-    
+    private HashMap<Roi,JVector> OcCtrs = new HashMap();
+    private HashMap<Roi,Double> OcAreas = new HashMap();
     private boolean AveReady;
 
     /**
@@ -217,13 +241,14 @@ public class DataManager extends Object implements Runnable,Serializable {
     
     private JHeatMapArray aveResMap;
     private JVectorSpace aveVelFld,aveAccFld;
-    
+   
     private int XRes = 0;   
     private int YRes = 0;
     private double pixelAspectRatio = 1.0;
     private boolean scaleforAspectRatio = true;
     private char lineSep = '\n';
     private String dataSep = ",";
+    private double gblurRadius = 1.0;
    
  /***
      * Call this function to read the data that is present in the files listed in DataManger.DataFile array of this class.
@@ -270,6 +295,7 @@ public class DataManager extends Object implements Runnable,Serializable {
            getResidenceMap()[fileCounter].setTimeSeries(tseries);
            getResidenceMap()[fileCounter].convertTimeSeriestoArray();
            //var hmapArray = residenceMaps[fileCounter].getPixelArray();
+           //Enter code for calculating quad(ROI)measure, CM, Individual OCs, and Proximity
 
            velocity[fileCounter] = tseries.differentiate(false);
            if(this.isScaleforAspectRatio())
@@ -639,22 +665,64 @@ public class DataManager extends Object implements Runnable,Serializable {
         heatMap.convertTimeSeriestoArray(xRes, yRes);
         JVectorCmpImg heatMapImg = new JVectorCmpImg(xRes,yRes,1);
         heatMapImg.addScalar(heatMap);
-        var AveHMap_imp = heatMapImg.getImages()[0];
+        var HMap_imp = heatMapImg.getImages()[0];
         //AveHMap_imp.show();
-        var ip = AveHMap_imp.getProcessor().duplicate();
-        double sigma = (xRes > yRes) ? yRes/40 : xRes/40 ;
+        var ip = HMap_imp.getProcessor().duplicate();
+        double sigma = this.getGblurRadius();//(xRes > yRes) ? yRes/40 : xRes/40 ;
         ip.blurGaussian(sigma);
         ip.setAutoThreshold("MaxEntropy dark");
 //        ip.createMask();
-        var lThld = ip.getMinThreshold();
-        var hThld = ip.getMaxThreshold();
-        System.out.println("The thlds are " + lThld + "," + hThld);
-        var stat = new FloatStatistics(ip,ImageStatistics.CENTER_OF_MASS+ImageStatistics.LIMIT,null);
-        
-        xOC = (int) stat.xCenterOfMass;
-        yOC = (int) stat.yCenterOfMass;
-        //this.ocXjFtTxt2.setText(""+xOC);
-        //this.ocYjFtTxt3.setText(""+yOC);
+        //var lThld = ip.getMinThreshold();
+        //var hThld = ip.getMaxThreshold();
+        if(/*mutlOCs*/false){
+            
+            RoiManager roiRepo = new RoiManager();
+            roiRepo.setVisible(false);
+            ResultsTable rt = new ResultsTable();
+            
+            int options = ParticleAnalyzer.ADD_TO_MANAGER | ParticleAnalyzer.CLEAR_WORKSHEET |ParticleAnalyzer.SHOW_NONE;
+            int measureOpt = ij.measure.Measurements.AREA |Measurements.CENTER_OF_MASS|Measurements.LIMIT;
+            
+            ParticleAnalyzer pa = new ParticleAnalyzer(options,measureOpt,rt,2,Double.POSITIVE_INFINITY);
+            ParticleAnalyzer.setRoiManager(roiRepo);
+            ParticleAnalyzer.setResultsTable(rt);
+            
+            pa.setHideOutputImage(true);
+            pa.analyze(HMap_imp, ip);
+            
+            double [] CMxs = rt.getColumn("XM");
+            double [] CMys = rt.getColumn("YM");
+            double [] areas = rt.getColumn("Area");
+            this.islands = roiRepo.getRoisAsArray();
+            
+            
+            double maxArea = 0;
+            int idx = 0;
+            int cmxMax =0, cmyMax =0;
+            
+            for(double area : areas){
+                if( area > maxArea) {
+                    maxArea = area;
+                    cmxMax = (int)CMxs[idx];
+                    cmyMax = (int)CMys[idx];
+                }
+                OcCtrs.put(islands[idx], new JVector(CMxs[idx],CMys[idx]));
+                OcAreas.put(islands[idx], area);
+                idx++;
+            }
+            xOC = cmxMax;
+            yOC = cmyMax;
+        }else{
+            islands = new Roi[1];
+            islands[0] = new Roi( ip.getRoi());
+            //System.out.println("The thlds are " + lThld + "," + hThld);
+            var stat = new FloatStatistics(ip,ImageStatistics.CENTER_OF_MASS+ImageStatistics.LIMIT,null);
+
+            xOC = (int) stat.xCenterOfMass;
+            yOC = (int) stat.yCenterOfMass;
+            //this.ocXjFtTxt2.setText(""+xOC);
+            //this.ocYjFtTxt3.setText(""+yOC);
+        }
         return new JVector(xOC,yOC);
     }
 
@@ -670,6 +738,12 @@ public class DataManager extends Object implements Runnable,Serializable {
 
     private boolean isAveReady() {
        return AveReady;
+    }
+
+    void setDataFileNames(String[] fNames) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (String name : fNames)
+            this.addDataFile(name);
     }
     
     

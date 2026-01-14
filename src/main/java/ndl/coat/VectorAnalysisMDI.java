@@ -20,9 +20,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 //import NDL_JavaClassLib.*;
 import ij.gui.Roi;
+import ij.io.FileSaver;
 import ij.io.RoiEncoder;
 import ij.plugin.filter.ThresholdToSelection;
 import ij.process.FloatProcessor;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.FileNotFoundException;
@@ -33,6 +36,8 @@ import java.nio.file.Path;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollBar;
@@ -66,6 +71,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     Thread threadMonitor;
     private boolean usePltCord;
     private String ver =  "0.1";
+    private File setting;
+    private File logFile;
+    private boolean test = false;        //set it true for debugging and testing
     public VectorAnalysisMDI() {
        
         Dimension d = this.getMaximumSize();
@@ -139,6 +147,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         compJRadGrp = new javax.swing.ButtonGroup();
         vectJChkBx = new javax.swing.ButtonGroup();
+        FilterJChkBxGrp = new javax.swing.ButtonGroup();
         jScrollPane4 = new javax.swing.JScrollPane();
         DeskTopPanel = new javax.swing.JPanel();
         InfoTab = new javax.swing.JTabbedPane();
@@ -211,26 +220,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         PlatYjFtTxt1 = new javax.swing.JFormattedTextField();
         ocXjFtTxt2 = new javax.swing.JFormattedTextField();
         ocYjFtTxt3 = new javax.swing.JFormattedTextField();
-        CheckBoxBoolean = new javax.swing.JCheckBox();
+        autoEstOC = new javax.swing.JCheckBox();
         AnalysisSettingTabPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        gaussjChkBx = new javax.swing.JCheckBox();
+        jLabel24 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         scalingfactorJFormFld = new javax.swing.JFormattedTextField();
-        jLabel22 = new javax.swing.JLabel();
-        gauRadjFormFld = new javax.swing.JFormattedTextField();
         reSzImgjChkBx = new javax.swing.JCheckBox();
         useTan2jChkBx = new javax.swing.JCheckBox();
         ScaleY_JChkBx = new javax.swing.JCheckBox();
-        jLabel24 = new javax.swing.JLabel();
-        aspectRatiojFmtFld = new javax.swing.JFormattedTextField();
         useRelVelJChkBx = new javax.swing.JCheckBox();
-        jChkBxAssym = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jFmtTxtFldRadY = new javax.swing.JFormattedTextField();
-        jFmtTxtFldRadX = new javax.swing.JFormattedTextField();
+        aspectRatiojFmtFld = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         autoPoolRoijChkBx = new javax.swing.JCheckBox();
         jLabel18 = new javax.swing.JLabel();
@@ -256,6 +257,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         AlongJRadBtn = new javax.swing.JRadioButton();
         OrtoJRadBtn = new javax.swing.JRadioButton();
         usePltCordChkBx2 = new javax.swing.JCheckBox();
+        useIndROIjChkBx = new javax.swing.JCheckBox();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        gaussjChkBx = new javax.swing.JCheckBox();
+        noFiltjChkBx1 = new javax.swing.JCheckBox();
+        medianjChkBx = new javax.swing.JCheckBox();
+        gauRadjFormFld = new javax.swing.JFormattedTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jChkBxAssym = new javax.swing.JCheckBox();
+        jFmtTxtFldRadY = new javax.swing.JFormattedTextField();
+        jFmtTxtFldRadX = new javax.swing.JFormattedTextField();
         jScrollPaneProgImgDisp = new javax.swing.JScrollPane();
         ProgImgDispParent = new javax.swing.JPanel();
         ProgIndPanel = new javax.swing.JPanel();
@@ -312,7 +325,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 2147483647, 2147483647));
         setMinimumSize(new java.awt.Dimension(600, 500));
         setName("Frame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1275, 775));
         setSize(new java.awt.Dimension(1275, 775));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -898,11 +910,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         AnalysisDesign_jPanel.add(ocYjFtTxt3, gridBagConstraints);
 
-        CheckBoxBoolean.setSelected(true);
-        CheckBoxBoolean.setText("Select the check box to auto estimate OC");
-        CheckBoxBoolean.addActionListener(new java.awt.event.ActionListener() {
+        autoEstOC.setSelected(true);
+        autoEstOC.setText("Select the check box to auto estimate OC");
+        autoEstOC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckBoxBooleanActionPerformed(evt);
+                autoEstOCActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -910,7 +922,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        AnalysisDesign_jPanel.add(CheckBoxBoolean, gridBagConstraints);
+        AnalysisDesign_jPanel.add(autoEstOC, gridBagConstraints);
 
         InfoTab.addTab("Design Tree", AnalysisDesign_jPanel);
 
@@ -920,29 +932,20 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pre Processing", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        gaussjChkBx.setSelected(true);
-        gaussjChkBx.setText("Use Gaussian Blur");
-        gaussjChkBx.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                gaussjChkBxItemStateChanged(evt);
-            }
-        });
+        jLabel24.setText("Pixel Aspect Ratio (x/y)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 56;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(13, 19, 0, 0);
-        jPanel2.add(gaussjChkBx, gridBagConstraints);
+        jPanel2.add(jLabel24, gridBagConstraints);
 
         jLabel21.setText("Scaling Factor");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 44, 0, 0);
         jPanel2.add(jLabel21, gridBagConstraints);
 
         scalingfactorJFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
@@ -955,36 +958,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 48;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 40;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.ipadx = -27;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 14, 0, 11);
         jPanel2.add(scalingfactorJFormFld, gridBagConstraints);
-
-        jLabel22.setText("Filter Radius");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 18;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(15, 36, 0, 0);
-        jPanel2.add(jLabel22, gridBagConstraints);
-
-        gauRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        gauRadjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        gauRadjFormFld.setText("10.0");
-        gauRadjFormFld.setToolTipText("The radius of the 2D Gaussian Blur it is symetrical ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 48;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 40;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 14, 0, 11);
-        jPanel2.add(gauRadjFormFld, gridBagConstraints);
 
         reSzImgjChkBx.setText("Resize images");
         reSzImgjChkBx.setToolTipText("Enable this to resize images before surface fit");
@@ -996,41 +974,52 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridwidth = 24;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 19, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
         jPanel2.add(reSzImgjChkBx, gridBagConstraints);
 
-        useTan2jChkBx.setText("Treat moving away and into platform differently");
+        useTan2jChkBx.setText("Orientation Sensitive");
         useTan2jChkBx.setToolTipText("By default the software uses tan inverse without differentiating vectors differing by 180 deg. If checked then tan2  inverse is used that differentiates these vectors");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 24;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 19, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(8, 0, 0, 0);
         jPanel2.add(useTan2jChkBx, gridBagConstraints);
 
         ScaleY_JChkBx.setSelected(true);
         ScaleY_JChkBx.setText("Scale Y");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 24;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 19, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
         jPanel2.add(ScaleY_JChkBx, gridBagConstraints);
 
-        jLabel24.setText("Pixel Aspect Ratio (x/y)");
+        useRelVelJChkBx.setSelected(true);
+        useRelVelJChkBx.setText(" Use Relative Velocity");
+        useRelVelJChkBx.setToolTipText("Selecting this nomalises the Peak velocity of Each Data File to Float.Max");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 39;
-        gridBagConstraints.ipadx = 56;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 24;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        jPanel2.add(useRelVelJChkBx, gridBagConstraints);
+
+        jCheckBox2.setText("Orientation data from file");
+        jCheckBox2.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 24;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 9, 0, 0);
-        jPanel2.add(jLabel24, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        jPanel2.add(jCheckBox2, gridBagConstraints);
 
         aspectRatiojFmtFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.000"))));
         aspectRatiojFmtFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1042,90 +1031,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 87;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.ipadx = -27;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 2, 11);
         jPanel2.add(aspectRatiojFmtFld, gridBagConstraints);
 
-        useRelVelJChkBx.setSelected(true);
-        useRelVelJChkBx.setText(" Use Relative Velocity");
-        useRelVelJChkBx.setToolTipText("Selecting this nomalises the Peak velocity of Each Data File to Float.Max");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(32, 19, 0, 0);
-        jPanel2.add(useRelVelJChkBx, gridBagConstraints);
-
-        jChkBxAssym.setText("Assymetric");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 19, 0, 0);
-        jPanel2.add(jChkBxAssym, gridBagConstraints);
-
-        jCheckBox2.setText("Orientation data from file");
-        jCheckBox2.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 15;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 19, 0, 0);
-        jPanel2.add(jCheckBox2, gridBagConstraints);
-
-        jLabel15.setText("x Radius");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 11, 0, 0);
-        jPanel2.add(jLabel15, gridBagConstraints);
-
-        jLabel23.setText("y Radius");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 23;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 22, 0, 0);
-        jPanel2.add(jLabel23, gridBagConstraints);
-
-        jFmtTxtFldRadY.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        jFmtTxtFldRadY.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFmtTxtFldRadY.setText("0");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 48;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 40;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 14, 0, 11);
-        jPanel2.add(jFmtTxtFldRadY, gridBagConstraints);
-
-        jFmtTxtFldRadX.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFmtTxtFldRadX.setText("0");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
-        jPanel2.add(jFmtTxtFldRadX, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         AnalysisSettingTabPanel.add(jPanel2, gridBagConstraints);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Post Process (Results/Output)"));
@@ -1227,8 +1143,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         AnalysisSettingTabPanel.add(jPanel3, gridBagConstraints);
 
@@ -1283,8 +1198,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 12, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 11, 0, 0);
         jPanel4.add(genVeljChkBx1, gridBagConstraints);
 
         genAccjChkBx.setSelected(true);
@@ -1385,13 +1299,126 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.insets = new java.awt.Insets(6, 11, 0, 0);
         jPanel4.add(usePltCordChkBx2, gridBagConstraints);
 
+        useIndROIjChkBx.setText("Use Indvidual ROI");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(6, 11, 0, 0);
+        jPanel4.add(useIndROIjChkBx, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridheight = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         AnalysisSettingTabPanel.add(jPanel4, gridBagConstraints);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filter Settings"));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        jLabel23.setText("y Radius");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 5;
+        jPanel1.add(jLabel23, gridBagConstraints);
+
+        jLabel15.setText("x Radius");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 4;
+        jPanel1.add(jLabel15, gridBagConstraints);
+
+        FilterJChkBxGrp.add(gaussjChkBx);
+        gaussjChkBx.setText("Use Gaussian ");
+        gaussjChkBx.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                gaussjChkBxItemStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        jPanel1.add(gaussjChkBx, gridBagConstraints);
+
+        FilterJChkBxGrp.add(noFiltjChkBx1);
+        noFiltjChkBx1.setSelected(true);
+        noFiltjChkBx1.setText("No Filter");
+        noFiltjChkBx1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                noFiltjChkBx1ItemStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel1.add(noFiltjChkBx1, gridBagConstraints);
+
+        FilterJChkBxGrp.add(medianjChkBx);
+        medianjChkBx.setText("Use Median");
+        medianjChkBx.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                medianjChkBxItemStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel1.add(medianjChkBx, gridBagConstraints);
+
+        gauRadjFormFld.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        gauRadjFormFld.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        gauRadjFormFld.setText("10.0");
+        gauRadjFormFld.setToolTipText("The radius of the 2D Gaussian Blur it is symetrical ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 1;
+        jPanel1.add(gauRadjFormFld, gridBagConstraints);
+
+        jLabel22.setText("Filter Radius");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 18;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel1.add(jLabel22, gridBagConstraints);
+
+        jChkBxAssym.setText("Assymetric");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel1.add(jChkBxAssym, gridBagConstraints);
+
+        jFmtTxtFldRadY.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jFmtTxtFldRadY.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFmtTxtFldRadY.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel1.add(jFmtTxtFldRadY, gridBagConstraints);
+
+        jFmtTxtFldRadX.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFmtTxtFldRadX.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel1.add(jFmtTxtFldRadX, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        AnalysisSettingTabPanel.add(jPanel1, gridBagConstraints);
 
         InfoTab.addTab("Analysis Setting", AnalysisSettingTabPanel);
 
@@ -1560,7 +1587,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         ProgImgDispParent.add(ProgIndPanel, gridBagConstraints);
 
-        ImageDispPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Video/Image/Graph Display", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        ImageDispPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Image/Graph Display", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         ImageDispPanel.setMinimumSize(new java.awt.Dimension(400, 400));
         ImageDispPanel.setPreferredSize(new java.awt.Dimension(500, 500));
         ImageDispPanel.setLayout(new java.awt.GridBagLayout());
@@ -1825,7 +1852,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void populateDataFileList(String[] fNames) {
                
         
-        //File rootFolder = new File(fNames[0]).getParentFile();
+        File rootFolder = new File(fNames[0]).getParentFile();
         
         String [] failedFiles = new String[fNames.length];
         if(rel2absPathMaps == null)
@@ -1853,10 +1880,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         this.jFormatTxt_rootFolder.setText(path2root);
         
-        //dManager = new DataManager();
-        //dManager.setInPath(rootFolder.getName());
-        //dManager.setInPath(path2root);
-        //dManager.setDataFileNames(fNames);
+        dManager = new DataManager();
+        dManager.setInPath(rootFolder.getName());
+        dManager.setInPath(path2root);
+        dManager.setDataFileNames(fNames);
         
         
         for(var name : fNames){
@@ -1879,12 +1906,36 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             else
                 failedFiles[fCount++] = name;
         }
+        String dataSeparator;
         
-        //dManager.readData(); 
+        var selIdx = this.jCombo_dataSeparator.getSelectedIndex(); 
+        
+        switch(selIdx){
+            case 0:     //Tab
+            dataSeparator = "\t";
+            break;
+            case 1: //Space
+            dataSeparator = " ";
+            break;
+            case 2: //Comma
+            dataSeparator = ",";
+            break;
+            case 3: //semicolon
+            dataSeparator = ";";
+            break;
+            default:
+            dataSeparator = (String)jCombo_dataSeparator.getSelectedItem();
+        }
+        dManager.setXRes(Integer.parseInt(this.xResTxtField.getText()));
+        dManager.setYRes(Integer.parseInt(this.yResTxtField.getText()));
+        dManager.setDataSep(dataSeparator);
+        dManager.readData(); 
     }
 
     private void residencemapMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_residencemapMenuItemActionPerformed
+        
         generateResidenceMap(dManager);
+        
     }//GEN-LAST:event_residencemapMenuItemActionPerformed
 
     private void generateResidenceMap(DataManager manager) {
@@ -1922,15 +1973,26 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.hmapStk = new ImagePlus("HeatMaps" );
         this.stk = new ImageStack(manager.getXRes(),manager.getYRes());
         String label;
+        
+        ImagePlus temp;
+        Natural_NeighInter nni;
         for(var rmap : rmapImages){
             var tmpName = (manager.getDataFileNames()[fileCount]);
             label  = "HMap of "+ tmpName.substring(1+tmpName.lastIndexOf(File.separator));  
             stk.addSlice(rmap.getImages()[0].getProcessor());
+            nni = new Natural_NeighInter(rmap.getImages()[0],null);
+            nni.finaliseSurface();
+            temp = nni.imageOutput();
+            FileSaver fs = new ij.io.FileSaver(temp);
+            fs.saveAsTiff(folderpath+File.separator+"HMapSur");
+            temp.show();
             stk.setSliceLabel(label,fileCount+1);
             rmap.saveImages(folderpath,label);
+            
             fileCount++;
         }
         hmapStk.setStack(stk);
+        if (true /*gBlur*/)hmapStk.getProcessor().blurGaussian(20/*radius of mice object in pixels*/); /** TO DO **/
         hmapStk.show();
     }
 
@@ -2012,24 +2074,70 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.gauRadjFormFld.setEnabled(gaussjChkBx.isSelected());
     }//GEN-LAST:event_gaussjChkBxItemStateChanged
 
-    private void CheckBoxBooleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxBooleanActionPerformed
+    private void autoEstOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoEstOCActionPerformed
 
-        estimateOC = ( CheckBoxBoolean.isSelected());
+        estimateOC = ( autoEstOC.isSelected());
 
-    }//GEN-LAST:event_CheckBoxBooleanActionPerformed
+    }//GEN-LAST:event_autoEstOCActionPerformed
 
-    private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
+    /***
+     * @param img2Disp  Imageplus object containing the image to be displayed
+     * @param displayPanel the reference to the panel in which the image needs to be displayed
+     */
+    private void displayImgInPanel(ImagePlus img2Disp, javax.swing.JPanel displayPanel){
         
-        File setting =  new File(this.jFormatTxt_rootFolder.getText()+"settings.txt");
-        File log    = new File(this.jFormatTxt_rootFolder.getText() + "log.txt");
-        FileWriter writer = null;
-        //FileWriter logFile = null;
+        if(displayPanel != null && img2Disp != null){
+            
+            Image img = img2Disp.getImage();
+            ImageIcon icon = new ImageIcon(img);
+            JLabel label = new JLabel(icon);
+            
+            displayPanel.add(label);
+        }
+    
+}
+    private String getSetting(){
         String settingString = "";
-        writer = TextFileWriter(writer, setting, settingString);
         
+         settingString +=  " The analysis was done using the following options: \n" ;
+         settingString += "Root folder set to :" + this.jFormatTxt_rootFolder.getText() +"\n";
+         settingString += "No of groups :" + this.nGrps + "\n";
+         settingString += "No of trials :" + this.nTrial + "\n";
+         //also dump the number of animals per grup distribution and group selection tables
+         
+         //save the file assignments
+         //group names
+         //trial names
+         
+         settingString += "FileSeparator : " + (String)this.jCombo_dataSeparator.getSelectedItem() +"\n";
+         settingString += "xRes :" + this.xResTxtField.getText() +"\t";
+         settingString += "yRes :" + this.yResTxtField.getText()+ "\n";
+         
+         //Get the assignment table and save it
+         settingString += "PlatX :" + this.PlatXjFtTxt.getText() + " \t PlatY :" + this.PlatYjFtTxt1.getText() + "\n";
+         settingString +=  (this.autoEstOC.isSelected()) ? "Auto est OC \n" : "OC is provided Manually. OC_x :" +this.ocXjFtTxt2.getText() + "\t" + "OC_y :" +this.ocYjFtTxt3.getText() +"\n";
+         
+         settingString += "Pre Processing: \n";
+         settingString += " Rel Vel :" + this.useRelVelJChkBx.isSelected() + "\t Resize Images :" + this.reSzImgjChkBx.isSelected() + "\t" + "Scaling Factor : "+this.scalingfactorJFormFld.getText() + "\n";
+         settingString += " Gaussian Blur :" + this.gaussjChkBx.isSelected() + "\t Filter Radius :" + this.gauRadjFormFld.getText()+ "\n";
+         //add settings for assym
+         settingString += " Differential Treatment of moving away and in :" + "\t" + this.useTan2jChkBx.isSelected() +"\n";
+         settingString += " To scale the Y : " + this.ScaleY_JChkBx.isSelected() + "\t Pixel Aspect Ratio : " +"\t" + this.scalingfactorJFormFld.getText();
+         
+         settingString += " Order of fit in X = " +"\t " + (String)this.x_polyOrderJCmbBx.getSelectedItem()+ " \t Order of fit in Y = " +"\t " + (String)this.y_polyOrderJCmbBx.getSelectedItem() + "\n" ;
+         settingString += " Acc surface ? :" + this.genAccjChkBx.isSelected() + "\t Use selection :" + "\t" + this.useSeljChBx.isSelected() + "\t" + "Restrict to pixel based selection :" + "\t" + this.res2SeljChkBx.isSelected();
+         
+         settingString += " Use Velocity Component Along : " + "\t" + this.AlongJRadBtn.isSelected();
+         settingString += "\n Use Velocity :\t" + this.genVeljChkBx1.isSelected();
+         settingString += "\n Use Platform Cord: \t" + this.usePltCordChkBx2.isSelected();
+         
+         
+        return settingString;
         
-        
-        
+    }
+    
+    private void RunGrp_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunGrp_ButtonActionPerformed
+           
         //27th Mar: Would be nice to segregate the progress bar updating to separate function that 
         //takes the progressbar and its value as argument and updates it in a separate thread rather than 
         //creating a thread on the fly everytime. 
@@ -2043,6 +2151,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //expData = new ArrayList<ArrayList>();
 
         //Reading parameters and populate design tree
+        String basePath = (test)? "Z:\\NDL\\balaji\\ishat\\Test data from\\Set 5\\Day7_Trajectories" 
+                                : this.jFormatTxt_rootFolder.getText();  
+        setting =  new File(basePath+File.separator+ "settings.txt");
+        this.logFile    = new File(basePath + File.separator+ "log.txt");
+        
+        writeTextFile(setting, getSetting());
         
         this.setStatusMessage("Starting new calculation:+\n");
         
@@ -2055,9 +2169,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         this.usePltCord = this.usePltCordChkBx2.isSelected();
 
         String dataSeparator;// ((String)this.jCombo_dataSeparator.getSelectedItem());
-        var selIdx = this.jCombo_dataSeparator.getSelectedIndex();
         
-        this.RunGrp_Button.setEnabled(false);
+        
+        var selIdx = (test) ? 2 : this.jCombo_dataSeparator.getSelectedIndex();
+        
         
         switch(selIdx){
             case 0:     //Tab
@@ -2081,7 +2196,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         trialNames.clear();
 
         String g,t;
-        var  tModel = FileAssignmentTable.getModel();
+        var  tModel = (DefaultTableModel)FileAssignmentTable.getModel();
         var lastRow = FileAssignmentTable.getModel().getRowCount();
         //boolean newGrp = false, newTrial = false;
         for(int Count  =  lastRow-1; Count >= 0 ; Count --){
@@ -2126,14 +2241,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //jProgressBarDataAssignment.setEnabled(true);
 //Update the tree Model
 
-        try {
-            
-            writer.write("Settings for the Analysis through CoAT version : " + this.ver);
-            
-            writer.write(settingString);
-        } catch (IOException ex) {
-            Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         
         for(int trialCount = 0 ; trialCount < nTrial ; trialCount++){
 
@@ -2153,10 +2261,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         treeModel.reload();
 
-
-        int nFiles = FileAssignmentTable.getRowCount();
+       
+        int nFiles = (test)  ? 1 : FileAssignmentTable.getRowCount();
         if(nFiles <= 0 )
             return;
+        this.RunGrp_Button.setEnabled(false);
         String fName = "", grpName, trialName, fnameKey;
         //        int aUID;
         int gUID;
@@ -2173,60 +2282,79 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jProgressBarFR.setMinimum(0);
         jProgressBarFR.setMaximum(nFiles-1);
         jProgressBarFR.setValue(0);
+        if(test){
+                fName = "Z:\\NDL\\balaji\\ishat\\Test data from\\Set 5\\Day7_Trajectories\\M65.csv";  
+                grpName = "ggTest";
+                trialName = "ttTest";
+                gUID = 0;
+                tUID = 0;
+                nTrial = 1;
+                nGrps = 1;
+                tModel.addRow(new String[]{"M65.csv","",grpName,trialName});
+                grpNames.add(grpName);
+                trialNames.add(trialName);
+                 trialNode = new DefaultMutableTreeNode(trialNames.get(0));
+                treeModel.insertNodeInto(trialNode,trialRoot, 0);
+                grpNode = new DefaultMutableTreeNode(grpNames.get(0));
+                treeModel.insertNodeInto(grpNode, trialNode,0);
+                treeModel.reload();
+                //nFileAssigned[tUID][gUID]++;
+                grpData = new DataManager();
+                grpData.addDataFile(fName);
+                ArrayList trial = new ArrayList();
+                trial.add(0,grpData);
+                TrialData.add(0,trial);
+                //TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName
+                fileLeaf = new DefaultMutableTreeNode(fName);
+                trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
+                grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
+                treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
 
+                //int currVal = Count;
+
+                this.UpdateProgress(100, jProgressBarFR,"%");
+           }else{
         
-        for(int Count = 0 ; Count < nFiles ; Count++){
+                for(int Count = 0 ; Count < nFiles ; Count++){
 
-            fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
-            if(fnameKey == null) {
-                 this.setStatusMessage("Ignoring the empty / non - readable entry at row #" + Count);
-                 continue;
-            }
-            fName = this.rel2absPathMaps.get(fnameKey);             //get the file name with full path if it is relativised
-            if(fName == null){
-                //javax.swing.JOptionPane.showMessageDialog(this, "fileName is null the key "+fnameKey+" did not fetch a file");
-                errorlist[unassigned++] = fnameKey;
-                return;
-            }
-            var errorCount = errorlist.length;
-            for(int a = 0 ;  a < errorCount ; a++){
-                this.setStatusMessage("Error reading the file#:" + errorlist[a] +"\n");  
-            }
-            grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
-            trialName = (String)FileAssignmentTable.getValueAt(Count,3);
-            gUID = grpNames.indexOf(grpName);
-            tUID = trialNames.indexOf(trialName);
-            //aName =  Need to set the animal ID here
+                    fnameKey = (String)FileAssignmentTable.getValueAt(Count,0);
+                    if(fnameKey == null) {
+                         this.setStatusMessage("Ignoring the empty / non - readable entry at row #" + Count);
+                         continue;
+                    }
+                    fName =  this.rel2absPathMaps.get(fnameKey);           //get the file name with full path if it is relativised
 
-            nFileAssigned[tUID][gUID]++;
-            TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName
-            fileLeaf = new DefaultMutableTreeNode(fName);
-            trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
-            grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
-            treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
+                    if(fName == null){
+                        //javax.swing.JOptionPane.showMessageDialog(this, "fileName is null the key "+fnameKey+" did not fetch a file");
+                        errorlist[unassigned++] = fnameKey;
+                        return;
+                    }
+                    var errorCount = errorlist.length;
+                    for(int a = 0 ;  a < errorCount ; a++){
+                        this.setStatusMessage("Error reading the filename#:" + errorlist[a] +"\n");  
+                    }
 
-            //int currVal = Count;
-            
-            this.UpdateProgress(100*(Count+1)/nFiles, jProgressBarFR,"%");
-            
-//            SwingWorker upFR = new SwingWorker(){
-//                @Override
-//                protected Object doInBackground() throws Exception {
-//                    jProgressBarFR.setValue(currVal);
-//                    //jProgressBarDataAssignment.setValue(currVal);
-//                    //System.out.print("Current File # \n"+currVal);
-//                    return 0;
-//                }
-//            };
-//            new Thread(threadGrp,upFR).start();
-            //upFR.execute();
+                    grpName = (String)FileAssignmentTable.getValueAt(Count, 2);
+                    trialName = (String)FileAssignmentTable.getValueAt(Count,3);
+                    gUID = grpNames.indexOf(grpName);
+                    tUID = trialNames.indexOf(trialName);
+
+                //aName =  Need to set the animal ID here
+                
+                nFileAssigned[tUID][gUID]++;
+                TrialData.get(tUID).get(gUID).addDataFile(/*aUID,*/fName); //Need to retrive aUID coresponding to aName
+                fileLeaf = new DefaultMutableTreeNode(fName);
+                trNode = ((DefaultMutableTreeNode)treeModel.getChild(trialRoot, tUID));
+                grpNode = ((DefaultMutableTreeNode)treeModel.getChild(trNode, gUID));
+                treeModel.insertNodeInto(fileLeaf,grpNode, grpNode.getChildCount());
+
+                //int currVal = Count;
+
+                this.UpdateProgress(100*(Count+1)/nFiles, jProgressBarFR,"%");
+                   
+                }
         }
 
-        //Use the errorlist to show the list of files that could not be read.
-        //Data Assignment complete
-
-        //Calculation of velocity and accelaration begins
-        //DataManager currManager;
 
         fit.setPreScale(this.reSzImgjChkBx.isSelected());
         fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
@@ -2261,11 +2389,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jProgressBarDP.setStringPainted(true);
 
         OccCtrs = new JVector[nTrial][nGrps];
-        ArrayList<ArrayList<DataManager>>[] tempData;
-        tempData = new ArrayList[1];
+        ArrayList<ArrayList<DataManager>>[] tempData; //temporary object 
+        tempData = new ArrayList[1]; // to ensure we can use it inside a worker thread. 
         tempData[0] = TrialData;
         String[] fnames = new String[1];
         fnames[0] = fName;
+        
         SwingWorker worker = new SwingWorker(){
             @Override
         protected Object doInBackground() throws Exception{
@@ -2277,12 +2406,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         int g = gCount+1, t = tCount+1;
 //                        UpdateProgress(g,jProgressBarGP,"Grp #",nGrps+"");
                         setStatusMessage("Currently Processing"+"Trial #"+t +"Grp #" + g + "\n");
-                        if(nFileAssigned[tCount][gCount] == 0 )     /** This condition should never occur need to check **/
-                            continue;
-                        DataManager currManager;
+//                        if(nFileAssigned[tCount][gCount] == 0 && !test )     /** This condition should never occur need to check **/
+//                            continue;
+                        DataManager currManager ;
+                        
                         /*  Prepare the datamanager to organise the data. Data Manger instance stores the data for the group. */
                         //var temp = tempData[0].get(tCount);
                         currManager = tempData[0].get(tCount).get(gCount);
+                        currManager.setGblurRadius(Double.parseDouble(gauRadjFormFld.getText()));
                         currManager.setXRes(xRes);
                         currManager.setYRes(yRes);
                         currManager.setScaleforAspectRatio(ScaleY_JChkBx.isSelected());
@@ -2343,20 +2474,27 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
       
     }//GEN-LAST:event_RunGrp_ButtonActionPerformed
 
-    private FileWriter TextFileWriter(FileWriter writer, File setting, String settingString) {
+    /***
+     * 
+     * @param fname
+     * @param settingString 
+     */
+    private void writeTextFile(File fname, String settingString) {
+        FileWriter writer;
         try {
-            writer = new FileWriter(setting);
+            writer = new FileWriter(fname);
             writer.append(settingString);
             writer.close();
         } catch (IOException ex) {
             Logger.getLogger(VectorAnalysisMDI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return writer;
     }
-    /**private void calIndividualFlds(DataManager manager){
-        
-        
-    }**/
+    
+    /**
+     * 
+     * @param message
+     * @param toAppend 
+     */
     private void setStatusMessage(String message, boolean toAppend){
        SwingWorker messenger = new SwingWorker(){
            @Override
@@ -2735,6 +2873,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void noFiltjChkBx1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_noFiltjChkBx1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_noFiltjChkBx1ItemStateChanged
+
+    private void medianjChkBxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_medianjChkBxItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_medianjChkBxItemStateChanged
     
     private boolean updateAnimalGrpSummaryTable() throws NumberFormatException, HeadlessException {
         boolean sameSampleSz = this.SampleSizeSel.getModel().isSelected();
@@ -2862,14 +3008,14 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         JVector OC ;
         if(this.estimateOC){
-            OC = currManager.findOC(xRes, yRes);
+            OC = currManager.findOC(xRes, yRes);                    ///OC is that of Ave map ???
             this.ocXjFtTxt2.setText(""+OC.getComponent(0));
             this.ocYjFtTxt3.setText(""+OC.getComponent(1));
         }else{
-            currManager.findOC(xRes, yRes); //this is still required for generating the sampled ROI
+            currManager.findOC(xRes, yRes); //this is still required for generating the sampled ROI as findOC function generates the sampled ROI
             OC = (this.usePltCord) ? new JVector(PltX,PltY):new JVector(ocX,ocY);
         }
-        OccCtrs[tCount][gCount] = OC;
+       // OccCtrs[tCount][gCount] = OC;  ///this is not correct
         currManager.computeAve(0, OC,true);
         currManager.saveAverage("grp#_"+gCount+"_",true);
 //currManager.computeAve(1, Plt,true);
@@ -2938,6 +3084,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             var residence = resMaps[fileCount];
             var OCi = currManager.findOC(xRes, yRes, residence);
             var curRoi = this.getSampledROI(1, residence);
+            var roi2use = (this.useIndROIjChkBx.isSelected()) ? curRoi: sampledGrpRoi;     //TODO : add an option in GUI
             indFName = dataFileNames[fileCount];
             var indexFSep = indFName.lastIndexOf(File.separator);
             indexFSep = indexFSep == -1 ? 0 : indexFSep+1;
@@ -2949,8 +3096,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             var vFieldNorm = VecField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
             var accFieldNorm = AccField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
             
-            calculateVectorFldProperties(vFieldNorm,curRoi,true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
-            calculateVectorFldProperties(accFieldNorm,curRoi,true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
+            calculateVectorFldProperties(vFieldNorm,roi2use,true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
+            calculateVectorFldProperties(accFieldNorm,roi2use,true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
             /****Add Code for heat map generation
             
             */
@@ -2979,7 +3126,33 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 //        }
         //Block  for writing individual files ends here
     }
+    /***
+     * Overloaded method for generating vector field images for a given dataset (contained in datamanager)
+     * The OC is estimated for the group of images and then used for calculating the Vector fields.
+     * @param currManager
+     * @return
+     * @throws InterruptedException 
+     */
+    private JVector jVecFieldImgGenerator(DataManager currManager) throws InterruptedException{
+        int xRes = currManager.getXRes();
+        int yRes = currManager.getYRes();
+        int xOC = 0;
+        int yOC = 0;
+        currManager.findOC(xRes, yRes);
+        return jVecFieldImgGenerator(currManager,xRes,yRes,xOC,yOC);
+    }
 
+ /**
+ *  Method for generating vector field images for a given dataset (contained in datamanager)  using an external OC
+ * 
+ * @param currManager
+ * @param xRes
+ * @param yRes
+ * @param xOC
+ * @param yOC
+ * @return
+ * @throws InterruptedException 
+ */
     private JVector jVecFieldImgGenerator(DataManager currManager, int xRes, int yRes, int xOC, int yOC) throws InterruptedException{
         JVector OC;
         JVectorSpace[] vFields;
@@ -3008,7 +3181,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         // Having read all the data files estimate the occupancy center. Also allow the user to enter.
         
         // OC = (this.CheckBoxBoolean.isSelected()) ?    findOC(currManager, xRes, yRes) : new JVector(xOC,yOC) ;
-        OC = (this.CheckBoxBoolean.isSelected()) ? currManager.findOC( xRes, yRes) : new JVector(xOC,yOC);
+        OC = (this.autoEstOC.isSelected()) ? currManager.findOC( xRes, yRes) : new JVector(xOC,yOC);
         //Generate the velocity and accelaration fields
         
        
@@ -3064,7 +3237,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     }
 
     /***
-     * Call this function to calculate the vector field properties of an Vector space. Typically this in turn instantiates a 
+     * Call this function to calculate the vector field properties of an Vector space. This in turn instantiates a 
      * jVectorFieldCalulator Object to calculate these in a separate thread. 
      * @param VecFld  The vector space for which we need to calculate the properties
      * @param currentRoi The roi representing the sampled sub space 
@@ -3082,13 +3255,27 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         calculator.setSuffix(suffix);
         calculator.setPathName(pathName);
         calculator.setFileSeparator(File.separator);
-
+        if(this.noFiltjChkBx1.isSelected())
+            calculator.setFilterType(3);
+        else{
+            float rad = Float.parseFloat(this.gauRadjFormFld.getText());
+            calculator.setFilterRadius(rad);
+            fit.setGaussRad(rad);
+            if(this.medianjChkBx.isSelected())
+                calculator.setFilterType(2);
+            else{
+                calculator.setFilterType(1);
+                fit.setGaussFilt(true);
+            }
+        }
+        
+                
        
         fit.setPreScale(this.reSzImgjChkBx.isSelected());
         fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
         
-        fit.setGaussFilt(this.gaussjChkBx.isSelected());
-        fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
+        //fit.setGaussFilt(this.gaussjChkBx.isSelected());
+        //fit.setGaussRad(Double.parseDouble(this.gauRadjFormFld.getText()));
         
         fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         fit.setUseSelection(this.useSeljChBx.isSelected());
@@ -3098,8 +3285,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         calculator.setFit(fit);
 
         if(currentRoi != null)
-           calculator.setSampledGrpRoi(currentRoi);
-
+           calculator.setSampledRoi(currentRoi);
+        else
+            System.out.println("Failed to generate ROI");
         calculator.setGenConv(this.genConvJChkBx.isSelected());
         calculator.setGenDiv(isDivergence/*this.genConvJChkBx.isSelected()*/);
         calculator.setAutoGenPool(this.autoPoolRoijChkBx.isSelected());
@@ -3207,13 +3395,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel AnimalLabel;
     private javax.swing.JComboBox<String> AnimalSelComboBox;
     private javax.swing.JButton Assign_Button;
-    private javax.swing.JCheckBox CheckBoxBoolean;
     private javax.swing.JCheckBox CompforVectorFldjChkBx2;
     private javax.swing.JPanel DataFiles_jPanel;
     private javax.swing.JPanel DeskTopPanel;
     private javax.swing.JPanel ExpDef_jPanel;
     private javax.swing.JTable FileAssignmentTable;
     private javax.swing.JTable FileDetail_Table;
+    private javax.swing.ButtonGroup FilterJChkBxGrp;
     private javax.swing.JButton GenConMaps_Button;
     private javax.swing.JButton GenCurlMaps_Button;
     private javax.swing.JLabel GrpLabel;
@@ -3243,6 +3431,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenu analysisMenu;
     private javax.swing.JFormattedTextField aspectRatiojFmtFld;
     private javax.swing.JTextField assignFileJTxt;
+    private javax.swing.JCheckBox autoEstOC;
     private javax.swing.JCheckBox autoPoolRoijChkBx;
     private javax.swing.JCheckBox chkBoxRemoveAssignedFiles;
     private javax.swing.ButtonGroup compJRadGrp;
@@ -3319,6 +3508,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem jMenuItemExpDes;
     private javax.swing.JMenuItem jMenuItemGrpID;
     private javax.swing.JMenuItem jMenuItemMeasure;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -3336,8 +3526,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPaneProgImgDisp;
     private javax.swing.JMenu mapsMenu;
+    private javax.swing.JCheckBox medianjChkBx;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JFormattedTextField nAnimals_Text;
+    private javax.swing.JCheckBox noFiltjChkBx1;
     private javax.swing.JFormattedTextField ocXjFtTxt2;
     private javax.swing.JFormattedTextField ocYjFtTxt3;
     private javax.swing.JMenuItem openMenuItem;
@@ -3354,6 +3546,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JFormattedTextField scalingfactorJFormFld;
     private javax.swing.JScrollPane statMssgScrollPane;
     private javax.swing.JButton upDateButton;
+    private javax.swing.JCheckBox useIndROIjChkBx;
     private javax.swing.JCheckBox usePltCordChkBx2;
     private javax.swing.JCheckBox useRelVelJChkBx;
     private javax.swing.JCheckBox useSeljChBx;
