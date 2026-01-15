@@ -279,6 +279,7 @@ public class jVectorFieldCalculator implements Runnable{
     private boolean toSave = true;
     private int FilterType = 1; // 3 = no filter, 2 = Median and 1 = Gauss
     private float FilterRadius = 1;
+    private boolean Normalise = true;
     @Override
     public void run() {
             instanceCount++;
@@ -416,6 +417,7 @@ public class jVectorFieldCalculator implements Runnable{
         //NNI.setMask((ByteProcessor) selection.getMask());
         
         NNI.setFILTER(getFilterType());
+        NNI.setNormalise(isNormalise());
         NNI.setBlurRad(getFilterRadius());
         NNI.setPath(getFldrName()+getSuffix());
         NNI.initialize();
@@ -569,5 +571,19 @@ public class jVectorFieldCalculator implements Runnable{
      */
     public void setFilterRadius(float FilterRadius) {
         this.FilterRadius = FilterRadius;
+    }
+
+    /**
+     * @return the Normalise
+     */
+    public boolean isNormalise() {
+        return Normalise;
+    }
+
+    /**
+     * @param Normalise the Normalise to set
+     */
+    public void setNormalise(boolean Normalise) {
+        this.Normalise = Normalise;
     }
 }

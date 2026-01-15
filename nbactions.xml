@@ -15,7 +15,7 @@
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>ndl.coat.VectorAnalysisMDI</exec.mainClass>
                 <exec.executable>java</exec.executable>
-                <exec.workingdir>Z:\NDL\balaji\Netbeans Projects\CoAT</exec.workingdir>
+                <exec.workingdir>E:\Balaji\Java\VectorAnalysis\VectorAnalysis</exec.workingdir>
             </properties>
         </action>
         <action>
@@ -34,7 +34,7 @@
                 <exec.mainClass>ndl.coat.VectorAnalysisMDI</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
-                <exec.workingdir>Z:\NDL\balaji\Netbeans Projects\CoAT</exec.workingdir>
+                <exec.workingdir>E:\Balaji\Java\VectorAnalysis\VectorAnalysis</exec.workingdir>
             </properties>
         </action>
         <action>
@@ -52,7 +52,7 @@
                 <exec.mainClass>ndl.coat.VectorAnalysisMDI</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <exec.appArgs></exec.appArgs>
-                <exec.workingdir>Z:\NDL\balaji\Netbeans Projects\CoAT</exec.workingdir>
+                <exec.workingdir>E:\Balaji\Java\VectorAnalysis\VectorAnalysis</exec.workingdir>
             </properties>
         </action>
     </actions>
