@@ -1935,7 +1935,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         dManager.setXRes(Integer.parseInt(this.xResTxtField.getText()));
         dManager.setYRes(Integer.parseInt(this.yResTxtField.getText()));
         dManager.setDataSep(dataSeparator);
-        dManager.readData(); 
+       // dManager.readData(); 
     }
 
     private void residencemapMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_residencemapMenuItemActionPerformed
@@ -3022,19 +3022,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             OC = (this.usePltCord) ? new JVector(PltX,PltY):new JVector(ocX,ocY);
         }
        // OccCtrs[tCount][gCount] = OC;  ///this is not correct
-        currManager.computeAve(0, OC,true);
+        currManager.computeAve(0, OC,true);                                         ///Velocity as such
         currManager.saveAverage("grp#_"+gCount+"_",true);
 //currManager.computeAve(1, Plt,true);
 // currManager.saveAverage("threadGrp#_comp_Plt"+gCount+"_",false);
 //currManager.computeAve(3,null,true);
-        currManager.computeAve(1, OC,true);
-        currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
         
-        
-        currManager.computeAve(3, null,false);
+        currManager.computeAve(3, null,false);                                      //Residence heat map
         Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
         
-        String velFldrName = currManager.getOutPath()+File.separator+"Ave Velocity";
+        currManager.computeAve(1, OC,true);                                         //Velocity projections
+        currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
+        
+        String velFldrName = currManager.getOutPath()+File.separator+"Ave Velocity";    
         File velFolder =  new File(velFldrName);
         if(!velFolder.exists())
             velFolder.mkdir();
@@ -3088,9 +3088,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         while( fileCount < dataLen){
             var residence = resMaps[fileCount];
-            var OCi = currManager.findOC(xRes, yRes, residence);
+            var OCi = (this.useIndROIjChkBx.isSelected()) ? currManager.findOC(xRes, yRes, residence): OC;
             var curRoi = this.getSampledROI(1, residence);
-            var roi2use = (this.useIndROIjChkBx.isSelected()) ? curRoi: sampledGrpRoi;     //TODO : add an option in GUI
+            var roi2use = (this.useIndROIjChkBx.isSelected()) ? curRoi: sampledGrpRoi;     
             indFName = dataFileNames[fileCount];
             var indexFSep = indFName.lastIndexOf(File.separator);
             indexFSep = indexFSep == -1 ? 0 : indexFSep+1;

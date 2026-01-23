@@ -272,6 +272,7 @@ public class DataManager extends Object implements Runnable,Serializable {
         setTimeData(currData);
         computeAllFields();
         this.setVectorFldsReady(true);
+        //this.newData = false;
     }
     private void computeAllFields(){
         //int dataCounter = 0;
@@ -292,8 +293,8 @@ public class DataManager extends Object implements Runnable,Serializable {
           return;
         for(DataTrace_ver_3 tseries : getTimeData()){
            residenceMaps[fileCounter] = new JHeatMapArray(getXRes(), getYRes());
-           getResidenceMap()[fileCounter].setTimeSeries(tseries);
-           getResidenceMap()[fileCounter].convertTimeSeriestoArray();
+           getResidenceMaps()[fileCounter].setTimeSeries(tseries);
+           getResidenceMaps()[fileCounter].convertTimeSeriestoArray();
            //var hmapArray = residenceMaps[fileCounter].getPixelArray();
            //Enter code for calculating quad(ROI)measure, CM, Individual OCs, and Proximity
 
@@ -329,6 +330,7 @@ public class DataManager extends Object implements Runnable,Serializable {
 //                                +","+velocityField[fileCounter].getSpace().size()+","+velocityField[fileCounter].getVectors().size());
            fileCounter++;
         }
+//    this.newData = false;
     }
     /***
      * 
@@ -344,7 +346,8 @@ public class DataManager extends Object implements Runnable,Serializable {
         boolean timeOut = false;
         long timetowait = 1000; //in milliseconds
         long starttime = System.currentTimeMillis();
-                
+        if (this.newData)      
+            readData();
         while(!this.isVectorFldsReady()&& !timeOut){
              var elapsedTime = System.currentTimeMillis() - starttime;
              timeOut = elapsedTime >= timetowait;
@@ -571,15 +574,15 @@ public class DataManager extends Object implements Runnable,Serializable {
         return this.DataFileNames.size();
     }
 
-    /**
-     * @return the residenceMaps
-     */
-    private JHeatMapArray[] getResidenceMap() {
-        if(!newData)
-            readData();                                             //Not an efficient way to calculate everything for all
-                                                                    //even for a change of single file
-        return getResidenceMaps();
-    }
+//    /**
+//     * @return the residenceMaps
+//     */
+//    private JHeatMapArray[] getResidenceMap() {
+//        if(!newData)
+//            readData();                                             //Not an efficient way to calculate everything for all
+//                                                                    //even for a change of single file
+//        return getResidenceMaps();
+//    }
     /**
      * @return the residenceField
      */

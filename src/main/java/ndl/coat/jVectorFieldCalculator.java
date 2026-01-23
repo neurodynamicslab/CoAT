@@ -10,6 +10,7 @@ import ij.plugin.ZProjector;
 import ij.process.FloatBlitter;
 import ij.process.FloatProcessor;
 import ij.process.ImageProcessor;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.io.File;
 import ndl.ndllib.ImageDifferentials;
@@ -488,13 +489,13 @@ public class jVectorFieldCalculator implements Runnable{
                 getFit().setSelectPixels(true);
             }
             ImagePlus surfaceOut;
-            if(true/*intrapolate by poly*/){
-                surfaceOut = (this.isUseNNI())?this.getNNISurface(converImg,  sampledRoi):this.getSurface(getPolyX()-1, getPolyY()-1, converImg, sampledRoi);
+            if(!isUseNNI()/*intrapolate by poly*/){
+                surfaceOut = /*= (this.isUseNNI())? this.getNNISurface(converImg,  sampledRoi):*/this.getSurface(getPolyX()-1, getPolyY()-1, converImg, sampledRoi);
             }else{
                 surfaceOut = new ImagePlus();
                 //converImg.setRoi(sampledRoi);
-                converImg.setBackgroundValue(0);
-                converImg.fillOutside(sampledRoi);
+                //converImg.setBackgroundValue(0);
+                //converImg.fillOutside(sampledRoi);
                
                // converImg.blurGaussian(20);
                 surfaceOut.setProcessor(converImg);                
@@ -511,7 +512,8 @@ public class jVectorFieldCalculator implements Runnable{
                 }else{
                     rect = surfaceOut.getRoi().getBounds();
                 }
-                Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);
+                
+                Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);           //better to use convex hull
             }else{
                 int xCtr = this.getxPoolCtrjFormFld();
                 int yCtr = this.getyPoolCtrjFormFld();
