@@ -40,6 +40,13 @@ public class jVectorFieldCalculator implements Runnable{
     }
 
     private boolean useNNI = true;
+    private int minAng = 2;
+    public void setminAng(int ang){
+        this.minAng  = ang;
+    }
+    public int getminAng(){
+        return minAng;
+    }
 
     /**
      * @return the toSave
@@ -416,7 +423,7 @@ public class jVectorFieldCalculator implements Runnable{
        // NNI.setRoi(selection);
         
         //NNI.setMask((ByteProcessor) selection.getMask());
-        
+        NNI.setminAng(minAng);
         NNI.setFILTER(getFilterType());
         NNI.setNormalise(isNormalise());
         NNI.setBlurRad(getFilterRadius());

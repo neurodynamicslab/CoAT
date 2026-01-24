@@ -33,6 +33,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -148,6 +149,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         compJRadGrp = new javax.swing.ButtonGroup();
         vectJChkBx = new javax.swing.ButtonGroup();
         FilterJChkBxGrp = new javax.swing.ButtonGroup();
+        InterpolationGroup = new javax.swing.ButtonGroup();
         jScrollPane4 = new javax.swing.JScrollPane();
         DeskTopPanel = new javax.swing.JPanel();
         InfoTab = new javax.swing.JTabbedPane();
@@ -258,6 +260,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         OrtoJRadBtn = new javax.swing.JRadioButton();
         usePltCordChkBx2 = new javax.swing.JCheckBox();
         useIndROIjChkBx = new javax.swing.JCheckBox();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox4 = new javax.swing.JCheckBox();
+        jFmtTextFieldminAng = new javax.swing.JFormattedTextField();
+        jLabel30 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -326,7 +332,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         setMinimumSize(new java.awt.Dimension(600, 500));
         setName("Frame"); // NOI18N
         setSize(new java.awt.Dimension(1275, 775));
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
+        layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        getContentPane().setLayout(layout);
 
         jScrollPane4.setAutoscrolls(true);
         jScrollPane4.setMinimumSize(new java.awt.Dimension(740, 720));
@@ -334,7 +343,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         DeskTopPanel.setMinimumSize(new java.awt.Dimension(760, 760));
         DeskTopPanel.setPreferredSize(new java.awt.Dimension(760, 760));
-        DeskTopPanel.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridBagLayout DeskTopPanelLayout = new java.awt.GridBagLayout();
+        DeskTopPanelLayout.columnWidths = new int[] {0};
+        DeskTopPanelLayout.rowHeights = new int[] {0};
+        DeskTopPanel.setLayout(DeskTopPanelLayout);
 
         InfoTab.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         InfoTab.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -926,9 +938,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         InfoTab.addTab("Design Tree", AnalysisDesign_jPanel);
 
+        AnalysisSettingTabPanel.setAutoscrolls(true);
         AnalysisSettingTabPanel.setMinimumSize(new java.awt.Dimension(710, 570));
         AnalysisSettingTabPanel.setPreferredSize(new java.awt.Dimension(732, 900));
-        AnalysisSettingTabPanel.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagLayout AnalysisSettingTabPanelLayout = new java.awt.GridBagLayout();
+        AnalysisSettingTabPanelLayout.columnWidths = new int[] {0, 11, 0, 11, 0, 11, 0, 11, 0, 11, 0};
+        AnalysisSettingTabPanelLayout.rowHeights = new int[] {0, 7, 0, 7, 0, 7, 0};
+        AnalysisSettingTabPanel.setLayout(AnalysisSettingTabPanelLayout);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pre Processing", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
@@ -1043,7 +1059,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         AnalysisSettingTabPanel.add(jPanel2, gridBagConstraints);
 
@@ -1058,7 +1074,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.gridwidth = 15;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel3.add(autoPoolRoijChkBx, gridBagConstraints);
@@ -1067,6 +1083,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel3.add(jLabel18, gridBagConstraints);
@@ -1077,7 +1094,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         xPoolCtrjFormFld.setMinimumSize(new java.awt.Dimension(60, 25));
         xPoolCtrjFormFld.setPreferredSize(new java.awt.Dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -1086,8 +1103,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jLabel19.setText("y Ctr");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 14;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel3.add(jLabel19, gridBagConstraints);
@@ -1098,17 +1116,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         yPoolCtrjFormFld.setMinimumSize(new java.awt.Dimension(20, 20));
         yPoolCtrjFormFld.setPreferredSize(new java.awt.Dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel3.add(yPoolCtrjFormFld, gridBagConstraints);
 
         jLabel20.setText("Radius");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel3.add(jLabel20, gridBagConstraints);
@@ -1118,17 +1137,19 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         poolRadjFormFld.setText("0");
         poolRadjFormFld.setPreferredSize(new java.awt.Dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.1;
         jPanel3.add(poolRadjFormFld, gridBagConstraints);
 
         jCheckBox3.setText("Save magnitude of velocity Vs Radial diststance");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 39;
+        gridBagConstraints.gridwidth = 18;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel3.add(jCheckBox3, gridBagConstraints);
@@ -1137,89 +1158,92 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.gridwidth = 15;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel3.add(saveVelocityjchkBx, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         AnalysisSettingTabPanel.add(jPanel3, gridBagConstraints);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Surface Fit Setting", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        jPanel4.setLayout(new java.awt.GridBagLayout());
+        jPanel4.setAutoscrolls(true);
+        java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
+        jPanel4Layout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        jPanel4Layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        jPanel4.setLayout(jPanel4Layout);
 
         jLabel16.setText("Order of fit for the x (horizontal axis)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 15;
-        gridBagConstraints.ipadx = 54;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(66, 12, 0, 0);
         jPanel4.add(jLabel16, gridBagConstraints);
 
         x_polyOrderJCmbBx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         x_polyOrderJCmbBx.setSelectedIndex(4);
         x_polyOrderJCmbBx.setToolTipText("Determines the degree of the polynomial to be used in surface fit generation. ");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 15;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 32;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(63, 6, 0, 11);
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 12);
         jPanel4.add(x_polyOrderJCmbBx, gridBagConstraints);
 
         jLabel17.setText("Order of fit for the y (vertical axis)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 15;
-        gridBagConstraints.ipadx = 69;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(29, 12, 0, 0);
         jPanel4.add(jLabel17, gridBagConstraints);
 
         y_polyOrderJCmbBx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         y_polyOrderJCmbBx.setSelectedIndex(4);
         y_polyOrderJCmbBx.setToolTipText("Determines the degree of the polynomial to be used in surface fit generation. ");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 15;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 32;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(26, 6, 0, 11);
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 12);
         jPanel4.add(y_polyOrderJCmbBx, gridBagConstraints);
 
         genVeljChkBx1.setText("Use Velocity as is");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(6, 11, 0, 0);
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         jPanel4.add(genVeljChkBx1, gridBagConstraints);
 
         genAccjChkBx.setSelected(true);
         genAccjChkBx.setText("Generate Accelaration Surfaces");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 14;
         gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
         jPanel4.add(genAccjChkBx, gridBagConstraints);
 
         useSeljChBx.setSelected(true);
         useSeljChBx.setText(" Use Selection( Only use the region that is sampled)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 31;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
         jPanel4.add(useSeljChBx, gridBagConstraints);
 
         res2SeljChkBx.setSelected(true);
@@ -1232,29 +1256,28 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 16;
+        gridBagConstraints.gridy = 18;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
         jPanel4.add(res2SeljChkBx, gridBagConstraints);
 
         genConvJChkBx.setSelected(true);
         genConvJChkBx.setText("Generate Convergence Image");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridy = 20;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 0);
         jPanel4.add(genConvJChkBx, gridBagConstraints);
 
         genDivjChkBx.setText("Generate Divergence Image");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 22;
+        gridBagConstraints.gridwidth = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
         jPanel4.add(genDivjChkBx, gridBagConstraints);
 
         vectJChkBx.add(CompforVectorFldjChkBx2);
@@ -1262,10 +1285,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         CompforVectorFldjChkBx2.setText("Use Components for Convergence");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 10;
+        gridBagConstraints.gridy = 24;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
         jPanel4.add(CompforVectorFldjChkBx2, gridBagConstraints);
 
         compJRadGrp.add(AlongJRadBtn);
@@ -1273,45 +1296,82 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         AlongJRadBtn.setText("Along ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.gridy = 26;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 41, 17, 0);
         jPanel4.add(AlongJRadBtn, gridBagConstraints);
 
         compJRadGrp.add(OrtoJRadBtn);
         OrtoJRadBtn.setText("Ortogonal");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 11;
-        gridBagConstraints.ipadx = 21;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 26;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 6, 17, 0);
         jPanel4.add(OrtoJRadBtn, gridBagConstraints);
 
         usePltCordChkBx2.setText("Use Platform Cord ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 11, 0, 0);
         jPanel4.add(usePltCordChkBx2, gridBagConstraints);
 
         useIndROIjChkBx.setText("Use Indvidual ROI");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(6, 11, 0, 0);
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel4.add(useIndROIjChkBx, gridBagConstraints);
 
+        InterpolationGroup.add(jCheckBox1);
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("Use Natural Neighbour");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel4.add(jCheckBox1, gridBagConstraints);
+
+        InterpolationGroup.add(jCheckBox4);
+        jCheckBox4.setText("Use polynomial");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel4.add(jCheckBox4, gridBagConstraints);
+
+        jFmtTextFieldminAng.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jFmtTextFieldminAng.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFmtTextFieldminAng.setText("2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        jPanel4.add(jFmtTextFieldminAng, gridBagConstraints);
+
+        jLabel30.setText("Minimum angle (deg)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel4.add(jLabel30, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 11);
         AnalysisSettingTabPanel.add(jPanel4, gridBagConstraints);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filter Settings"));
@@ -1333,6 +1393,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jPanel1.add(jLabel15, gridBagConstraints);
 
         FilterJChkBxGrp.add(gaussjChkBx);
+        gaussjChkBx.setSelected(true);
         gaussjChkBx.setText("Use Gaussian ");
         gaussjChkBx.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -1346,7 +1407,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jPanel1.add(gaussjChkBx, gridBagConstraints);
 
         FilterJChkBxGrp.add(noFiltjChkBx1);
-        noFiltjChkBx1.setSelected(true);
         noFiltjChkBx1.setText("No Filter");
         noFiltjChkBx1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -1423,12 +1483,18 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         AnalysisSettingTabPanel.add(jPanel1, gridBagConstraints);
 
         InfoTab.addTab("Analysis Setting", AnalysisSettingTabPanel);
 
-        DeskTopPanel.add(InfoTab);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 103;
+        DeskTopPanel.add(InfoTab, gridBagConstraints);
 
         jScrollPane4.setViewportView(DeskTopPanel);
         DeskTopPanel.getAccessibleContext().setAccessibleName("");
@@ -1438,6 +1504,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 0.5;
@@ -1662,10 +1729,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jScrollPaneProgImgDisp.setViewportView(ProgImgDispParent);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 0.75;
@@ -1690,9 +1756,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 13;
+        gridBagConstraints.gridheight = 9;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         getContentPane().add(statMssgScrollPane, gridBagConstraints);
@@ -1828,7 +1894,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         setJMenuBar(menuBar);
 
-        setBounds(0, 0, 1416, 1013);
+        setBounds(0, 0, 1456, 1013);
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
@@ -2158,7 +2224,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         //Reading parameters and populate design tree
         String basePath = (test)? "Z:\\NDL\\balaji\\ishat\\Test data from\\Set 5\\Day7_Trajectories" 
-                                : this.jFormatTxt_rootFolder.getText();  
+                                : this.jFormatTxt_rootFolder.getText();
         setting =  new File(basePath+File.separator+ "settings.txt");
         this.logFile    = new File(basePath + File.separator+ "log.txt");
         
@@ -3262,6 +3328,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         calculator.setPathName(pathName);
         calculator.setFileSeparator(File.separator);
         calculator.setNormalise(this.useRelVelJChkBx.isSelected());
+        calculator.setminAng(Integer.parseInt(this.jFmtTextFieldminAng.getText()));
         if(this.noFiltjChkBx1.isSelected())
             calculator.setFilterType(-1);
         else{
@@ -3417,6 +3484,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JPanel ImageDispPanel;
     private javax.swing.JMenuItem ImportMenuItem;
     private javax.swing.JTabbedPane InfoTab;
+    private javax.swing.ButtonGroup InterpolationGroup;
     private javax.swing.JButton OpenFileAssignmentsButton;
     private javax.swing.JRadioButton OrtoJRadBtn;
     private javax.swing.JFormattedTextField PlatXjFtTxt;
@@ -3466,10 +3534,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JButton jButtonBrowseRoot;
     private javax.swing.JButton jButtonFileAssignRest;
     private javax.swing.JButton jButtonRemoveAssignments;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jChkBxAssym;
     private javax.swing.JComboBox<String> jCombo_dataSeparator;
+    private javax.swing.JFormattedTextField jFmtTextFieldminAng;
     private javax.swing.JFormattedTextField jFmtTxtFldRadX;
     private javax.swing.JFormattedTextField jFmtTxtFldRadY;
     private javax.swing.JMenuItem jFolderOptions;
@@ -3499,6 +3570,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
