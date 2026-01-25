@@ -1343,7 +1343,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         jFmtTextFieldminAng.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jFmtTextFieldminAng.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFmtTextFieldminAng.setText("10");
+        jFmtTextFieldminAng.setText("2");
         jFmtTextFieldminAng.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFmtTextFieldminAngActionPerformed(evt);

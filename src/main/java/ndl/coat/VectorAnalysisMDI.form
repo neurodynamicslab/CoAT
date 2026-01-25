@@ -4864,7 +4864,7 @@
                               <Format format="#0" subtype="-1" type="0"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="4"/>
-                            <Property name="text" type="java.lang.String" value="10"/>
+                            <Property name="text" type="java.lang.String" value="2"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFmtTextFieldminAngActionPerformed"/>

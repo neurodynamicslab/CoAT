@@ -356,10 +356,11 @@ public class jVectorFieldCalculator implements Runnable{
                 LThld = Float.NEGATIVE_INFINITY;
                 HThld = 0;
                 ImageProcessor ConvIP = finalVelImg.getProcessor().duplicate();
-
+               
                 ConvIP.setThreshold(LThld, HThld);
                 var mask = ConvIP.createMask();
-                mask.add(-254);
+                //mask.add(-254);
+                mask.and(1);
 
                 FloatBlitter fb = new FloatBlitter((FloatProcessor)ConvIP);
                 fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
@@ -497,7 +498,7 @@ public class jVectorFieldCalculator implements Runnable{
             }
             ImagePlus surfaceOut;
             if(!isUseNNI()/*intrapolate by poly*/){
-                surfaceOut = /*= (this.isUseNNI())? this.getNNISurface(converImg,  sampledRoi):*/this.getSurface(getPolyX()-1, getPolyY()-1, converImg, sampledRoi);
+                surfaceOut = this.getSurface(getPolyX()-1, getPolyY()-1, converImg, sampledRoi);
             }else{
                 surfaceOut = new ImagePlus();
                 //converImg.setRoi(sampledRoi);
