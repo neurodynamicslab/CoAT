@@ -396,7 +396,8 @@ public class DataManager extends Object implements Runnable,Serializable {
                     if(!velFld.isProjectionStatus()){
                          velFld.setUseTan2(useTan2Prj);
                          accelerationField[Idx].setUseTan2(useTan2Prj);
-                         prjFld = velFld.getProjections2point(Vector,true);                         
+                         prjFld = velFld.getProjections2point(Vector,true); 
+                         System.out.println("aveFld is projected to :"+Vector.getComponent(0) + " " + Vector.getComponent(1));
                          accFldPrj = accelerationField[Idx].getProjections2point(Vector,true);
                     }else{
                         prjFld = velFld.getProjection();
@@ -411,10 +412,10 @@ public class DataManager extends Object implements Runnable,Serializable {
                      if(this.isUseRelativeVelocity()){
                         if(!scaledFldvel.isChkMinMaxandAdd())
                             scaledFldvel.setChkMinMaxandAdd(true);
-                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,1);
+                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,0);
                         if(!scaledAcc.isChkMinMaxandAdd())
                             scaledAcc.setChkMinMaxandAdd(true);
-                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,1);
+                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
                     }
                     
                     
@@ -455,10 +456,10 @@ public class DataManager extends Object implements Runnable,Serializable {
                     if(this.isUseRelativeVelocity()){
                         if(!scaledFldvel.isChkMinMaxandAdd())
                             scaledFldvel.setChkMinMaxandAdd(true);
-                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,1);
+                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,0);
                         if(!scaledAcc.isChkMinMaxandAdd())
                             scaledAcc.setChkMinMaxandAdd(true);
-                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,1);
+                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
                     }
                     
                     getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
@@ -466,9 +467,10 @@ public class DataManager extends Object implements Runnable,Serializable {
                 }               
                 break;
             default: //Calculate only the average residence map
-                aveResMap.getTimeSeries().clear();
+                getAveResMap().getTimeSeries().clear();
                 for(var resFld : this.getResidenceMaps())
                     getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
+                getAveResMap().convertTimeSeriestoArray();
                 break;
         }       
         setAveReady(true);
@@ -726,6 +728,7 @@ public class DataManager extends Object implements Runnable,Serializable {
             //this.ocXjFtTxt2.setText(""+xOC);
             //this.ocYjFtTxt3.setText(""+yOC);
         }
+        System.out.println("OC is determined as :"+xOC + " " + yOC);
         return new JVector(xOC,yOC);
     }
 

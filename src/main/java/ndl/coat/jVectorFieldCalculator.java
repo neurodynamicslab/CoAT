@@ -320,9 +320,16 @@ public class jVectorFieldCalculator implements Runnable{
    
     vecSurface[0].setRoi(getSampledRoi());
     vecSurface[1].setRoi(getSampledRoi());
-    
-    vecxS.insert(this.getDifferentials(vecSurface[0].crop(), false).getProcessor(),x,y);
-    vecyS.insert(this.getDifferentials(vecSurface[1].crop(), true).getProcessor(),x,y);
+    var tmpSx = this.getDifferentials(vecSurface[0].crop(), false).getProcessor();
+    var tmpSy = this.getDifferentials(vecSurface[1].crop(), true).getProcessor();
+    if(/*isUseNNI() ||*/ false){
+        tmpSx.blurGaussian(this.getFilterRadius());
+        //tmpSx = getNNISurface(tmpSx,this.getSampledRoi()).getProcessor();
+        tmpSy.blurGaussian(this.getFilterRadius());
+        //tmpSy = getNNISurface (tmpSy,this.getSampledRoi()).getProcessor();
+    }
+    vecxS.insert(tmpSx.crop()/*this.getDifferentials(vecSurface[0].crop(), false).getProcessor()*/,x,y);
+    vecyS.insert(tmpSy.crop()/*this.getDifferentials(vecSurface[1].crop(), true).getProcessor()*/,x,y);
     
 
     diffVel.setProcessor(vecxS, 1);

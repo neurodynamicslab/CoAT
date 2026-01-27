@@ -3089,7 +3089,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
 
         
         JVector OC ;
-        if(this.estimateOC){
+        if(this.autoEstOC.isSelected()){
             OC = currManager.findOC(xRes, yRes);                    ///OC is that of Ave map ???
             this.ocXjFtTxt2.setText(""+OC.getComponent(0));
             this.ocYjFtTxt3.setText(""+OC.getComponent(1));
@@ -3161,7 +3161,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //String resultPath = vFolder.getAbsolutePath();
         //JVectorSpace vField, acField;
         String indFName ;
-        
+        boolean resiNorm = true;
         while( fileCount < dataLen){
             var residence = resMaps[fileCount];
             var OCi = (this.useIndROIjChkBx.isSelected()) ? currManager.findOC(xRes, yRes, residence): OC;
@@ -3175,11 +3175,24 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             indexExt = indexExt == -1 ? indFName.length() : indexExt;
             indFName = indFName.substring(0,indexExt);
             
-            var vFieldNorm = VecField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
+            var vFieldNorm = (resiNorm)?   VecField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray()) :
+                                                        VecField[fileCount].getProjections2point(OCi, true);
             var accFieldNorm = AccField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
             
-            calculateVectorFldProperties(vFieldNorm,roi2use,true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
-            calculateVectorFldProperties(accFieldNorm,roi2use,true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
+            var scaledFldvel = vFieldNorm;
+            var scaledAcc = accFieldNorm;
+            if(this.useRelVelJChkBx.isSelected()){
+                        if(!scaledFldvel.isChkMinMaxandAdd())
+                            scaledFldvel.setChkMinMaxandAdd(true);
+                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,0);
+                        if(!scaledAcc.isChkMinMaxandAdd())
+                            scaledAcc.setChkMinMaxandAdd(true);
+                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
+                    }
+           
+            
+            calculateVectorFldProperties(scaledFldvel/*vFieldNorm*/,roi2use,true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
+            calculateVectorFldProperties(scaledAcc/*accFieldNorm*/,roi2use,true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
             /****Add Code for heat map generation
             
             */
