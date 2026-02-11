@@ -26,6 +26,22 @@ import ndl.ndllib.SurfaceFit;
 public class jVectorFieldCalculator implements Runnable{
 
     /**
+     * @return the interpoltateConver
+     */
+    public boolean isInterpoltateConver() {
+        return interpoltateConver;
+    }
+
+    /**
+     * @param interpoltateConver the interpoltateConver to set
+     */
+    public void setInterpoltateConver(boolean interpoltateConver) {
+        this.interpoltateConver = interpoltateConver;
+    }
+
+    private boolean interpoltateConver;
+
+    /**
      * @return the useNNI
      */
     public boolean isUseNNI() {
@@ -507,7 +523,8 @@ public class jVectorFieldCalculator implements Runnable{
             if(!isUseNNI()/*intrapolate by poly*/){
                 surfaceOut = this.getSurface(getPolyX()-1, getPolyY()-1, converImg, sampledRoi);
             }else{
-                surfaceOut = new ImagePlus();
+                
+                surfaceOut =  (isInterpoltateConver() )   ? this.getNNISurface(converImg, sampledRoi) :new ImagePlus();
                 //converImg.setRoi(sampledRoi);
                 //converImg.setBackgroundValue(0);
                 //converImg.fillOutside(sampledRoi);

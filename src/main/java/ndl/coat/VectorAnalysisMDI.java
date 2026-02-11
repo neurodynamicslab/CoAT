@@ -3309,13 +3309,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         if(AlongJRadBtn.isSelected()){
                             var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, true));
                             var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,true));
-                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along","Cmp_"+label);
-                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along","Cmp_"+label_acc);
+                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along Raw","Cmp_"+label);
+                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along Raw","Cmp_"+label_acc);
                         }else{
                             var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, false));
                             var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,false));
-                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Ortho","Cmp_"+label);
-                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Ortho","Cmp_"+label_acc);
+                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Ortho Raw","Cmp_"+label);
+                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Ortho Raw","Cmp_"+label_acc);
                         }
                     }
                     dataCount++;
@@ -3344,6 +3344,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         
         System.out.println("Entering field calc...");
         jVectorFieldCalculator calculator = new jVectorFieldCalculator();
+        
         calculator.setVecFld(VecFld);
         calculator.setPolyX(x_polyOrderJCmbBx.getSelectedIndex()+1);
         calculator.setPolyY(y_polyOrderJCmbBx.getSelectedIndex()+1);
@@ -3352,8 +3353,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         calculator.setFileSeparator(File.separator);
         calculator.setNormalise(this.useRelVelJChkBx.isSelected());
         calculator.setminAng(Integer.parseInt(this.jFmtTextFieldminAng.getText()));
-        if(this.noFiltjChkBx1.isSelected())
+        if(this.noFiltjChkBx1.isSelected()){
             calculator.setFilterType(-1);
+            //calculator.setInterpoltateConver(true);                 //temporary fix later we need to set it thru GUI
+        }
         else{
             float rad = Float.parseFloat(this.gauRadjFormFld.getText());
             calculator.setFilterRadius(rad);
