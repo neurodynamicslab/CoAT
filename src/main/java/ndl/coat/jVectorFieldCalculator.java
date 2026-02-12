@@ -452,6 +452,7 @@ public class jVectorFieldCalculator implements Runnable{
         NNI.setNormalise(isNormalise());
         NNI.setBlurRad(getFilterRadius());
         NNI.setPath(getFldrName()+getSuffix());
+        NNI.setGrandSel(selection);
         NNI.initialize();
         NNISurf = NNI.getSurface();
         

@@ -260,8 +260,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         OrtoJRadBtn = new javax.swing.JRadioButton();
         usePltCordChkBx2 = new javax.swing.JCheckBox();
         useIndROIjChkBx = new javax.swing.JCheckBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        jChkBoxuseNNI = new javax.swing.JCheckBox();
+        jChkBoxUnsePoly = new javax.swing.JCheckBox();
         jFmtTextFieldminAng = new javax.swing.JFormattedTextField();
         jLabel30 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -1322,24 +1322,24 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel4.add(useIndROIjChkBx, gridBagConstraints);
 
-        InterpolationGroup.add(jCheckBox1);
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Use Natural Neighbour");
+        InterpolationGroup.add(jChkBoxuseNNI);
+        jChkBoxuseNNI.setSelected(true);
+        jChkBoxuseNNI.setText("Use Natural Neighbour");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel4.add(jCheckBox1, gridBagConstraints);
+        jPanel4.add(jChkBoxuseNNI, gridBagConstraints);
 
-        InterpolationGroup.add(jCheckBox4);
-        jCheckBox4.setText("Use polynomial");
+        InterpolationGroup.add(jChkBoxUnsePoly);
+        jChkBoxUnsePoly.setText("Use polynomial");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel4.add(jCheckBox4, gridBagConstraints);
+        jPanel4.add(jChkBoxUnsePoly, gridBagConstraints);
 
         jFmtTextFieldminAng.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jFmtTextFieldminAng.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -3353,6 +3353,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         calculator.setFileSeparator(File.separator);
         calculator.setNormalise(this.useRelVelJChkBx.isSelected());
         calculator.setminAng(Integer.parseInt(this.jFmtTextFieldminAng.getText()));
+        calculator.setUseNNI(this.jChkBoxuseNNI.isSelected());
         if(this.noFiltjChkBx1.isSelected()){
             calculator.setFilterType(-1);
             //calculator.setInterpoltateConver(true);                 //temporary fix later we need to set it thru GUI
@@ -3560,10 +3561,10 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JButton jButtonBrowseRoot;
     private javax.swing.JButton jButtonFileAssignRest;
     private javax.swing.JButton jButtonRemoveAssignments;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JCheckBox jChkBoxUnsePoly;
+    private javax.swing.JCheckBox jChkBoxuseNNI;
     private javax.swing.JCheckBox jChkBxAssym;
     private javax.swing.JComboBox<String> jCombo_dataSeparator;
     private javax.swing.JFormattedTextField jFmtTextFieldminAng;

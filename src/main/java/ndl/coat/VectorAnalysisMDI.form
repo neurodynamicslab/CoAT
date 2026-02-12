@@ -4831,7 +4831,7 @@
                             </Constraint>
                           </Constraints>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+                        <Component class="javax.swing.JCheckBox" name="jChkBoxuseNNI">
                           <Properties>
                             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                               <ComponentRef name="InterpolationGroup"/>
@@ -4845,7 +4845,7 @@
                             </Constraint>
                           </Constraints>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBox4">
+                        <Component class="javax.swing.JCheckBox" name="jChkBoxUnsePoly">
                           <Properties>
                             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                               <ComponentRef name="InterpolationGroup"/>
@@ -6312,11 +6312,11 @@
                             <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                           </StatementProvider>
                           <Parameters>
-                            <CodeExpression id="326_jCheckBox1">
-                              <CodeVariable name="jCheckBox1" type="8194" declaredType="javax.swing.JCheckBox"/>
+                            <CodeExpression id="326_jChkBoxuseNNI">
+                              <CodeVariable name="jChkBoxuseNNI" type="8194" declaredType="javax.swing.JCheckBox"/>
                               <ExpressionOrigin>
                                 <ExpressionProvider type="ComponentRef">
-                                  <ComponentRef name="jCheckBox1"/>
+                                  <ComponentRef name="jChkBoxuseNNI"/>
                                 </ExpressionProvider>
                               </ExpressionOrigin>
                             </CodeExpression>
@@ -6394,11 +6394,11 @@
                             <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                           </StatementProvider>
                           <Parameters>
-                            <CodeExpression id="332_jCheckBox4">
-                              <CodeVariable name="jCheckBox4" type="8194" declaredType="javax.swing.JCheckBox"/>
+                            <CodeExpression id="332_jChkBoxUnsePoly">
+                              <CodeVariable name="jChkBoxUnsePoly" type="8194" declaredType="javax.swing.JCheckBox"/>
                               <ExpressionOrigin>
                                 <ExpressionProvider type="ComponentRef">
-                                  <ComponentRef name="jCheckBox4"/>
+                                  <ComponentRef name="jChkBoxUnsePoly"/>
                                 </ExpressionProvider>
                               </ExpressionOrigin>
                             </CodeExpression>
