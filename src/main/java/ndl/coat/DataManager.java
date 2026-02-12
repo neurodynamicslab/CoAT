@@ -363,7 +363,7 @@ public class DataManager extends Object implements Runnable,Serializable {
         if( aveResMap == null) aveResMap =  new JHeatMapArray(XRes,YRes);
         if( aveVelFld == null) aveVelFld = new JVectorSpace(XRes,YRes);
         if( aveAccFld == null) aveAccFld = new JVectorSpace(XRes,YRes);
-        int Idx = 0;
+        int Idx ;
         JVectorSpace prjFld,accFldPrj;
         switch(choice){
             
@@ -391,6 +391,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                 getAveAccFld().getSpace().clear();
                 getAveAccFld().getVectors().clear();
                 //int dataCounter = 0;
+                Idx = 0;
                 for(var velFld : this.velocityField){
                     
                     if(!velFld.isProjectionStatus()){
@@ -435,6 +436,7 @@ public class DataManager extends Object implements Runnable,Serializable {
                 getAveAccFld().getSpace().clear();
                 getAveAccFld().getVectors().clear();
                 //int dataCounter = 0;
+                Idx = 0;
                 for(var velFld : this.velocityField){
                     if(!velFld.isProjectionStatus()){
                          velFld.setUseTan2(useTan2Prj);

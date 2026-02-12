@@ -3081,7 +3081,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         }
 
         if(timeLapsed){
-            setStatusMessage("Timed Out waiting for calculating averages..."+"\n");
+            setStatusMessage("Timed out waiting for calculating averages..."+"\n");
             setStatusMessage("Exiting the calculations.."+"\n");
             this.RunGrp_Button.setEnabled(true);
             return ;
@@ -3196,7 +3196,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             /****Add Code for heat map generation
             
             */
-            var hMap = (JHeatMapArray)residence;
+            JHeatMapArray hMap = (JHeatMapArray)residence;
             JVectorCmpImg resImg = new JVectorCmpImg(xRes,yRes,1);
             resImg.addScalar(hMap);
             resImg.saveImages(hFolder.getAbsolutePath(), "hMap_T#"+tCount+"G#_"+gCount+indFName);
