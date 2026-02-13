@@ -437,6 +437,29 @@ public class jVectorFieldCalculator implements Runnable{
        return surfaces;
     }
     private ImagePlus getNNISurface(ImageProcessor ip, Roi selection){
+        
+            OvalRoi Pool;
+            Roi sampled = getSampledRoi();
+   
+            if(this.isAuotGenPool()){                                   //Check for pool roi or parameters
+                Rectangle rect;
+                if(sampled != null){
+                    rect = sampled.getBounds();
+                    var s = getFilterRadius();
+                    rect.grow((int)s,(int)s);
+                    
+                }else{
+                    rect = ip.getRoi().getBounds();
+                }
+                
+                Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);           //better to use convex hull
+            }else{
+                int xCtr = this.getxPoolCtrjFormFld();
+                int yCtr = this.getyPoolCtrjFormFld();
+                int dia = 2 * this.getPoolRadjFormFld();
+                Pool = new OvalRoi(xCtr,yCtr,dia,dia);
+            }
+        
         ImagePlus NNIin = new ImagePlus();
         ImagePlus NNISurf;
         
@@ -452,7 +475,7 @@ public class jVectorFieldCalculator implements Runnable{
         NNI.setNormalise(isNormalise());
         NNI.setBlurRad(getFilterRadius());
         NNI.setPath(getFldrName()+getSuffix());
-        NNI.setGrandSel(selection);
+        NNI.setGrandSel(Pool);
         NNI.initialize();
         NNISurf = NNI.getSurface();
         
