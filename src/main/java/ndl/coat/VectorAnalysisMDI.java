@@ -3175,9 +3175,23 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             indexExt = indexExt == -1 ? indFName.length() : indexExt;
             indFName = indFName.substring(0,indexExt);
             
-            var vFieldNorm = (resiNorm)?   VecField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray()) :
-                                                        VecField[fileCount].getProjections2point(OCi, true);
-            var accFieldNorm = AccField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
+//            var vFieldNorm = (resiNorm)?   VecField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray()) :
+//                                                        VecField[fileCount].getProjections2point(OCi, true);
+//            var accFieldNorm = AccField[fileCount].getProjections2point(OCi, true).normaliseVectors(residence.getPixelArray());
+//            
+//            var scaledFldvel = vFieldNorm;
+//            var scaledAcc = accFieldNorm;
+//            if(this.useRelVelJChkBx.isSelected()){
+//                        if(!scaledFldvel.isChkMinMaxandAdd())
+//                            scaledFldvel.setChkMinMaxandAdd(true);
+//                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,0);
+//                        if(!scaledAcc.isChkMinMaxandAdd())
+//                            scaledAcc.setChkMinMaxandAdd(true);
+//                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
+//                    }
+            var vFieldNorm = /*(resiNorm)?*/   VecField[fileCount].normaliseVectors(residence.getPixelArray());// :
+                                                       // VecField[fileCount];//.getProjections2point(OCi, true);
+            var accFieldNorm = AccField[fileCount].normaliseVectors(residence.getPixelArray());
             
             var scaledFldvel = vFieldNorm;
             var scaledAcc = accFieldNorm;
@@ -3189,7 +3203,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             scaledAcc.setChkMinMaxandAdd(true);
                         scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
                     }
-           
+            scaledFldvel = scaledFldvel.getProjections2point(OCi, true);
+            scaledAcc = scaledAcc.getProjections2point(OCi, true);
             
             calculateVectorFldProperties(scaledFldvel/*vFieldNorm*/,roi2use,true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
             calculateVectorFldProperties(scaledAcc/*accFieldNorm*/,roi2use,true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
