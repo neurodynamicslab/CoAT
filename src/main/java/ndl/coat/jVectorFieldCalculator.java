@@ -7,6 +7,7 @@ import ij.gui.OvalRoi;
 import ij.gui.Roi;
 import ij.io.FileSaver;
 import ij.plugin.ZProjector;
+import ij.process.ByteProcessor;
 import ij.process.FloatBlitter;
 import ij.process.FloatProcessor;
 import ij.process.ImageProcessor;
@@ -57,6 +58,7 @@ public class jVectorFieldCalculator implements Runnable{
 
     private boolean useNNI = true;
     private int minAng = 2;
+    private boolean DEBUG = false;
     public void setminAng(int ang){
         this.minAng  = ang;
     }
@@ -312,10 +314,10 @@ public class jVectorFieldCalculator implements Runnable{
 /* Make sure to pass a preset fit object */
         ImagePlus[] vecSurface = getSurfaces(polyXOrder,polyYOrder, getVecFld(), getSampledRoi());
         int count  = 0;
-        if(isToSave()){
+        if(DEBUG){
             for(ImagePlus imp : vecSurface){
                 FileSaver fs  = new FileSaver(imp);
-                fs.saveAsTiff(getFldrName()+getSuffix() +"_VectorSurface"+"Comp_#"+count++);
+                fs.saveAsTiff(getFldrName()+getSuffix() +"_VectorSurface"+"Comp_#"+count++);                                    //Saving the vector surface component by component
             }
         }
 
@@ -357,13 +359,16 @@ public class jVectorFieldCalculator implements Runnable{
     projector.setMethod(ZProjector.SUM_METHOD);
     projector.setImage(Projections);
     projector.doProjection();
-    ImagePlus velProjections = projector.getProjection();
+    ImagePlus velProjections = projector.getProjection();           //This is the divergence image by defnition. Needs to rename
 
    
     var img = new ImagePlus("VelCon");
     img.setStack(diffVel);
-    var fs = new FileSaver(img);
-    fs.saveAsTiff(getFldrName()+getSuffix()+"_Divergence_diffVel");
+    if (DEBUG) {
+        var fs = new FileSaver(img);
+        fs.saveAsTiff(getFldrName()+getSuffix()+"_Divergence_diffVel");
+    }
+    velProjections.getProcessor().multiply(-1);
     var velProj = new FileSaver(velProjections);
     velProj.saveAsTiff(getFldrName()+getSuffix()+"_Convergence_vel");
     
@@ -375,41 +380,43 @@ public class jVectorFieldCalculator implements Runnable{
            // fs.saveAsTiff(getFldrName()+getSuffix()+"forPres");
 
             float LThld, HThld;
+            ByteProcessor mask;
             if(this.isGenConv()){
-                LThld = Float.NEGATIVE_INFINITY;
-                HThld = 0;
+                HThld = Float.POSITIVE_INFINITY;
+                LThld = 0;
                 ImageProcessor ConvIP = finalVelImg.getProcessor().duplicate();
                
                 ConvIP.setThreshold(LThld, HThld);
-                var mask = ConvIP.createMask();
+                mask = ConvIP.createMask();
                 //mask.add(-254);
                 mask.and(1);
 
                 FloatBlitter fb = new FloatBlitter((FloatProcessor)ConvIP);
                 fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-                ConvIP.multiply(-1);
+                //ConvIP.multiply(-1);
 
                 var Img  = new ImagePlus("Conv");
                 Img.setProcessor(ConvIP);
-                fs = new FileSaver(Img);
+                FileSaver fs = new FileSaver(Img);
                 fs.saveAsTiff(getFldrName()+getSuffix()+"_ConvPres");
 
             }
             if(this.isGenDiv()){
-                LThld = 0;
-                HThld = Float.POSITIVE_INFINITY;
+                HThld = 0;
+                LThld = Float.NEGATIVE_INFINITY;                                //This is so as the image was inverted in _Convergence_vel
                 ImageProcessor DivIP = finalVelImg.getProcessor().duplicate();
 
                 DivIP.setThreshold(LThld, HThld);
-                var mask = DivIP.createMask();
+                mask = DivIP.createMask();
                 mask.add(-254);
 
                 FloatBlitter fb = new FloatBlitter((FloatProcessor)DivIP);
                 fb.copyBits(mask, 0, 0, FloatBlitter.MULTIPLY);
-
+                DivIP.multiply(-1);
+                
                 var Img  = new ImagePlus("Div");
                 Img.setProcessor(DivIP);
-                fs = new FileSaver(Img);
+                 FileSaver fs = new FileSaver(Img);
                 fs.saveAsTiff(getFldrName()+getSuffix()+"_DivPres");
             }
       }
@@ -548,7 +555,7 @@ public class jVectorFieldCalculator implements Runnable{
                 surfaceOut = this.getSurface(getPolyX()-1, getPolyY()-1, converImg, sampledRoi);
             }else{
                 
-                surfaceOut =  (isInterpoltateConver() )   ? this.getNNISurface(converImg, sampledRoi) :new ImagePlus();
+                surfaceOut =  new ImagePlus();//(isInterpoltateConver() )   ? this.getNNISurface(converImg, sampledRoi) :new ImagePlus();
                 //converImg.setRoi(sampledRoi);
                 //converImg.setBackgroundValue(0);
                 //converImg.fillOutside(sampledRoi);

@@ -32,6 +32,20 @@ import ndl.ndllib.*;
  */
 public class DataManager extends Object implements Runnable,Serializable {
 
+    /**
+     * @return the useTan2Prj
+     */
+    public boolean isUseTan2Prj() {
+        return useTan2Prj;
+    }
+
+    /**
+     * @param useTan2Prj the useTan2Prj to set
+     */
+    public void setUseTan2Prj(boolean useTan2Prj) {
+        this.useTan2Prj = useTan2Prj;
+    }
+
     private Roi[] islands;
 
     /**
@@ -374,10 +388,33 @@ public class DataManager extends Object implements Runnable,Serializable {
                 getAveVelFld().getVectors().clear();
                 getAveAccFld().getSpace().clear();
                 getAveAccFld().getVectors().clear();
-                for(var velFld : this.velocityField)
-                    getAveVelFld().fillSpace(velFld.getSpace(), velFld.getVectors(), false);
-                for(var accFld : this.accelerationField)
-                    getAveAccFld().fillSpace(accFld.getSpace(), accFld.getVectors(), false); 
+                
+                Idx = 0;
+                for(var velFld : this.velocityField){
+                
+                    var resMap = this.getResidenceMaps()[Idx];
+                    var norm = resMap.getPixelArray();
+                    var scaledFldvel = velFld.normaliseVectors(norm);
+                    var scaledAcc = accelerationField[Idx].normaliseVectors(norm);
+
+                    if(this.isUseRelativeVelocity()){
+                        if(!scaledFldvel.isChkMinMaxandAdd())
+                            scaledFldvel.setChkMinMaxandAdd(true);
+                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,0);
+                        if(!scaledAcc.isChkMinMaxandAdd())
+                            scaledAcc.setChkMinMaxandAdd(true);
+                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
+                    }
+                    getAveVelFld().fillSpace(scaledFldvel.getSpace(), scaledFldvel.getVectors(), false);
+                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false); 
+                    
+                    Idx++;
+                }
+                
+//                for(var velFld : this.velocityField)
+//                    getAveVelFld().fillSpace(velFld.getSpace(), velFld.getVectors(), false);
+//                for(var accFld : this.accelerationField)
+//                    getAveAccFld().fillSpace(accFld.getSpace(), accFld.getVectors(), false); 
 //                for(var resFld : this.residenceMaps)
 //                    getAveResMap().appendTimeSeries(resFld.getTimeSeries());  
 //                getAveResMap().convertTimeSeriestoArray();
@@ -394,23 +431,12 @@ public class DataManager extends Object implements Runnable,Serializable {
                 Idx = 0;
                 for(var velFld : this.velocityField){
                     
-                    if(!velFld.isProjectionStatus()){
-                         velFld.setUseTan2(useTan2Prj);
-                         accelerationField[Idx].setUseTan2(useTan2Prj);
-                         prjFld = velFld.getProjections2point(Vector,true); 
-                         System.out.println("aveFld is projected to :"+Vector.getComponent(0) + " " + Vector.getComponent(1));
-                         accFldPrj = accelerationField[Idx].getProjections2point(Vector,true);
-                    }else{
-                        prjFld = velFld.getProjection();
-                        accFldPrj = accelerationField[Idx].getProjection();
-                    }                                      
-                                       
-                    var resMap = this.getResidenceMaps()[Idx++];
+                    var resMap = this.getResidenceMaps()[Idx];
                     var norm = resMap.getPixelArray();
-                    var scaledFldvel = (resiNorm)? prjFld.normaliseVectors(norm): prjFld;  
-                    var scaledAcc =(resiNorm)? accFldPrj.normaliseVectors(norm):accFldPrj;
+                    var scaledFldvel = velFld.normaliseVectors(norm);
+                    var scaledAcc = accelerationField[Idx].normaliseVectors(norm);
                     
-                     if(this.isUseRelativeVelocity()){
+                    if(this.isUseRelativeVelocity()){
                         if(!scaledFldvel.isChkMinMaxandAdd())
                             scaledFldvel.setChkMinMaxandAdd(true);
                         scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,0);
@@ -420,8 +446,35 @@ public class DataManager extends Object implements Runnable,Serializable {
                     }
                     
                     
-                    getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
-                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);                              
+                    if(!scaledFldvel.isProjectionStatus()){
+                         scaledFldvel.setUseTan2(isUseTan2Prj());
+                         scaledAcc.setUseTan2(isUseTan2Prj());
+                         prjFld = scaledFldvel.getProjections2point(Vector,true); 
+                         System.out.println("aveFld is projected to :"+Vector.getComponent(0) + " " + Vector.getComponent(1));
+                         accFldPrj = scaledAcc.getProjections2point(Vector,true);
+                    }else{
+                        prjFld = scaledFldvel.getProjection();
+                        accFldPrj = scaledAcc.getProjection();
+                    }                                      
+                                       
+//                    var resMap = this.getResidenceMaps()[Idx++];
+//                    var norm = resMap.getPixelArray();
+//                    var scaledFldvel = (resiNorm)? prjFld.normaliseVectors(norm): prjFld;  
+//                    var scaledAcc =(resiNorm)? accFldPrj.normaliseVectors(norm):accFldPrj;
+                    
+//                     if(this.isUseRelativeVelocity()){
+//                        if(!scaledFldvel.isChkMinMaxandAdd())
+//                            scaledFldvel.setChkMinMaxandAdd(true);
+//                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,0);
+//                        if(!scaledAcc.isChkMinMaxandAdd())
+//                            scaledAcc.setChkMinMaxandAdd(true);
+//                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
+//                    }
+//                    
+                                       
+                    getAveVelFld().fillSpace(prjFld.getSpace(),prjFld.getVectors(),false);
+                    getAveAccFld().fillSpace(accFldPrj.getSpace(), accFldPrj.getVectors(), false);    
+                    Idx++;
                 }
 //                for(var accFld : this.accelerationField){
 //                    var accCmp = accFld.getProjections2point(Vector,true);
@@ -434,26 +487,16 @@ public class DataManager extends Object implements Runnable,Serializable {
                 getAveVelFld().getSpace().clear();
                 getAveVelFld().getVectors().clear();
                 getAveAccFld().getSpace().clear();
+                
                 getAveAccFld().getVectors().clear();
                 //int dataCounter = 0;
-                Idx = 0;
+               Idx = 0;
                 for(var velFld : this.velocityField){
-                    if(!velFld.isProjectionStatus()){
-                         velFld.setUseTan2(useTan2Prj);
-                         accelerationField[Idx].setUseTan2(useTan2Prj);
-                         prjFld = velFld.getProjections2point(Vector,false);
-                         accFldPrj = accelerationField[Idx].getProjections2point(Vector,false);
-                    }else{
-                         prjFld = velFld.getProjection();
-                         accFldPrj = accelerationField[Idx].getProjection();
-                    }  
-                    var resMap = this.getResidenceMaps()[Idx++];
-//                    var norm = convertScaletoNorm(resMap.getPixelArray());
-//                    var scaledFldvel = (resiNorm)? prjFld.scaleVectors(norm): prjFld;  
-//                    var scaledAcc =(resiNorm)? accFldPrj.scaleVectors(norm):accFldPrj;
-                    var normMat = resMap.getPixelArray();
-                    var scaledFldvel = (resiNorm)? prjFld.normaliseVectors(normMat): prjFld;
-                    var scaledAcc = (resiNorm)? accFldPrj.normaliseVectors(normMat):accFldPrj;
+                    
+                    var resMap = this.getResidenceMaps()[Idx];
+                    var norm = resMap.getPixelArray();
+                    var scaledFldvel = velFld.normaliseVectors(norm);
+                    var scaledAcc = accelerationField[Idx].normaliseVectors(norm);
                     
                     if(this.isUseRelativeVelocity()){
                         if(!scaledFldvel.isChkMinMaxandAdd())
@@ -464,9 +507,37 @@ public class DataManager extends Object implements Runnable,Serializable {
                         scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
                     }
                     
-                    getAveVelFld().fillSpace(scaledFldvel.getSpace(),scaledFldvel.getVectors(),false);
-                    getAveAccFld().fillSpace(scaledAcc.getSpace(), scaledAcc.getVectors(), false);                  
-                }               
+                    
+                    if(!scaledFldvel.isProjectionStatus()){
+                         scaledFldvel.setUseTan2(isUseTan2Prj());
+                         scaledAcc.setUseTan2(isUseTan2Prj());
+                         prjFld = scaledFldvel.getProjections2point(Vector,false); 
+                         System.out.println("aveFld is projected to :"+Vector.getComponent(0) + " " + Vector.getComponent(1));
+                         accFldPrj = scaledAcc.getProjections2point(Vector,false);
+                    }else{
+                        prjFld = scaledFldvel.getProjection();
+                        accFldPrj = scaledAcc.getProjection();
+                    }                                      
+                                       
+//                    var resMap = this.getResidenceMaps()[Idx++];
+//                    var norm = resMap.getPixelArray();
+//                    var scaledFldvel = (resiNorm)? prjFld.normaliseVectors(norm): prjFld;  
+//                    var scaledAcc =(resiNorm)? accFldPrj.normaliseVectors(norm):accFldPrj;
+                    
+//                     if(this.isUseRelativeVelocity()){
+//                        if(!scaledFldvel.isChkMinMaxandAdd())
+//                            scaledFldvel.setChkMinMaxandAdd(true);
+//                        scaledFldvel = scaledFldvel.calibrateVectors(Integer.MAX_VALUE,0);
+//                        if(!scaledAcc.isChkMinMaxandAdd())
+//                            scaledAcc.setChkMinMaxandAdd(true);
+//                        scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
+//                    }
+//                    
+                                       
+                    getAveVelFld().fillSpace(prjFld.getSpace(),prjFld.getVectors(),false);
+                    getAveAccFld().fillSpace(accFldPrj.getSpace(), accFldPrj.getVectors(), false);    
+                    Idx++;
+                }                           
                 break;
             default: //Calculate only the average residence map
                 getAveResMap().getTimeSeries().clear();
@@ -493,9 +564,7 @@ public class DataManager extends Object implements Runnable,Serializable {
 //        }
 //        return scale;
 //    }
-    public void saveInd(){
-        //To Do fill this 
-    }
+   
     public void saveAverage(String prefix, boolean saveResi){
         
         if(!isAveReady())

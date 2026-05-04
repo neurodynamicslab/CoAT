@@ -4704,6 +4704,9 @@
                         </Component>
                         <Component class="javax.swing.JCheckBox" name="genVeljChkBx1">
                           <Properties>
+                            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                              <ComponentRef name="vectJChkBx"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="Use Velocity as is"/>
                           </Properties>
                           <Constraints>
@@ -4770,7 +4773,7 @@
                             </Constraint>
                           </Constraints>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="CompforVectorFldjChkBx2">
+                        <Component class="javax.swing.JCheckBox" name="CompforVectorFldjChkBx">
                           <Properties>
                             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                               <ComponentRef name="vectJChkBx"/>
@@ -5863,11 +5866,11 @@
                             <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                           </StatementProvider>
                           <Parameters>
-                            <CodeExpression id="293_CompforVectorFldjChkBx2">
-                              <CodeVariable name="CompforVectorFldjChkBx2" type="8194" declaredType="javax.swing.JCheckBox"/>
+                            <CodeExpression id="293_CompforVectorFldjChkBx">
+                              <CodeVariable name="CompforVectorFldjChkBx" type="8194" declaredType="javax.swing.JCheckBox"/>
                               <ExpressionOrigin>
                                 <ExpressionProvider type="ComponentRef">
-                                  <ComponentRef name="CompforVectorFldjChkBx2"/>
+                                  <ComponentRef name="CompforVectorFldjChkBx"/>
                                 </ExpressionProvider>
                               </ExpressionOrigin>
                             </CodeExpression>

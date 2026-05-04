@@ -34,6 +34,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,7 +66,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     //private ComboBoxModel<String> TrialModel;
     private boolean estimateOC;
     private final SurfaceFit fit;
-    private JVector[][] OccCtrs;
+    private ArrayList<ArrayList<JVector>> OccCtrs = new ArrayList();
     
     ArrayList allThreads = new ArrayList();
     private int activeCount;
@@ -75,6 +76,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private File setting;
     private File logFile;
     private boolean test = false;        //set it true for debugging and testing
+    private boolean DEBUG = false;
     public VectorAnalysisMDI() {
        
         Dimension d = this.getMaximumSize();
@@ -127,6 +129,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                     }
                 }
                 setStatusMessage("All the threads have completed.\n");
+                String rtDir = setting.getParent();
+                var timeStamp = new Date();
+                File OCs = new File (rtDir + File.separator + "OCs" + timeStamp.toString().substring(9,13)+".txt");
+////                for(int trialNo = 0 ; trialNo < nTrials ; trialNo++)
+//                    for(int grpNo = 0 ; grpNo < nGrps ; grpNo++)
+//                        for(JVector OCVect : OccCtrs.get(trialNo).get(grpNo)){
+//                              Build the text String;                            
+                            // Best is to use a HashMap with T+trialNo+Ggrp#+F+file# as the key and OC Vector as entry
+                            //then line by line string can be easily built. 
+//                        }
                 RunGrp_Button.setEnabled(true);
             }
             
@@ -255,7 +267,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         res2SeljChkBx = new javax.swing.JCheckBox();
         genConvJChkBx = new javax.swing.JCheckBox();
         genDivjChkBx = new javax.swing.JCheckBox();
-        CompforVectorFldjChkBx2 = new javax.swing.JCheckBox();
+        CompforVectorFldjChkBx = new javax.swing.JCheckBox();
         AlongJRadBtn = new javax.swing.JRadioButton();
         OrtoJRadBtn = new javax.swing.JRadioButton();
         usePltCordChkBx2 = new javax.swing.JCheckBox();
@@ -1211,6 +1223,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.gridy = 8;
         jPanel4.add(y_polyOrderJCmbBx, gridBagConstraints);
 
+        vectJChkBx.add(genVeljChkBx1);
         genVeljChkBx1.setText("Use Velocity as is");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1273,16 +1286,16 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel4.add(genDivjChkBx, gridBagConstraints);
 
-        vectJChkBx.add(CompforVectorFldjChkBx2);
-        CompforVectorFldjChkBx2.setSelected(true);
-        CompforVectorFldjChkBx2.setText("Use Components for Convergence");
+        vectJChkBx.add(CompforVectorFldjChkBx);
+        CompforVectorFldjChkBx.setSelected(true);
+        CompforVectorFldjChkBx.setText("Use Components for Convergence");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 26;
         gridBagConstraints.gridwidth = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        jPanel4.add(CompforVectorFldjChkBx2, gridBagConstraints);
+        jPanel4.add(CompforVectorFldjChkBx, gridBagConstraints);
 
         compJRadGrp.add(AlongJRadBtn);
         AlongJRadBtn.setSelected(true);
@@ -2229,8 +2242,9 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             }
         }
         if(!basePath.isBlank()){
-            setting =  new File(basePath+File.separator+ "settings.txt");
-            this.logFile    = new File(basePath + File.separator+ "log.txt");
+            var timeStamp = new Date();
+            setting =  new File(basePath+File.separator+ "settings"+timeStamp.toString().substring(7, 13)+".txt");
+           // this.logFile    = new File(basePath + File.separator+ "log.txt");
             writeTextFile(setting, getSetting());
         }
         
@@ -2466,7 +2480,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         jProgressBarDP.setValue(0);
         jProgressBarDP.setStringPainted(true);
 
-        OccCtrs = new JVector[nTrial][nGrps];
+        
         ArrayList<ArrayList<DataManager>>[] tempData; //temporary object 
         tempData = new ArrayList[1]; // to ensure we can use it inside a worker thread. 
         tempData[0] = TrialData;
@@ -2530,6 +2544,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         UpdateProgress(g,jProgressBarGP,"Grp #",nGrps+"complete");
                     }
                     UpdateProgress(tc,jProgressBarTP,"Trial #",nTrial+"complete");
+                    
                 }
                 return null;
             }
@@ -3088,18 +3103,27 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         }
 
         
-        JVector OC ;
-        if(this.autoEstOC.isSelected()){
-            OC = currManager.findOC(xRes, yRes);                    ///OC is that of Ave map ???
-            this.ocXjFtTxt2.setText(""+OC.getComponent(0));
-            this.ocYjFtTxt3.setText(""+OC.getComponent(1));
+        JVector OC =  currManager.findOC(xRes, yRes); //this is still required for generating the sampled ROI as findOC function generates the sampled ROI
+        if(this.usePltCord){
+            OC = new JVector(PltX,PltY) ;
         }else{
-            currManager.findOC(xRes, yRes); //this is still required for generating the sampled ROI as findOC function generates the sampled ROI
-            OC = (this.usePltCord) ? new JVector(PltX,PltY):new JVector(ocX,ocY);
+            if(this.autoEstOC.isSelected()){
+                                  ///OC is that of Ave map
+                this.ocXjFtTxt2.setText(""+OC.getComponent(0));
+                this.ocYjFtTxt3.setText(""+OC.getComponent(1));
+            }else{
+//                ocX = Integer.parseInt(this.ocXjFtTxt2.getText());
+//                ocY = Integer.parseInt(this.ocYjFtTxt3.getText());
+                OC = new JVector(ocX,ocY);          // The co ord are read at the begining of this method. 
+            } 
+                                                                        //Use plat co-ord overrides OC
         }
        // OccCtrs[tCount][gCount] = OC;  ///this is not correct
-        currManager.computeAve(0, OC,true);                                         ///Velocity as such
-        currManager.saveAverage("grp#_"+gCount+"_",true);
+       
+       if(this.genVeljChkBx1.isSelected()){
+            currManager.computeAve(0, OC,true);                                         ///Velocity as such
+            currManager.saveAverage("grp#_"+gCount+"_",true);
+       }
 //currManager.computeAve(1, Plt,true);
 // currManager.saveAverage("threadGrp#_comp_Plt"+gCount+"_",false);
 //currManager.computeAve(3,null,true);
@@ -3107,10 +3131,17 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         currManager.computeAve(3, null,false);                                      //Residence heat map
         Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
         
-        currManager.computeAve(1, OC,true);                                         //Velocity projections
-        currManager.saveAverage("grp#_comp_OC"+gCount+"_",false);
+        currManager.setUseTan2Prj(this.useTan2jChkBx.isSelected());
+        var comp = (this.AlongJRadBtn.isSelected()) ? 1 : 2 ;
+        if(this.CompforVectorFldjChkBx.isSelected()) 
+            currManager.computeAve(comp, OC,true);                                         //Velocity projections
+        else
+           currManager.computeAve(0, OC,true); 
+           
+        currManager.saveAverage("grp#_comp_OC"+gCount+"_",true);                   //saves the average Heat Map, Ave velocity and ave acc.
         
         String velFldrName = currManager.getOutPath()+File.separator+"Ave Velocity";    
+       
         File velFolder =  new File(velFldrName);
         if(!velFolder.exists())
             velFolder.mkdir();
@@ -3162,9 +3193,11 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         //JVectorSpace vField, acField;
         String indFName ;
         boolean resiNorm = true;
+        ArrayList <JVector> grpOccCtrs = new ArrayList();
         while( fileCount < dataLen){
             var residence = resMaps[fileCount];
             var OCi = (this.useIndROIjChkBx.isSelected()) ? currManager.findOC(xRes, yRes, residence): OC;
+            grpOccCtrs.add(OCi);
             var curRoi = this.getSampledROI(1, residence);
             var roi2use = (this.useIndROIjChkBx.isSelected()) ? curRoi: sampledGrpRoi;     
             indFName = dataFileNames[fileCount];
@@ -3203,11 +3236,13 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                             scaledAcc.setChkMinMaxandAdd(true);
                         scaledAcc = scaledAcc.calibrateVectors(Integer.MAX_VALUE,0);
                     }
+            scaledFldvel.setUseTan2(this.useTan2jChkBx.isSelected());
+            scaledAcc.setUseTan2(this.useTan2jChkBx.isSelected());
             scaledFldvel = scaledFldvel.getProjections2point(OCi, true);
             scaledAcc = scaledAcc.getProjections2point(OCi, true);
             
-            calculateVectorFldProperties(scaledFldvel/*vFieldNorm*/,roi2use,true,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
-            calculateVectorFldProperties(scaledAcc/*accFieldNorm*/,roi2use,true,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
+            calculateVectorFldProperties(scaledFldvel/*vFieldNorm*/,roi2use,false,vFolder.getAbsolutePath(),"Vel_T#_"+tCount+"G#_"+gCount+indFName);
+            calculateVectorFldProperties(scaledAcc/*accFieldNorm*/,roi2use,false,aFolder.getAbsolutePath(),"Acc_T#_"+tCount+"G#_"+gCount+indFName);
             /****Add Code for heat map generation
             
             */
@@ -3225,7 +3260,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
             
             fileCount++;
         }
-        
+        this.OccCtrs.add(grpOccCtrs);
 //        for (var vField : VecField){
 //            
 //            calculateVectorFldProperties(vField, sampledGrpRoi,true,velFolder.getAbsolutePath(),"AccCmpAlgAve_"+"T_#"+tCount+"G_#"+gCount);
@@ -3320,17 +3355,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                         vImgs.saveImages(currManager.getOutPath()+File.separator+ "Velocity as Cmps",label);
                         aImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration as Cmps",label_acc);
                     }
-                    if(CompforVectorFldjChkBx2.isSelected()){
+                    if(CompforVectorFldjChkBx.isSelected()){
                         if(AlongJRadBtn.isSelected()){
                             var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, true));
                             var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,true));
-                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along Raw","Cmp_"+label);
-                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along Raw","Cmp_"+label_acc);
+                            if(DEBUG){
+                                vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Along Raw","Cmp_"+label);
+                                aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Along Raw","Cmp_"+label_acc);
+                            }
                         }else{
                             var vAlCmpImgs = new JVectorCmpImg(vSpace.getProjections2point(OC, false));
                             var aAlCmpImgs = new JVectorCmpImg(aFields[dataCount].getProjections2point(OC,false));
-                            vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Ortho Raw","Cmp_"+label);
-                            aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Ortho Raw","Cmp_"+label_acc);
+                            if(DEBUG){
+                                vAlCmpImgs.saveImages(currManager.getOutPath()+File.separator +"Vel Proj Ortho Raw","Cmp_"+label);
+                                aAlCmpImgs.saveImages(currManager.getOutPath()+File.separator+ "Accelaration Proj Ortho Raw","Cmp_"+label_acc);
+                            }
                         }
                     }
                     dataCount++;
@@ -3360,7 +3399,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         System.out.println("Entering field calc...");
         jVectorFieldCalculator calculator = new jVectorFieldCalculator();
         
-        calculator.setVecFld(VecFld);
+        calculator.setVecFld(VecFld);                                       //The data
+       
         calculator.setPolyX(x_polyOrderJCmbBx.getSelectedIndex()+1);
         calculator.setPolyY(y_polyOrderJCmbBx.getSelectedIndex()+1);
         calculator.setSuffix(suffix);
@@ -3369,6 +3409,21 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         calculator.setNormalise(this.useRelVelJChkBx.isSelected());
         calculator.setminAng(Integer.parseInt(this.jFmtTextFieldminAng.getText()));
         calculator.setUseNNI(this.jChkBoxuseNNI.isSelected());
+        
+        if(currentRoi != null)
+           calculator.setSampledRoi(currentRoi);
+        else
+            System.out.println("Failed to generate ROI");
+        
+        if( isDivergence){
+            calculator.setGenConv(this.genConvJChkBx.isSelected());
+            calculator.setGenDiv(this.genDivjChkBx.isSelected());
+        }
+//        calculator.setGenConv(this.genConvJChkBx.isSelected());
+//        calculator.setGenDiv(isDivergence/*this.genConvJChkBx.isSelected()*/);
+        calculator.setAutoGenPool(this.autoPoolRoijChkBx.isSelected());
+
+        
         if(this.noFiltjChkBx1.isSelected()){
             calculator.setFilterType(-1);
             //calculator.setInterpoltateConver(true);                 //temporary fix later we need to set it thru GUI
@@ -3384,9 +3439,6 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
                 fit.setGaussFilt(true);
             }
         }
-        
-                
-       
         fit.setPreScale(this.reSzImgjChkBx.isSelected());
         fit.setScaleBy(Double.parseDouble(this.scalingfactorJFormFld.getText()));
         
@@ -3396,20 +3448,12 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         fit.setSelectPixels(this.res2SeljChkBx.isSelected());
         fit.setUseSelection(this.useSeljChBx.isSelected());
         
-
-        
         calculator.setFit(fit);
 
-        if(currentRoi != null)
-           calculator.setSampledRoi(currentRoi);
-        else
-            System.out.println("Failed to generate ROI");
-        calculator.setGenConv(this.genConvJChkBx.isSelected());
-        calculator.setGenDiv(isDivergence/*this.genConvJChkBx.isSelected()*/);
-        calculator.setAutoGenPool(this.autoPoolRoijChkBx.isSelected());
-
+       
         Thread thread = new Thread(calculator,""+jVectorFieldCalculator.getInstanceCount());
         thread.start();
+        
         activeCount++;
         if(activeCount == 1){
         Thread monitor = new Thread(threadMonitor);
@@ -3511,7 +3555,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
     private javax.swing.JLabel AnimalLabel;
     private javax.swing.JComboBox<String> AnimalSelComboBox;
     private javax.swing.JButton Assign_Button;
-    private javax.swing.JCheckBox CompforVectorFldjChkBx2;
+    private javax.swing.JCheckBox CompforVectorFldjChkBx;
     private javax.swing.JPanel DataFiles_jPanel;
     private javax.swing.JPanel DeskTopPanel;
     private javax.swing.JPanel ExpDef_jPanel;
