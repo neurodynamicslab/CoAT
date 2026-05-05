@@ -5,6 +5,7 @@ import ij.ImagePlus;
 import ij.ImageStack;
 import ij.gui.OvalRoi;
 import ij.gui.Roi;
+import ij.gui.ShapeRoi;
 import ij.io.FileSaver;
 import ij.plugin.ZProjector;
 import ij.process.ByteProcessor;
@@ -569,22 +570,25 @@ public class jVectorFieldCalculator implements Runnable{
    
             if(this.isAuotGenPool()){                                   //Check for pool roi or parameters
                 Rectangle rect;
+               ShapeRoi outLine = new ShapeRoi(sampledRoi.getConvexHull());
                 if(sampledRoi != null){
                     rect = sampledRoi.getBounds();
                     
                 }else{
                     rect = surfaceOut.getRoi().getBounds();
                 }
-                
-                Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);           //better to use convex hull
+                surfaceOut.getProcessor().setValue(0);
+                surfaceOut.getProcessor().fillOutside(outLine);
+                //Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);           //better to use convex hull
             }else{
                 int xCtr = this.getxPoolCtrjFormFld();
                 int yCtr = this.getyPoolCtrjFormFld();
                 int dia = 2 * this.getPoolRadjFormFld();
                 Pool = new OvalRoi(xCtr,yCtr,dia,dia);
+                surfaceOut.getProcessor().setValue(0);
+                surfaceOut.getProcessor().fillOutside(Pool);
             }
-            surfaceOut.getProcessor().setValue(0);
-            surfaceOut.getProcessor().fillOutside(Pool);
+            
 
         return surfaceOut;
     }
