@@ -1011,6 +1011,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanel2.add(reSzImgjChkBx, gridBagConstraints);
 
+        useTan2jChkBx.setSelected(true);
         useTan2jChkBx.setText("Orientation Sensitive");
         useTan2jChkBx.setToolTipText("By default the software uses tan inverse without differentiating vectors differing by 180 deg. If checked then tan2  inverse is used that differentiates these vectors");
         gridBagConstraints = new java.awt.GridBagConstraints();
