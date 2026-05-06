@@ -329,27 +329,26 @@ public class jVectorFieldCalculator implements Runnable{
    * This throws a null pointer when it is not checked as there is no sampledGrpRoi in that case.
    */  
    int x = 0 ,y = 0;
+   ShapeRoi outlineRoi = null;
+   
    if(  getSampledRoi() != null){
         x =   getSampledRoi().getBounds().x;
         y =   getSampledRoi().getBounds().y;
+        outlineRoi = new ShapeRoi(getSampledRoi().getConvexHull());
+        vecSurface[0].setRoi(outlineRoi);
+        vecSurface[1].setRoi(outlineRoi);
    }
     FloatProcessor vecxS, vecyS;
     vecxS = new FloatProcessor(getVecFld().getxRes(),getVecFld().getyRes());
     vecyS = new FloatProcessor(getVecFld().getxRes(),getVecFld().getyRes());
-   
-    vecSurface[0].setRoi(getSampledRoi());
-    vecSurface[1].setRoi(getSampledRoi());
+    
+    
     var tmpSx = this.getDifferentials(vecSurface[0].crop(), false).getProcessor();
     var tmpSy = this.getDifferentials(vecSurface[1].crop(), true).getProcessor();
-    if(/*isUseNNI() ||*/ false){
-        tmpSx.blurGaussian(this.getFilterRadius());
-        //tmpSx = getNNISurface(tmpSx,this.getSampledRoi()).getProcessor();
-        tmpSy.blurGaussian(this.getFilterRadius());
-        //tmpSy = getNNISurface (tmpSy,this.getSampledRoi()).getProcessor();
-    }
-    vecxS.insert(tmpSx.crop()/*this.getDifferentials(vecSurface[0].crop(), false).getProcessor()*/,x,y);
-    vecyS.insert(tmpSy.crop()/*this.getDifferentials(vecSurface[1].crop(), true).getProcessor()*/,x,y);
-    
+   
+    vecxS.insert(tmpSx/*this.getDifferentials(vecSurface[0].crop(), false).getProcessor()*/,x,y);                       //Possible BUG: Check for x and y origin
+    vecyS.insert(tmpSy/*this.getDifferentials(vecSurface[1].crop(), true).getProcessor()*/,x,y);
+   
 
     diffVel.setProcessor(vecxS, 1);
     diffVel.setProcessor(vecyS, 2);
@@ -370,6 +369,12 @@ public class jVectorFieldCalculator implements Runnable{
         fs.saveAsTiff(getFldrName()+getSuffix()+"_Divergence_diffVel");
     }
     velProjections.getProcessor().multiply(-1);
+    
+     var ip = velProjections.getProcessor();
+        ip.setColor(0);
+        ip.setLineWidth(6);
+        ip.draw(outlineRoi);                                     //Override edge effect from differential
+    
     var velProj = new FileSaver(velProjections);
     velProj.saveAsTiff(getFldrName()+getSuffix()+"_Convergence_vel");
     
@@ -446,26 +451,26 @@ public class jVectorFieldCalculator implements Runnable{
     }
     private ImagePlus getNNISurface(ImageProcessor ip, Roi selection){
         
-            OvalRoi Pool;
+            ShapeRoi outline;
             Roi sampled = getSampledRoi();
    
-            if(this.isAuotGenPool()){                                   //Check for pool roi or parameters
-                Rectangle rect;
-                if(sampled != null){
-                    rect = sampled.getBounds();
-                    var s = getFilterRadius();
-                    rect.grow((int)s,(int)s);
-                    
-                }else{
-                    rect = ip.getRoi().getBounds();
-                }
+            if(this.isAuotGenPool()&& sampled != null){                                   //Check for pool roi or parameters
+//                Rectangle rect;
+//                if(sampled != null){
+//                    rect = sampled.getBounds();
+//                    var s = getFilterRadius();
+//                    rect.grow((int)s,(int)s);
+//                    
+//                }else{
+//                    rect = ip.getRoi().getBounds();
+//                }
                 
-                Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);           //better to use convex hull
+                outline = new ShapeRoi(sampled.getConvexHull());           //better to use convex hull
             }else{
                 int xCtr = this.getxPoolCtrjFormFld();
                 int yCtr = this.getyPoolCtrjFormFld();
                 int dia = 2 * this.getPoolRadjFormFld();
-                Pool = new OvalRoi(xCtr,yCtr,dia,dia);
+                outline = new ShapeRoi(new OvalRoi(xCtr,yCtr,dia,dia));
             }
         
         ImagePlus NNIin = new ImagePlus();
@@ -483,7 +488,7 @@ public class jVectorFieldCalculator implements Runnable{
         NNI.setNormalise(isNormalise());
         NNI.setBlurRad(getFilterRadius());
         NNI.setPath(getFldrName()+getSuffix());
-        NNI.setGrandSel(Pool);
+        NNI.setGrandSel(outline);
         NNI.initialize();
         NNISurf = NNI.getSurface();
         
@@ -569,14 +574,14 @@ public class jVectorFieldCalculator implements Runnable{
 
    
             if(this.isAuotGenPool()){                                   //Check for pool roi or parameters
-                Rectangle rect;
+               // Rectangle rect;
                ShapeRoi outLine = new ShapeRoi(sampledRoi.getConvexHull());
-                if(sampledRoi != null){
-                    rect = sampledRoi.getBounds();
-                    
-                }else{
-                    rect = surfaceOut.getRoi().getBounds();
-                }
+//                if(sampledRoi != null){
+//                    rect = sampledRoi.getBounds();
+//                    
+//                }else{
+//                    rect = surfaceOut.getRoi().getBounds();
+//                }
                 surfaceOut.getProcessor().setValue(0);
                 surfaceOut.getProcessor().fillOutside(outLine);
                 //Pool = new OvalRoi(rect.x,rect.y,rect.width,rect.height);           //better to use convex hull

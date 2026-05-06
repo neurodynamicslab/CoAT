@@ -3131,6 +3131,8 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         currManager.computeAve(3, null,false);                                      //Residence heat map
         Roi sampledGrpRoi = getSampledROI( 1, currManager.getAveResMap());
         
+        currManager.saveAverage("grp#_comp_OC"+gCount+"_",true); 
+       
         currManager.setUseTan2Prj(this.useTan2jChkBx.isSelected());
         var comp = (this.AlongJRadBtn.isSelected()) ? 1 : 2 ;
         if(this.CompforVectorFldjChkBx.isSelected()) 
@@ -3138,7 +3140,7 @@ public class VectorAnalysisMDI extends javax.swing.JFrame implements ActionListe
         else
            currManager.computeAve(0, OC,true); 
            
-        currManager.saveAverage("grp#_comp_OC"+gCount+"_",true);                   //saves the average Heat Map, Ave velocity and ave acc.
+                         //saves the average Heat Map, Ave velocity and ave acc.
         
         String velFldrName = currManager.getOutPath()+File.separator+"Ave Velocity";    
        
