@@ -368,7 +368,7 @@ public class jVectorFieldCalculator implements Runnable{
         var fs = new FileSaver(img);
         fs.saveAsTiff(getFldrName()+getSuffix()+"_Divergence_diffVel");
     }
-    velProjections.getProcessor().multiply(-1);
+    velProjections.getProcessor().multiply(-1);                     //Invert to reflect positive as covergence 
     
      var ip = velProjections.getProcessor();
         ip.setColor(0);
